@@ -1,0 +1,128 @@
+[
+  {
+    "id": "gitmoire",
+    "label": "Gitmoire",
+    "description": "Default wheel",
+    "dark": [
+      "#8A26ED",
+      "#0DA2E7",
+      "#21C45D",
+      "#9560F0",
+      "#EF4343",
+      "#2EC2B3"
+    ],
+    "light": [
+      "#6B10C6",
+      "#0A7AAE",
+      "#189044",
+      "#7028EB",
+      "#E11414",
+      "#229186"
+    ]
+  },
+  {
+    "id": "dark-magic",
+    "label": "Dark Magic",
+    "description": "Drawn from the Dark Magic theme",
+    "dark": [
+      "#CFA3F5",
+      "#6BC7F5",
+      "#DB6797",
+      "#88C0D0",
+      "#B48EAD",
+      "#EBCB8B"
+    ],
+    "light": [
+      "#7C3AED",
+      "#1B27DB",
+      "#C026D3",
+      "#0E7490",
+      "#9A3412",
+      "#B45309"
+    ]
+  },
+  {
+    "id": "neon",
+    "label": "Neon",
+    "description": "Vibrant high-energy lanes",
+    "dark": [
+      "#FF00FB",
+      "#00E5FF",
+      "#39FF14",
+      "#FFE600",
+      "#FF3D00",
+      "#7C4DFF"
+    ],
+    "light": [
+      "#C400C4",
+      "#0090B3",
+      "#16A34A",
+      "#CA8A04",
+      "#EA580C",
+      "#6D28D9"
+    ]
+  },
+  {
+    "id": "pastel",
+    "label": "Pastel",
+    "description": "Soft pastelized lanes",
+    "dark": [
+      "#D8B4FE",
+      "#93C5FD",
+      "#86EFAC",
+      "#F9A8D4",
+      "#FCA5A5",
+      "#FDE68A"
+    ],
+    "light": [
+      "#A78BFA",
+      "#60A5FA",
+      "#4ADE80",
+      "#F472B6",
+      "#F87171",
+      "#FBBF24"
+    ]
+  },
+  {
+    "id": "mono",
+    "label": "Mono",
+    "description": "Single-hue grayscale lanes",
+    "dark": [
+      "#F8FAFC",
+      "#CBD5E1",
+      "#94A3B8",
+      "#E2E8F0",
+      "#64748B",
+      "#FFFFFF"
+    ],
+    "light": [
+      "#0F172A",
+      "#334155",
+      "#64748B",
+      "#1E293B",
+      "#475569",
+      "#020617"
+    ]
+  },
+  {
+    "id": "project",
+    "label": "Project",
+    "description": "Extracted from the project logo",
+    "dark": [
+      "#8A26ED",
+      "#0DA2E7",
+      "#21C45D",
+      "#9560F0",
+      "#EF4343",
+      "#2EC2B3"
+    ],
+    "light": [
+      "#6B10C6",
+      "#0A7AAE",
+      "#189044",
+      "#7028EB",
+      "#E11414",
+      "#229186"
+    ]
+  }
+]

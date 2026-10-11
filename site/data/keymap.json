@@ -1,0 +1,829 @@
+[
+  {
+    "id": "app.keymap",
+    "label": "Keyboard shortcuts",
+    "group": "General",
+    "scope": "app",
+    "keys": [
+      "?",
+      "mod+k"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "app.zoomIn",
+    "label": "Zoom in",
+    "group": "General",
+    "scope": "app",
+    "keys": [
+      "mod+=",
+      "mod+shift+="
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "app.zoomOut",
+    "label": "Zoom out",
+    "group": "General",
+    "scope": "app",
+    "keys": [
+      "mod+-"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "app.zoomReset",
+    "label": "Reset zoom",
+    "group": "General",
+    "scope": "app",
+    "keys": [
+      "mod+0"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "app.quit",
+    "label": "Quit gitmoire",
+    "group": "General",
+    "scope": "app",
+    "keys": [
+      "mod+q"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "home.back",
+    "label": "Back to the last repository",
+    "group": "Home",
+    "scope": "home",
+    "keys": [
+      "escape"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "home.navigate",
+    "label": "Choose and open a repository (search box)",
+    "group": "Home",
+    "scope": "home",
+    "keys": [
+      "arrowup",
+      "arrowdown",
+      "enter"
+    ],
+    "display": null,
+    "reference": true
+  },
+  {
+    "id": "repo.palette",
+    "label": "Command palette",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "mod+p"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.openFile",
+    "label": "Open file",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "ctrl+shift+p"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.themeSwitcher",
+    "label": "Switch theme",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "ctrl+shift+t"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "palette.fileMode",
+    "label": "Open file from palette",
+    "group": "General",
+    "scope": "palette",
+    "keys": [
+      "@"
+    ],
+    "display": null,
+    "reference": true
+  },
+  {
+    "id": "repo.openRepo",
+    "label": "Open a repository",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "mod+o"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.switchRepo",
+    "label": "Switch to open repository 1–9",
+    "group": "General",
+    "scope": "repo",
+    "keys": [],
+    "display": [
+      "mod",
+      "1…9"
+    ],
+    "reference": false
+  },
+  {
+    "id": "repo.prevRepo",
+    "label": "Previous open repository",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "mod+shift+[",
+      "mod+shift+{"
+    ],
+    "display": [
+      "mod",
+      "⇧",
+      "["
+    ],
+    "reference": false
+  },
+  {
+    "id": "repo.nextRepo",
+    "label": "Next open repository",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "mod+shift+]",
+      "mod+shift+}"
+    ],
+    "display": [
+      "mod",
+      "⇧",
+      "]"
+    ],
+    "reference": false
+  },
+  {
+    "id": "repo.settings",
+    "label": "Settings",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "mod+,"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.refresh",
+    "label": "Refresh repository",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "mod+r"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.undo",
+    "label": "Undo operation",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "mod+z"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.redo",
+    "label": "Redo operation",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "mod+shift+z"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.commit",
+    "label": "Commit staged changes",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "mod+enter"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.save",
+    "label": "Save (file editor)",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "mod+s"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.close",
+    "label": "Close tab, or the repository tab when no files are open",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "mod+w"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.escape",
+    "label": "Cancel reset, or close the open tab",
+    "group": "General",
+    "scope": "repo",
+    "keys": [
+      "escape"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.toggleTerminal",
+    "label": "Toggle terminal",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "mod+`"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.toggleSidebar",
+    "label": "Toggle sidebar",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "mod+b"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.toggleInspector",
+    "label": "Toggle right sidebar",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "mod+shift+b"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.toggleExplorer",
+    "label": "Toggle file explorer",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "mod+shift+e"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.prevTab",
+    "label": "Previous tab",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "ctrl+shift+tab",
+      "mod+shift+tab"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "repo.nextTab",
+    "label": "Next tab",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "ctrl+tab",
+      "mod+tab"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "terminal.copy",
+    "label": "Copy terminal selection",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "ctrl+shift+c"
+    ],
+    "display": null,
+    "reference": true
+  },
+  {
+    "id": "terminal.paste",
+    "label": "Paste into terminal",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "ctrl+shift+v"
+    ],
+    "display": null,
+    "reference": true
+  },
+  {
+    "id": "terminal.split",
+    "label": "Split terminal",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "ctrl+shift+d"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "terminal.closePane",
+    "label": "Close active terminal pane",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "ctrl+shift+w"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "agent.nextTab",
+    "label": "Next agent tab",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "alt+arrowright",
+      "ctrl+pagedown"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "agent.prevTab",
+    "label": "Previous agent tab",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "alt+arrowleft",
+      "ctrl+pageup"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "agent.tabNumber",
+    "label": "Switch to agent tab 1–9",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "alt+1",
+      "alt+2",
+      "alt+3",
+      "alt+4",
+      "alt+5",
+      "alt+6",
+      "alt+7",
+      "alt+8",
+      "alt+9"
+    ],
+    "display": [
+      "Alt",
+      "1…9"
+    ],
+    "reference": false
+  },
+  {
+    "id": "git.fetch",
+    "label": "Fetch all remotes",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "f"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.pull",
+    "label": "Pull from upstream",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "l"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.push",
+    "label": "Push to upstream",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "p"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.forcePush",
+    "label": "Force push to upstream",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "shift+p"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.pushTags",
+    "label": "Push with tags",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "shift+t",
+      "ctrl+t"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.stageAll",
+    "label": "Stage all changes",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "a"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.discard",
+    "label": "Discard unstaged changes",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "d"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.commitBox",
+    "label": "Focus the commit message box",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "c"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.atomicCommits",
+    "label": "Split changes into atomic commits with AI",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "mod+shift+a"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.amend",
+    "label": "Toggle amend",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "e"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.abortOperation",
+    "label": "Abort merge, rebase, or amend",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "ctrl+c"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.yoloAmend",
+    "label": "Amend HEAD, skipping hooks",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "y"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.reset",
+    "label": "Reset to a commit picked on the graph",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "r"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.mergeIntoCurrent",
+    "label": "Merge another branch into the current one",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "m"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.mergeIntoTarget",
+    "label": "Merge the current branch into another",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "i"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.branch",
+    "label": "Create branch",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "b"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.worktree",
+    "label": "New worktree",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "w"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.worktrees",
+    "label": "Manage worktrees",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "shift+w",
+      "mod+shift+w"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.tag",
+    "label": "Create tag",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "t"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "git.home",
+    "label": "Go home",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "h"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "graph.next",
+    "label": "Next commit",
+    "group": "Graph",
+    "scope": "graph",
+    "keys": [
+      "arrowdown"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "graph.prev",
+    "label": "Previous commit",
+    "group": "Graph",
+    "scope": "graph",
+    "keys": [
+      "arrowup"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "graph.first",
+    "label": "First commit",
+    "group": "Graph",
+    "scope": "graph",
+    "keys": [
+      "home"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "graph.last",
+    "label": "Last commit",
+    "group": "Graph",
+    "scope": "graph",
+    "keys": [
+      "end"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "graph.openFiles",
+    "label": "Open the commit’s files",
+    "group": "Graph",
+    "scope": "graph",
+    "keys": [
+      "arrowright"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "graph.backToGraph",
+    "label": "Back to the graph (file list)",
+    "group": "Graph",
+    "scope": "graph",
+    "keys": [
+      "arrowleft"
+    ],
+    "display": null,
+    "reference": true
+  },
+  {
+    "id": "graph.fileListMove",
+    "label": "Previous / next file (file list)",
+    "group": "Graph",
+    "scope": "graph",
+    "keys": [
+      "arrowup",
+      "arrowdown"
+    ],
+    "display": null,
+    "reference": true
+  },
+  {
+    "id": "graph.search",
+    "label": "Search commits",
+    "group": "Graph",
+    "scope": "graph",
+    "keys": [
+      "mod+f"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "diff.prevFile",
+    "label": "Previous file",
+    "group": "Diff",
+    "scope": "diff",
+    "keys": [
+      "["
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "diff.nextFile",
+    "label": "Next file",
+    "group": "Diff",
+    "scope": "diff",
+    "keys": [
+      "]"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "diff.prevChange",
+    "label": "Previous change",
+    "group": "Diff",
+    "scope": "diff",
+    "keys": [
+      "p"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "diff.nextChange",
+    "label": "Next change",
+    "group": "Diff",
+    "scope": "diff",
+    "keys": [
+      "n",
+      "arrowright"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "diff.find",
+    "label": "Find in diff",
+    "group": "Diff",
+    "scope": "diff",
+    "keys": [
+      "mod+f"
+    ],
+    "display": null,
+    "reference": true
+  },
+  {
+    "id": "diff.findPrev",
+    "label": "Previous match",
+    "group": "Diff",
+    "scope": "diff",
+    "keys": [
+      "shift+enter"
+    ],
+    "display": null,
+    "reference": true
+  },
+  {
+    "id": "diff.selectSide",
+    "label": "Select / copy diff side",
+    "group": "Diff",
+    "scope": "diff",
+    "keys": [
+      "mod+a",
+      "mod+c"
+    ],
+    "display": null,
+    "reference": true
+  },
+  {
+    "id": "diff.close",
+    "label": "Close diff view",
+    "group": "Diff",
+    "scope": "diff",
+    "keys": [
+      "escape"
+    ],
+    "display": null,
+    "reference": true
+  }
+]

@@ -1,0 +1,9 @@
+# Mirrored from the private gitmoire source tree by scripts/sync.mjs.
+# Internal notes live in these docs, so they never get committed.
+# The public-safe JSON derived from them (site/data/) is committed.
+content/source/
+
+.claude/settings.local.json
+.netlify/
+node_modules/
+.DS_Store

@@ -1,0 +1,154 @@
+{
+  "groups": [
+    {
+      "title": "Next",
+      "items": [
+        {
+          "done": false,
+          "text": "Worktrees: start an installed AI CLI inside a worktree from its row, a per-repo post-create setup command, merged badge with one-step cleanup",
+          "shipped": true
+        }
+      ]
+    },
+    {
+      "title": "Connected",
+      "items": [
+        {
+          "done": false,
+          "text": "Azure DevOps and Bitbucket Server adapters (GitHub, GitLab and Bitbucket Cloud are in)",
+          "shipped": true
+        },
+        {
+          "done": false,
+          "text": "Read-only pull request detail view (commits, CI status, review state)",
+          "shipped": true
+        },
+        {
+          "done": false,
+          "text": "Issue viewer",
+          "shipped": true
+        }
+      ]
+    },
+    {
+      "title": "Power",
+      "items": [
+        {
+          "done": false,
+          "text": "Plugin host (palette commands, sidebar sections, inspector tabs)"
+        },
+        {
+          "done": false,
+          "text": "Multi-repo workspaces"
+        },
+        {
+          "done": false,
+          "text": "Performance: commit-graph file support for instant cold opens"
+        }
+      ]
+    }
+  ],
+  "nonGoals": "enterprise admin tooling, built-in CI dashboards, in-app code review (commenting, approving and merging live on the forge's web UI, one click away), anything else that duplicates a forge's web UI without daily value.",
+  "potions": [
+    {
+      "feature": "Working Copy File-Tree View & Diff Navigation",
+      "status": "completed",
+      "progress": 100
+    },
+    {
+      "feature": "Keyboard-First Git Flow (single-key F/L/P/R/A/D/C/Y/I/M + highlighted labels)",
+      "status": "completed",
+      "progress": 100
+    },
+    {
+      "feature": "Home Tab Overhaul — Project Directories & Project Logos",
+      "status": "completed",
+      "progress": 100
+    },
+    {
+      "feature": "Logo Accent Lock — Repo Logo Color Overrides Custom Accent",
+      "status": "completed",
+      "progress": 100
+    },
+    {
+      "feature": "Edit Commit Message In Place",
+      "status": "completed",
+      "progress": 100
+    },
+    {
+      "feature": "Sign the macOS Bundle (Ad-Hoc)",
+      "status": "completed",
+      "progress": 100
+    },
+    {
+      "feature": "Add Remote From Sidebar (#26)",
+      "status": "completed",
+      "progress": 100
+    },
+    {
+      "feature": "Worktree Workflow Follow-ups (AI CLI spawn, per-repo setup hook, merged badge + prune)",
+      "status": "completed",
+      "progress": 100
+    },
+    {
+      "feature": "Forge Read-Only Extensions (PR detail, issues, server adapters)",
+      "status": "completed",
+      "progress": 100
+    },
+    {
+      "feature": "gitmo Wizards (commit, yolo, discard, cleanup + full CLI roadmap)",
+      "status": "active",
+      "progress": 10
+    },
+    {
+      "feature": "Reflog Browser with One-Click Restore",
+      "status": "draft",
+      "progress": 0
+    },
+    {
+      "feature": "Bisect UI on the Graph",
+      "status": "draft",
+      "progress": 0
+    },
+    {
+      "feature": "Stash and WIP as First-Class Graph Nodes (audit + gaps)",
+      "status": "completed",
+      "progress": 100
+    },
+    {
+      "feature": "Git Hooks Manager and Hook Failure Output",
+      "status": "completed",
+      "progress": 100
+    },
+    {
+      "feature": "AI-Proposed Conflict Resolution",
+      "status": "draft",
+      "progress": 0
+    },
+    {
+      "feature": "AI-Assisted Interactive Rebase (autosquash + suggest)",
+      "status": "draft",
+      "progress": 0
+    },
+    {
+      "feature": "Worktree per PR (review checkout + AI CLI)",
+      "status": "draft",
+      "progress": 0
+    },
+    {
+      "feature": "Custom Palette Actions (per-repo shell command runners)",
+      "status": "completed",
+      "progress": 100
+    },
+    {
+      "feature": "git difftool / mergetool Integration",
+      "status": "draft",
+      "progress": 0
+    },
+    {
+      "feature": "Flashy Trio — Bisect, Reflog Restore, AI Conflict Suggest (zero new keymaps)",
+      "status": "active",
+      "progress": 0
+    }
+  ]
+}

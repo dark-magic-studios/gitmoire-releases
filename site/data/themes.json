@@ -1,0 +1,182 @@
+[
+  {
+    "id": "dark-magic",
+    "label": "Dark Magic",
+    "base": "dark",
+    "bg": "#0f0f17",
+    "fg": "#bbccee",
+    "dots": [
+      "#cfa3f5",
+      "#6bc7f5",
+      "#db6797"
+    ]
+  },
+  {
+    "id": "dark-magic-light",
+    "label": "Dark Magic Light",
+    "base": "light",
+    "bg": "#eaeaff",
+    "fg": "#3e3f54",
+    "dots": [
+      "#1b27db",
+      "#9900ff",
+      "#ff00fb"
+    ]
+  },
+  {
+    "id": "dark-magic-night",
+    "label": "Dark Magic Night",
+    "base": "dark",
+    "bg": "#111111",
+    "fg": "#cccccc",
+    "dots": [
+      "#66eeaa",
+      "#6bc7f5",
+      "#cfa3f5"
+    ]
+  },
+  {
+    "id": "dark-magic-nord",
+    "label": "Dark Magic Nord",
+    "base": "dark",
+    "bg": "#2e3440",
+    "fg": "#d8dee9",
+    "dots": [
+      "#88c0d0",
+      "#b48ead",
+      "#ebcb8b"
+    ]
+  },
+  {
+    "id": "dark-magic-dracula",
+    "label": "Dark Magic Dracula",
+    "base": "dark",
+    "bg": "#282a36",
+    "fg": "#cce3f5",
+    "dots": [
+      "#ff80b8",
+      "#81fff4",
+      "#ffff81"
+    ]
+  },
+  {
+    "id": "dark-magic-frankenstein",
+    "label": "Dark Magic Frankenstein",
+    "base": "dark",
+    "bg": "#0f1715",
+    "fg": "#b6e8cf",
+    "dots": [
+      "#cfa3f5",
+      "#6bc7f5",
+      "#db6797"
+    ]
+  },
+  {
+    "id": "dark-magic-tokyo",
+    "label": "Dark Magic Tokyo",
+    "base": "dark",
+    "bg": "#16161e",
+    "fg": "#c0caf5",
+    "dots": [
+      "#00bad9",
+      "#bb9af7",
+      "#f7768e"
+    ]
+  },
+  {
+    "id": "dark-magic-midnight",
+    "label": "Dark Magic Midnight",
+    "base": "dark",
+    "bg": "#08080e",
+    "fg": "#a8b8d8",
+    "dots": [
+      "#b08ad8",
+      "#58aacf",
+      "#bb5882"
+    ]
+  },
+  {
+    "id": "dark-magic-oled",
+    "label": "Dark Magic OLED",
+    "base": "dark",
+    "bg": "#000000",
+    "fg": "#bbccee",
+    "dots": [
+      "#cfa3f5",
+      "#6bc7f5",
+      "#db6797"
+    ]
+  },
+  {
+    "id": "dark-magic-grimoire",
+    "label": "Dark Magic Grimoire",
+    "base": "light",
+    "bg": "#f3ead7",
+    "fg": "#2c2416",
+    "dots": [
+      "#c4a35a",
+      "#8c3a4a",
+      "#3d4a86"
+    ]
+  },
+  {
+    "id": "dark-magic-moonmilk",
+    "label": "Dark Magic Moonmilk",
+    "base": "light",
+    "bg": "#e7e8f1",
+    "fg": "#262833",
+    "dots": [
+      "#8b7ec8",
+      "#3d9a90",
+      "#c48bb0"
+    ]
+  },
+  {
+    "id": "dark-magic-kraken",
+    "label": "Dark Magic Kraken",
+    "base": "dark",
+    "bg": "#0d1018",
+    "fg": "#d7dee6",
+    "dots": [
+      "#8eae6a",
+      "#7ec3e0",
+      "#e0a070"
+    ]
+  },
+  {
+    "id": "dark-magic-phosphor",
+    "label": "Dark Magic Phosphor",
+    "base": "dark",
+    "bg": "#0c0a06",
+    "fg": "#f0c85a",
+    "dots": [
+      "#ffcc33",
+      "#e89830",
+      "#d6e090"
+    ]
+  },
+  {
+    "id": "dark-magic-magenta",
+    "label": "Dark Magic Magenta",
+    "base": "dark",
+    "bg": "#07040a",
+    "fg": "#f8d6ee",
+    "dots": [
+      "#ff3d9a",
+      "#d070ff",
+      "#ff8ad4"
+    ]
+  },
+  {
+    "id": "dark-magic-synthwave",
+    "label": "Dark Magic Synthwave",
+    "base": "dark",
+    "bg": "#140824",
+    "fg": "#f6e8ff",
+    "dots": [
+      "#ff2bd6",
+      "#2ef2f0",
+      "#ffe66d"
+    ]
+  }
+]

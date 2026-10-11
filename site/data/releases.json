@@ -1,0 +1,473 @@
+[
+  {
+    "version": "0.8.0",
+    "date": "2026-10-06",
+    "summary": "The release that leaves the window. `gitmo` becomes a terminal-first command line that commits, amends, discards and cleans up branches without ever opening a window, pull requests grow a read-only detail view with two new forge adapters behind it, worktrees learn to prune themselves, and the whole app starts talking like Dark Magic Studios.",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "The command line gets the full ritual",
+        "text": "`gitmo` is no longer just a launcher — it runs four headless wizards that never boot a window, so they work over SSH and on a machine with no display."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Pull requests open in place",
+        "text": "Clicking a pull request now opens a read-only detail dialog — title, author, branches, state and draft flag, description, the commits on the branch, the check/CI rollup…"
+      },
+      {
+        "kind": "Major Features",
+        "title": "A read-only issue browser",
+        "text": "GitHub, GitLab and Bitbucket Cloud repos get an Issues section in the sidebar (collapsed by default, filtered by the same search box) with a detail dialog for the descri…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Stashes and the WIP row are first-class on the graph",
+        "text": "The working-copy row now splits staged, modified and untracked counts, stashes everything in one click, opens the staging view, focuses the commit box on `Enter`, and pr…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Git hooks are visible, and committing can run them",
+        "text": "Settings gains a Hooks section that lists the repository's hooks (honouring `core.hooksPath`), toggles them without deleting anything, and shows their contents."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Bring your own commands to the palette",
+        "text": "Register named commands globally or per repository and run them in a terminal tab or in the background with captured output, optionally behind a confirmation."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "The commit prefix picker searches as you type",
+        "text": "Focusing a prefix in the commit box now opens a searchable list — type to filter its values, type one that does not exist yet to add it to the list, and press `Esc` to s…"
+      }
+    ],
+    "counts": {
+      "features": 3,
+      "enhancements": 11,
+      "fixes": 5
+    }
+  },
+  {
+    "version": "0.7.0",
+    "date": "2026-10-02",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Enhancements",
+        "title": "Agents run beside your commits",
+        "text": "The sidebar gains an Agents section: add one and it opens an interactive terminal split next to the commit graph (graph 30, agent 70), pre-filled with the AI CLIs found…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "→ walks the changes",
+        "text": "With a diff open, `→` jumps to the next change, the same jump as `N`, including from the file list."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Step through repositories",
+        "text": "`mod+Shift+[` and `mod+Shift+]` move to the previous and next open repository, next to `mod+1…9`."
+      },
+      {
+        "kind": "Fixes",
+        "title": "Force push asks first",
+        "text": "The Push menu and `Shift+P` now confirm and name the remote branch that will be replaced before pushing."
+      },
+      {
+        "kind": "Fixes",
+        "title": "Alt+Arrow reaches the shell",
+        "text": "The embedded terminal sends the Alt arrow sequence itself, so coding agents' \"Alt+Up to answer\" shortcuts work."
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 3,
+      "fixes": 2
+    }
+  },
+  {
+    "version": "0.6.0",
+    "date": "2026-09-27",
+    "summary": "The worktrees-get-serious release. Worktrees now have a manager of their own, a setup script so a fresh checkout is never a half-installed one, and a hue of their own so you can tell six of them apart at a glance. Plus the graph wears whatever colors you point it at, and amend hands you the message you already wrote.",
+    "highlights": [
+      {
+        "kind": "Enhancements",
+        "title": "A manager for your worktrees",
+        "text": "`mod+Shift+W` (or the palette's \"Manage worktrees…\", or the new button in the sidebar's worktrees header) opens a keyboard-driven list of every linked worktree: ↑ ↓ to m…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "New worktrees install themselves",
+        "text": "Settings gains a Worktrees section with an install script that runs in every new worktree the moment it is created — `pnpm install`, a `.env` copy, a toolchain fetch, wh…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Worktree settings finally have a home",
+        "text": "The default worktrees location moves out of the sidebar of your mind and into Settings → Worktrees, with a browse button, a reset to \"beside the repository\", a live list…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Every worktree gets its own color",
+        "text": "A worktree tab and its sidebar row now wear the main repo's logo hue-rotated by a stable hash of its path, so eight checkouts of the same project read as eight distinct…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Git graph colors are yours to pick",
+        "text": "Appearance gains six lane palettes — Gitmoire, Dark Magic, Neon, Pastel, Mono and Project — each tuned separately for dark and light themes, previewed next to the UI swa…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "The rune loader is now the app's only busy state",
+        "text": "Toolbar fetches, AI commit messages, AI review, AI conflict resolution, PR descriptions and \"Stop explaining\" all cycle the same rune strip instead of a generic spinner…"
+      },
+      {
+        "kind": "Bug Fixes",
+        "title": "Amend starts from the message you already wrote",
+        "text": "Flipping the Amend checkbox — or hitting \"Amend last commit…\" or the keyboard shortcut — now loads HEAD's summary and body into the commit box, and the toggle no longer…"
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 6,
+      "fixes": 2
+    }
+  },
+  {
+    "version": "0.5.3",
+    "date": "2026-09-25",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Enhancements",
+        "title": "Stage or discard a whole folder from the working copy",
+        "text": "Folder rows in the staged and unstaged trees now expose a checkbox to stage or unstage every file underneath plus a discard button, reusing the existing bulk paths — so…"
+      },
+      {
+        "kind": "Bug Fixes",
+        "title": "Dialog scrim now follows the theme",
+        "text": "The modal overlay moves from a hardcoded black fill to a theme-driven `--overlay` token registered in the design system, so light and custom themes dim correctly instead…"
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 1,
+      "fixes": 1
+    }
+  },
+  {
+    "version": "0.5.2",
+    "date": "2026-09-25",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Bug Fixes",
+        "title": "Push now names the refs the remote rejected",
+        "text": "When a push fails, the dialog lists every ref the server refused with its reason instead of toasting success and silently dropping the rejected refs."
+      },
+      {
+        "kind": "Bug Fixes",
+        "title": "Side-by-side selections no longer snap across blank lines",
+        "text": "Dragging a selection across the empty side of a split diff pair stayed anchored to the top of the gap instead of following the cursor; the empty half now holds an invisi…"
+      },
+      {
+        "kind": "Bug Fixes",
+        "title": "The terminal now picks up your login environment",
+        "text": "The embedded shell probes the login shell once for its environment on start, so Homebrew tools, fnm/nvm/volta shims and CJK input resolve the same way they do in a norma…"
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 0,
+      "fixes": 3
+    }
+  },
+  {
+    "version": "0.5.1",
+    "date": "2026-09-25",
+    "summary": "The let-the-machine-book-it release. AI now reads your working copy and books every change into its own commit, the Git verbs you reach for a hundred times a day finally have keys, and the AppImage stops leaking its own launch environment into everything it spawns.",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "Shipped AI atomic commits",
+        "text": "One button — or `mod+Shift+A` — hands your uncommitted changes to the AI, which splits them into logical commits: each hunk and whole file becomes a selectable unit, the…"
+      },
+      {
+        "kind": "Major Features",
+        "title": "Bound the rest of the Git verbs to keys",
+        "text": "Force push (`Shift+P`) and push-with-tags (`Shift+T` / `Ctrl+T`) join fetch, pull and push in the registry, and `Ctrl+C` now aborts an in-progress merge, rebase or amend…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Tuned the AI style for atomic commits",
+        "text": "The atomic planner ships a default instruction set (one logical change per commit, conventional format, tests kept with the change they cover) and accepts a custom overr…"
+      },
+      {
+        "kind": "Bug Fixes",
+        "title": "Sanitized the AppImage environment for every child process",
+        "text": "linuxdeploy's launch hooks exported `PYTHONHOME`, `GTK_THEME`, `GDK_BACKEND`, the launcher vars and the mount's own `PATH`/`LD_LIBRARY_PATH`/`XDG_DATA_DIRS` entries, and…"
+      },
+      {
+        "kind": "Bug Fixes",
+        "title": "Handed prefix-picker focus back to the summary",
+        "text": "Radix returned focus to the chip trigger on menu close, yanking it off the message right after the last pick; focus now lands on the summary explicitly once the menu unm…"
+      },
+      {
+        "kind": "Bug Fixes",
+        "title": "Stopped long repository names from breaking the toolbar",
+        "text": "The switcher is now `min-w-0` with truncating name and branch lines, so a deep path or a worktree suffix no longer pushes the controls out of the bar."
+      },
+      {
+        "kind": "Bug Fixes",
+        "title": "Fixed the quit button border",
+        "text": "It renders as a ghost button with the danger tint instead of a mismatched outline."
+      }
+    ],
+    "counts": {
+      "features": 2,
+      "enhancements": 1,
+      "fixes": 4
+    }
+  },
+  {
+    "version": "0.5.0",
+    "date": "2026-09-24",
+    "summary": "The keyboard-first release. Commit prefixes turn conventions into keyboard dropdowns, every binding lives in one registry with an on-screen reference, and repo-hopping is all shortcuts — while the glass menus that ate every click finally let go.",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "Launched keyboard-selectable commit prefix lists",
+        "text": "Define up to three global prefix lists and pick from them with keyboard dropdowns in the commit box — focusing the box opens the first list, choosing a value advances to…"
+      },
+      {
+        "kind": "Major Features",
+        "title": "Shaped prefix lists with templates",
+        "text": "Each list can carry a template like `<type>(<scope>):`, `[<scope>]<type>:` or `<type>-` instead of the default space-and-colon join — tokens are the list names, empty gr…"
+      },
+      {
+        "kind": "Major Features",
+        "title": "Built the central keymap registry with on-screen reference",
+        "text": "Every binding is declared once in `shared/keymap.ts` and bound by id, so a key cannot exist without showing up in Settings > Shortcuts and the `?` overlay."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Turned repo-hopping into shortcuts",
+        "text": "Ctrl+W closes the active repo, Ctrl+O opens a searchable recent/discovered dialog with browse and clone actions, H goes home with Esc reopening the last repo, Ctrl+1–9 j…"
+      },
+      {
+        "kind": "Major Features",
+        "title": "Remapped the palette to mod+P",
+        "text": "Ctrl+K is now the full shortcuts reference; the palette lives on Ctrl+P across registry, hints and docs."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Quit gitmoire from anywhere",
+        "text": "Quit button plus palette entry and the app.quit binding, all routed through the quitApp transport with the shortcut shown on every surface."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Colored the repo logo by sync status",
+        "text": "The switcher logo now reads yellow for uncommitted changes, red for an in-progress rebase or merge, blue for a diverged branch, purple when clean and pushed — precedence…"
+      }
+    ],
+    "counts": {
+      "features": 7,
+      "enhancements": 5,
+      "fixes": 3
+    }
+  },
+  {
+    "version": "0.4.0",
+    "date": "2026-09-23",
+    "summary": "The glass-and-shortcuts release. gitmoire now wears your repo's logo as a cinematic backdrop behind the graph, every surface went translucent glass, files open straight from the command palette with real icons, and the keyboard-first flow picked up four new single-key superpowers.",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "Shipped the logo backdrop + glassy surfaces",
+        "text": "Your repo's logo now looms behind the commit graph with a radial fade for readability, while the toolbar, tabs, sidebar, inspector, status bar and diff surfaces all went…"
+      },
+      {
+        "kind": "Major Features",
+        "title": "Unleashed file icons + open-from-palette",
+        "text": "Every file row now wears its own explorer icon, and ⌘K → Open file… jumps you to any file with Ctrl + ⇧ + P."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Launched project logo controls in Settings",
+        "text": "Set, change or remove the active repo's logo without leaving Settings — with a live preview of the current logo per repository."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Supercharged the keyboard flow",
+        "text": "Four new single-key shortcuts: toggle amend (E), create branch (B), new worktree (W), create tag (T) — all wired into the palette with visible key hints, plus a proper c…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Dramatically hardened logo matching on Windows",
+        "text": "Logo lookup now normalizes UNC prefixes, slashes, trailing separators and case, so a logo set from one path spelling survives every other spelling Windows throws at it."
+      },
+      {
+        "kind": "Bug Fixes",
+        "title": "Obliterated the Windows Reveal-in-Explorer dead end",
+        "text": "Forward slashes are converted before hitting Explorer's `/select`, so Reveal now lands on your file instead of silently opening Explorer's default folder."
+      },
+      {
+        "kind": "Bug Fixes",
+        "title": "Eliminated the Windows terminal MODULE_NOT_FOUND trap",
+        "text": "The embedded terminal now prefers pwsh, falls back to powershell, and passes `-ExecutionPolicy Bypass -NoLogo` so your profile loads and fnm/nvm/volta shims activate — `…"
+      }
+    ],
+    "counts": {
+      "features": 3,
+      "enhancements": 2,
+      "fixes": 3
+    }
+  },
+  {
+    "version": "0.3.4",
+    "date": "2026-09-21",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Bug Fixes",
+        "title": "Linux AppImage: WebKit GPU/EGL rendering is disabled inside the AppImage",
+        "text": "The AppImage now starts with software rendering to avoid the EGL error some systems hit on launch."
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 0,
+      "fixes": 1
+    }
+  },
+  {
+    "version": "0.3.3",
+    "date": "2026-09-21",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "Edit a commit message in place",
+        "text": "Select a commit you have not pushed yet and double-click its message in the inspector, or use the pencil button or the graph's right-click menu."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Add a remote from the sidebar",
+        "text": "The Remotes header has a \"+\" and the empty state an \"Add remote\" button."
+      },
+      {
+        "kind": "Bug Fixes",
+        "title": "macOS stops asking for Desktop, Documents or Downloads access over and over",
+        "text": "The app bundle shipped without a code signature, so macOS could not hold on to your answer."
+      }
+    ],
+    "counts": {
+      "features": 1,
+      "enhancements": 1,
+      "fixes": 1
+    }
+  },
+  {
+    "version": "0.3.1",
+    "date": "2026-09-21",
+    "summary": "The Linux-graphics patch. 0.3.0's AppImage rendered everywhere except where it mattered — Arch machines with no system EGL stack died on launch with `EGL_BAD_PARAMETER`. This release bundles what the bundle was missing, and the release pipeline that ships it now points at the right directories.",
+    "highlights": [
+      {
+        "kind": "Bug Fixes",
+        "title": "Obliterated the Arch Linux launch crash",
+        "text": "We now ship the missing EGL, OpenGL and graphics libraries plus the runtime dependencies inside the AppImage build, so CI-built artifacts render on systems that don't ca…"
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 0,
+      "fixes": 1
+    }
+  },
+  {
+    "version": "0.3.0",
+    "date": "2026-09-21",
+    "summary": "The make-it-yours release. Home is now a real project launcher that finds every repo on your machine, each repo can wear its own logo on its tab, your app accent follows that logo, files open in proper center tabs with an editor that tracks your unsaved work, and the whole product finally spells its name right.",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "Project launcher home",
+        "text": "We shipped the end of the lonely recents list: register one or more project directories and gitmoire recursively scans each for `.git` repositories — safety-bounded with…"
+      },
+      {
+        "kind": "Major Features",
+        "title": "Per-repo project logos",
+        "text": "Every repository can now wear its own logo on its tab."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Logo accent lock",
+        "text": "We unleashed the app's chameleon mode: the active repo's logo lends its dominant color to the app-wide accent, locked on by default with a per-repo escape hatch."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Center-tabbed file editor with draft tracking",
+        "text": "Files now open in real center tabs with dirty-state awareness — your unsaved edits are tracked per file, so navigating away never silently eats your work."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Rebrand polished to gleaming perfection: gitmoire",
+        "text": "Every user-facing surface now spells it lowercase, and the CLI answers to `gitmoire` with `gitmo` kept as a short alias, so existing muscle memory keeps working."
+      },
+      {
+        "kind": "Bug Fixes",
+        "title": "Exorcised the AppImage environment leak",
+        "text": "Children spawned inside the AppImage — the terminal PTY, git, ssh, editors, AI CLIs — used to inherit the runtime's `APPIMAGE`/`APPDIR`/`OWD` variables and mount-prefixe…"
+      }
+    ],
+    "counts": {
+      "features": 4,
+      "enhancements": 1,
+      "fixes": 1
+    }
+  },
+  {
+    "version": "0.2.0",
+    "date": "2026-09-18",
+    "summary": "The keyboard-first release. The ten git operations you reach for all day now answer to single keys, the diff lets you pick hunks like a playlist, the terminal finally right-clicks like a civilized app, and the whole product is gitmoire now — new name, new wordmark, same 14 MB attitude.",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "Single-key git flow",
+        "text": "We shipped the fastest way to drive gitmoire: `F` fetches all remotes, `L` pulls, `P` pushes, `A` stages all, `C` focuses the commit box (`Ctrl`/`Cmd` + `Enter` commits,…"
+      },
+      {
+        "kind": "Major Features",
+        "title": "The fast keys keep their guards",
+        "text": "Discard and hard reset always confirm first, reset refuses to arm on a dirty tree, `Y` is blocked with a warning when it would rewrite commits already pushed upstream, a…"
+      },
+      {
+        "kind": "Major Features",
+        "title": "Live hunk pick mode in the diff",
+        "text": "The center diff for a single unstaged file now offers Old/New per hunk, so you keep exactly the hunks you want."
+      },
+      {
+        "kind": "Major Features",
+        "title": "File explorer in the inspector",
+        "text": "We launched a working-tree file listing backed by the new `repo_worktree_files` command, skipping `.git` and ignored paths, with a collapsed-by-default tree and a demo-m…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Terminal right-click menu",
+        "text": "Right-clicking the integrated terminal was swallowed by the global context-menu guard."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Design system overhauled",
+        "text": "New `Icon` export and `Wordmark` primitive, mono prop on inputs, `head`/`dashed` badge tones, sized spinner, and the font stack upgraded to Inter Variable — showcased in…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Rebrand unleashed: gitmoire",
+        "text": "Every user-facing surface now says gitmoire, and the CLI is `gitmoire` with `gitmo` kept as a short alias, so existing muscle memory keeps working."
+      }
+    ],
+    "counts": {
+      "features": 4,
+      "enhancements": 3,
+      "fixes": 1
+    }
+  }
+]
