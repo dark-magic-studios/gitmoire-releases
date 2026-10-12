@@ -31,6 +31,7 @@
 }
 
 * { box-sizing: border-box; }
+html, body { max-width: 100%; overflow-x: clip; }
 html { scroll-behavior: smooth; scroll-padding-top: 64px; }
 body {
   margin: 0;
@@ -86,12 +87,18 @@ kbd {
   background: repeating-linear-gradient(to bottom, transparent 0 3px, hsl(0 0% 0% / .12) 3px 4px);
 }
 .wordmark {
-  margin: 0 0 28px; font: 400 12px/1 var(--mono);
-  font-size: min(calc((100vw - 2 * var(--gutter)) / 54), 19.5px);
+  display: block; max-width: 100%;
+  margin: 0 0 28px; font: 400 12px/1.2 var(--mono);
+  /* 88 cols wide: fit the container with a safety margin for rounding,
+     fallback fonts and scrollbar width. Never crops without scroll. */
+  font-size: min(calc((100vw - 2 * var(--gutter) - 12px) / 54), 19.5px);
+  letter-spacing: 0;
   color: hsl(var(--primary-text));
   text-shadow: 0 0 14px hsl(var(--primary) / .75), 0 0 42px hsl(var(--primary) / .45);
-  white-space: pre; overflow: hidden;
+  white-space: pre; overflow-x: auto; overflow-y: hidden;
+  scrollbar-width: none; text-align: center;
 }
+.wordmark::-webkit-scrollbar { display: none; }
 .tagline { font-size: clamp(18px, 3.2vw, 28px); font-weight: 700; line-height: 1.3; margin: 0 0 12px; max-width: none; }
 .cursor { display: inline-block; width: .6em; height: 1.05em; margin-left: .25em; vertical-align: -.15em; background: hsl(var(--primary-text)); animation: blink 1.1s steps(1) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
@@ -157,7 +164,7 @@ h3.rule { font-size: 15px; margin-top: 48px; color: hsl(var(--muted)); }
 .split { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: start; }
 @media (min-width: 880px) { .split { grid-template-columns: 1.05fr 1fr; gap: 56px; } }
 
-pre { margin: 0; font: inherit; white-space: pre; overflow-x: auto; }
+pre { margin: 0; font: inherit; white-space: pre; overflow-x: auto; max-width: 100%; -webkit-overflow-scrolling: touch; }
 .bars pre, .term, .install pre {
   padding: 16px; border: 1px solid hsl(var(--border)); background: hsl(var(--surface)); line-height: 1.8;
 }
@@ -272,10 +279,7 @@ details.shipped > summary:hover { color: hsl(var(--fg)); }
   .crt::after { display: none; }
 }
 
-@media (max-width: 640px) {
-  .btn { padding: 12px 12px; }
-  .big { font-size: 19px; }
-}
+/* (mobile button/heading sizes live in the consolidated max-width block below) */
 
 /* ═════ v2: themes, logo, new sections ═════ */
 
@@ -315,13 +319,19 @@ body, .top, .keybar, .pane-title, .btn { transition: background-color .15s linea
 [data-base="light"] .logo-mark { filter: none; }
 
 .logo-art {
-  margin: 0; justify-self: center; font: 400 10px/1 var(--mono); white-space: pre;
-  font-size: min(calc((100vw - 2 * var(--gutter)) / 42), 11.5px);
+  margin: 0; justify-self: center; font: 400 10px/1.2 var(--mono); white-space: pre;
+  /* 69 cols wide: same fit-with-margin approach as the wordmark. */
+  font-size: min(calc((100vw - 2 * var(--gutter) - 12px) / 42), 11.5px);
+  letter-spacing: 0;
   color: hsl(var(--primary-text));
   text-shadow: 0 0 10px hsl(var(--primary) / .7), 0 0 30px hsl(var(--primary) / .35);
-  overflow: hidden;
+  overflow-x: auto; overflow-y: hidden; max-width: 100%; scrollbar-width: none;
+  text-align: center;
 }
-@media (min-width: 960px) { .logo-art { font-size: 12px; } }
+.logo-art::-webkit-scrollbar { display: none; }
+.hero-cols > * { min-width: 0; }
+/* No fixed desktop size: the fluid 11.5px cap already fits the ~495px
+   column at max width; a fixed 12px overflows the column near 960px. */
 
 .theme-toggle {
   flex: none; font: 500 13px/1 var(--mono); cursor: pointer;
@@ -408,10 +418,35 @@ kbd + kbd { margin-left: 2px; }
 @media (max-width: 640px) { .toast { bottom: 16px; } }
 
 @media (max-width: 640px) {
-  .top nav { justify-content: flex-start; }
+  :root { --gutter: 12px; }
+  .topbar { flex-wrap: wrap; height: auto; min-height: 48px; padding-block: 8px; row-gap: 8px; }
+  .brand { flex: 1 1 auto; min-width: 0; }
+  .top nav { order: 3; flex: 1 1 100%; justify-content: flex-start; padding-bottom: 2px; }
+  .top nav a { padding: 6px 8px; }
+  .hero { padding: 32px 0 20px; }
+  .sec { padding: 40px 0; }
+  .split { gap: 24px; }
   .logo-art { margin-top: 28px; }
-  .top nav a { padding: 2px 6px; }
   .os-switch { margin-left: 0; }
+  .cta { gap: 10px; }
+  .cta .btn { flex: 1 1 100%; text-align: center; }
+  .btn { padding: 12px 12px; }
+  .big { font-size: 19px; }
+  .lede { font-size: 14px; }
+  .boot, .term { font-size: 12.5px; }
+  .install pre { white-space: pre-wrap; word-break: break-word; overflow-x: hidden; }
+  .key-find { flex: 1 1 100%; }
+  .key-find input { width: 100%; }
+  .key-row { gap: 10px; }
+  .key-row .l { flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+  h2, h3.rule { overflow-wrap: anywhere; }
+}
+
+@media (max-width: 380px) {
+  .wordmark { font-size: calc((100vw - 2 * var(--gutter) - 12px) / 54); }
+  .logo-art { font-size: calc((100vw - 2 * var(--gutter) - 12px) / 42); }
+  .tagline { font-size: 20px; }
+  .tabs button, .os button { padding: 10px; font-size: 12px; }
 }
 
 /* live vs not-yet-published install state */
@@ -456,8 +491,8 @@ html[data-release="live"] .not-live { display: none; }
   border: 1px solid hsl(var(--border)); background: hsl(var(--surface));
   padding: 16px; display: grid; gap: 12px;
 }
-.chart .row { display: grid; grid-template-columns: 19ch 1fr auto; gap: 8px 14px; align-items: center; }
-.chart .lbl { white-space: nowrap; }
+.chart .row { display: grid; grid-template-columns: 19ch 1fr auto; gap: 8px 14px; align-items: center; min-width: 0; }
+.chart .lbl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .chart .track { display: block; height: 18px; }
 .chart .bar {
   display: block; height: 100%; min-width: 3px;
