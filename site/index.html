@@ -159,9 +159,11 @@
           <p>gitmoire runs Git on Rust and libgit2 instead of a pile of shell scripts, so a hundred thousand commits scroll like fifty.</p>
         </div>
         <figure class="bars" aria-label="Size comparison: gitmoire 14 megabytes, an Electron client about 1 gigabyte">
-<pre><span class="k">gitmoire download</span>  <span class="g">▏</span> 14 MB
-<span class="k">gitmoire installed</span> <span class="g">▎</span> ~28 MB
-<span class="k">Electron client</span>    <span class="r">████████████████████████████████</span> ~1 GB</pre>
+          <div class="chart">
+            <div class="row"><span class="lbl">gitmoire download</span><span class="track"><i class="bar ok" style="width:1.4%"></i></span><span class="val">14 MB</span></div>
+            <div class="row"><span class="lbl">gitmoire installed</span><span class="track"><i class="bar ok" style="width:2.8%"></i></span><span class="val">~28 MB</span></div>
+            <div class="row"><span class="lbl">Electron client</span><span class="track"><i class="bar bad" style="width:100%"></i></span><span class="val">~1 GB</span></div>
+          </div>
           <figcaption class="meta">14 MB is the universal macOS .dmg. Bars are to scale, and yes, the top one is that small.</figcaption>
         </figure>
       </div>
@@ -172,8 +174,10 @@
           <p>GitKraken took me almost 40 seconds to open. gitmoire opens in under 5. That's not a benchmark suite, it's me waiting for a window on my own machine, which is the only benchmark that has ever annoyed me.</p>
         </div>
         <figure class="bars" aria-label="Time to open: gitmoire under 5 seconds, GitKraken almost 40 seconds">
-<pre><span class="k">gitmoire </span> <span class="g">████</span> under 5 s
-<span class="k">GitKraken</span> <span class="r">████████████████████████████████</span> ~40 s</pre>
+          <div class="chart">
+            <div class="row"><span class="lbl">gitmoire</span><span class="track"><i class="bar ok" style="width:12.5%"></i></span><span class="val">under 5 s</span></div>
+            <div class="row"><span class="lbl">GitKraken</span><span class="track"><i class="bar bad" style="width:100%"></i></span><span class="val">~40 s</span></div>
+          </div>
           <figcaption class="meta">Time to a usable window, measured by hand on my machine. Your mileage will vary, and so will theirs.</figcaption>
         </figure>
       </div>
@@ -366,7 +370,7 @@
         </div>
         <figure class="pane focus">
           <figcaption class="pane-title" id="lane-name">gitmoire</figcaption>
-          <div class="viewport"><img id="lane-shot" src="/assets/shots/lanes-gitmoire.webp" width="1000" height="720" loading="lazy" alt="The gitmoire commit graph with the Gitmoire lane palette."></div>
+          <div class="viewport"><img id="lane-shot" src="/assets/shots/lanes-gitmoire.webp" width="1180" height="900" loading="lazy" alt="The gitmoire commit graph with the Gitmoire lane palette."></div>
           <figcaption class="meta shot-note" id="lane-note">Default wheel.</figcaption>
         </figure>
       </div>

@@ -66,7 +66,7 @@ for (const [label, width, height] of [['desktop', 1440, 900], ['phone', 390, 844
     if (/undefined|NaN|\[object/.test(text)) fail('"undefined", "NaN" or "[object" rendered in page text');
     const noAlt = await page.evaluate(() => [...document.images].filter((i) => !i.hasAttribute('alt')).map((i) => i.src));
     noAlt.forEach((s) => fail(`image without alt: ${s.replace(BASE, '')}`));
-    const empties = await page.evaluate(() => ['release-list', 'roadmap-body', 'key-table', 'theme-picks'].filter((id) => /Loading|Reading|Brewing|went/.test(document.getElementById(id)?.innerText || '')));
+    const empties = await page.evaluate(() => ['release-list', 'roadmap-body', 'key-table', 'theme-picks'].filter((id) => /Brewing the roadmap|Reading the changelog|Loading the key map|changelog went quiet|roadmap wandered off|key map didn|theme list went|palette list went/.test(document.getElementById(id)?.innerText || '')));
     empties.forEach((id) => fail(`#${id} did not finish rendering`));
     (await page.evaluate(() => [...document.querySelectorAll('a[href^="http"]')].map((a) => a.href))).forEach((h) => links.add(h));
     // download links may only point at things that exist

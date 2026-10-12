@@ -218,7 +218,7 @@ for (const name of ['tokyo-night', 'osaka-jade', 'rose-pine', 'catppuccin-latte'
 }
 
 for (const id of ['gitmoire', 'dark-magic', 'neon', 'pastel', 'mono']) {
-  add(`lanes-${id}`, { state: { graphPreset: id } }, async () => {}, [[`lanes-${id}`, { crop: '1000x720+520+200' }]]);
+  add(`lanes-${id}`, { state: { graphPreset: id } }, async () => {}, [[`lanes-${id}`, { crop: '1180x900+385+190' }]]);
 }
 
 // ---------- run ----------
