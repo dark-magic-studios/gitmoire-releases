@@ -1,5 +1,52 @@
 [
   {
+    "version": "0.9.0",
+    "date": "2026-10-12",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "Find the breaking commit with bisect on the graph",
+        "text": "Start bisect from a commit's right-click menu or the palette, then mark each checked-out commit Good, Bad or Skip from the sticky banner."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Recover anything lost with the reflog time-machine",
+        "text": "The palette's reflog browser lists HEAD and branch entries paged with an unreachable-only filter for commits no branch reaches."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Let AI draft the conflict merge you still control",
+        "text": "The conflict resolver gains per-hunk Suggest next to Explain plus Suggest all with a progress count and Stop."
+      },
+      {
+        "kind": "Major Features",
+        "title": "The app updates itself",
+        "text": "gitmoire checks the signed updater feed from the public releases repo on startup and on a schedule, and offers a Software update section in Settings with Check now, an a…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Six new Dark Magic themes",
+        "text": "Grimoire and Moonmilk for light surfaces, Kraken, Phosphor, Magenta and Synthwave for dark ones — each with tuned lane palettes, all previewed beside the UI swatches and…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Choose what the sidebar shows",
+        "text": "Settings → Appearance lists every sidebar section — branches, agents, worktrees, pull requests, issues, remotes, tags, stashes and submodules — with toggles to hide what…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Clone from your own GitHub list",
+        "text": "The clone dialog gains a panel that lists your repositories from the connected GitHub account with search-as-you-type filtering and one-click URL select."
+      }
+    ],
+    "counts": {
+      "features": 4,
+      "enhancements": 3,
+      "fixes": 2
+    }
+  },
+  {
     "version": "0.8.0",
     "date": "2026-10-06",
     "summary": "The release that leaves the window. `gitmo` becomes a terminal-first command line that commits, amends, discards and cleans up branches without ever opening a window, pull requests grow a read-only detail view with two new forge adapters behind it, worktrees learn to prune themselves, and the whole app starts talking like Dark Magic Studios.",
