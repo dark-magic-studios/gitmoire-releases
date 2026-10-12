@@ -9,6 +9,12 @@
 @font-face { font-family: 'JetBrains Mono'; font-weight: 700; font-display: swap;
   src: url('/assets/fonts/jetbrains-mono-latin-700-normal.woff2') format('woff2'); }
 
+/* The latin subsets above have no box-drawing / block glyphs (U+2500-259F), so
+   the hero art fell back to a system font with a wider advance and broke. */
+@font-face { font-family: 'JetBrains Mono'; font-weight: 400 700; font-display: swap;
+  unicode-range: U+2500-259F;
+  src: url('/assets/fonts/jetbrains-mono-blocks-400-normal.woff2') format('woff2'); }
+
 :root {
   --bg: 240 21% 7.5%;
   --surface: 240 22% 9.6%;
