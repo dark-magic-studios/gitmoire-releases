@@ -92,6 +92,7 @@ kbd {
   /* 88 cols wide: fit the container with a safety margin for rounding,
      fallback fonts and scrollbar width. Never crops without scroll. */
   font-size: min(calc((100vw - 2 * var(--gutter) - 12px) / 54), 19.5px);
+  font-size: min(calc((100cqw - 12px) / 54), 19.5px);
   letter-spacing: 0;
   color: hsl(var(--primary-text));
   text-shadow: 0 0 14px hsl(var(--primary) / .75), 0 0 42px hsl(var(--primary) / .45);
@@ -318,10 +319,15 @@ body, .top, .keybar, .pane-title, .btn { transition: background-color .15s linea
 .logo-mark.sm { width: 22px; height: 22px; }
 [data-base="light"] .logo-mark { filter: none; }
 
+/* Size from the real container (cqw), not the viewport: in the two-column
+   hero the art lives in a column far narrower than 100vw. */
+.hero > .wrap, .logo-art-box { container-type: inline-size; }
+.logo-art-box { justify-self: center; width: 100%; min-width: 0; }
 .logo-art {
-  margin: 0; justify-self: center; font: 400 10px/1.2 var(--mono); white-space: pre;
+  margin: 0; font: 400 10px/1.2 var(--mono); white-space: pre;
   /* 69 cols wide: same fit-with-margin approach as the wordmark. */
   font-size: min(calc((100vw - 2 * var(--gutter) - 12px) / 42), 11.5px);
+  font-size: min(calc((100cqw - 12px) / 42), 11.5px);
   letter-spacing: 0;
   color: hsl(var(--primary-text));
   text-shadow: 0 0 10px hsl(var(--primary) / .7), 0 0 30px hsl(var(--primary) / .35);
@@ -426,7 +432,7 @@ kbd + kbd { margin-left: 2px; }
   .hero { padding: 32px 0 20px; }
   .sec { padding: 40px 0; }
   .split { gap: 24px; }
-  .logo-art { margin-top: 28px; }
+  .logo-art-box { margin-top: 28px; }
   .os-switch { margin-left: 0; }
   .cta { gap: 10px; }
   .cta .btn { flex: 1 1 100%; text-align: center; }
@@ -443,8 +449,6 @@ kbd + kbd { margin-left: 2px; }
 }
 
 @media (max-width: 380px) {
-  .wordmark { font-size: calc((100vw - 2 * var(--gutter) - 12px) / 54); }
-  .logo-art { font-size: calc((100vw - 2 * var(--gutter) - 12px) / 42); }
   .tagline { font-size: 20px; }
   .tabs button, .os button { padding: 10px; font-size: 12px; }
 }
