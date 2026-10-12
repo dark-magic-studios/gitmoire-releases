@@ -1,0 +1,369 @@
+name: Build release
+
+# This repo is PUBLIC: logs and artifacts are world-readable, and the app source
+# is PRIVATE. Read the "Releasing" section of README.md before editing this file.
+#
+# Triggers are deliberately limited to a manual dispatch and a tag push by
+# someone with write access. Never add pull_request / pull_request_target /
+# issue_comment or anything else a fork can reach.
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch, tag or SHA of the private gitmoire repo to build
+        required: true
+        default: master
+      version:
+        description: Release version, e.g. 0.9.2 (must equal the version in the source at that ref)
+        required: true
+      verbose_logs:
+        description: Stream raw build output to this PUBLIC log (may expose private source paths/snippets)
+        type: boolean
+        default: false
+  push:
+    tags: ['v*']
+
+# One build per version at a time; a second dispatch queues instead of killing a
+# run that is halfway through publishing.
+concurrency:
+  group: build-release-${{ inputs.version || github.ref_name }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  SOURCE_REPO: dark-magic-studios/gitmoire
+
+jobs:
+  meta:
+    name: Resolve inputs
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    outputs:
+      ref: ${{ steps.resolve.outputs.ref }}
+      version: ${{ steps.resolve.outputs.version }}
+      tag: ${{ steps.resolve.outputs.tag }}
+    steps:
+      - name: Resolve ref and version
+        id: resolve
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PUSHED_TAG: ${{ github.ref_name }}
+          INPUT_REF: ${{ inputs.ref }}
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "push" ]; then
+            # Tag push: build the same-named tag of the private repo.
+            ref="$PUSHED_TAG"
+            version="${PUSHED_TAG#v}"
+          else
+            ref="${INPUT_REF:-master}"
+            version="${INPUT_VERSION#v}"
+          fi
+          # Inputs are untrusted strings; allow-list them before they go anywhere.
+          [[ "$ref" =~ ^[A-Za-z0-9._/-]+$ ]] || { echo "::error::invalid ref"; exit 1; }
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+([-+][0-9A-Za-z.-]+)?$ ]] || { echo "::error::invalid version"; exit 1; }
+          {
+            echo "ref=$ref"
+            echo "version=$version"
+            echo "tag=v$version"
+          } >> "$GITHUB_OUTPUT"
+
+  build:
+    name: Build (${{ matrix.os }})
+    needs: meta
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 90
+    # Build jobs execute private build scripts: they get a read-only token and
+    # never see anything that can write to this repo.
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            args: --target universal-apple-darwin
+          - os: windows-latest
+            args: ''
+          - os: ubuntu-latest
+            args: ''
+    env:
+      HAS_DEPLOY_KEY: ${{ secrets.GITMOIRE_DEPLOY_KEY != '' }}
+      VERBOSE_LOGS: ${{ inputs.verbose_logs && 'true' || 'false' }}
+      VERSION: ${{ needs.meta.outputs.version }}
+      NODE_NO_WARNINGS: '1'
+      CI: 'true'
+    steps:
+      - name: Require a source credential
+        shell: bash
+        env:
+          HAS_PAT: ${{ secrets.GITMOIRE_READ_TOKEN != '' }}
+        run: |
+          if [ "$HAS_DEPLOY_KEY" != "true" ] && [ "$HAS_PAT" != "true" ]; then
+            echo "::error::Neither GITMOIRE_DEPLOY_KEY nor GITMOIRE_READ_TOKEN is set (see README, Releasing)."
+            exit 1
+          fi
+
+      # Only this repo's helper scripts; never the full tree.
+      - name: Checkout release helpers
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          path: releases
+          sparse-checkout: scripts
+          persist-credentials: false
+
+      # Preferred: read-only SSH deploy key scoped to the single private repo.
+      - name: Checkout source (deploy key)
+        if: env.HAS_DEPLOY_KEY == 'true'
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: ${{ env.SOURCE_REPO }}
+          ref: ${{ needs.meta.outputs.ref }}
+          path: app
+          ssh-key: ${{ secrets.GITMOIRE_DEPLOY_KEY }}
+          persist-credentials: false
+
+      # Fallback: fine-grained PAT, Contents: read on the single private repo.
+      - name: Checkout source (read token)
+        if: env.HAS_DEPLOY_KEY != 'true'
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: ${{ env.SOURCE_REPO }}
+          ref: ${{ needs.meta.outputs.ref }}
+          path: app
+          token: ${{ secrets.GITMOIRE_READ_TOKEN }}
+          persist-credentials: false
+
+      - name: Check source version matches release version
+        shell: bash
+        run: |
+          node -e '
+            const want = process.env.VERSION;
+            const pkg = require("./app/package.json").version;
+            const tauri = require("./app/src-tauri/tauri.conf.json").version;
+            if (pkg !== want || tauri !== want) {
+              console.error(`::error::version mismatch: release ${want}, package.json ${pkg}, tauri.conf.json ${tauri}`);
+              process.exit(1);
+            }
+          '
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          package_json_file: app/package.json
+
+      # Caches the pnpm package store only (keyed on the lockfile), never source or build output.
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: app/pnpm-lock.yaml
+
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@686976e191b89faba57d3206551f0f330d8cb249 # stable
+        with:
+          toolchain: stable
+          targets: ${{ runner.os == 'macOS' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+
+      - name: Install Linux system dependencies
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          sudo apt-get update -qq >/dev/null
+          sudo apt-get install -y -qq \
+            libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf \
+            libssl-dev libdbus-1-dev libegl1 libgl1 libxkbcommon0 libgbm1 \
+            libxdamage1 libxfixes3 libxrandr2 libxinerama1 libxcursor1 libxcomposite1 \
+            >/dev/null
+
+      - name: Install dependencies
+        shell: bash
+        working-directory: app
+        run: bash ../releases/scripts/ci-quiet.sh pnpm install --frozen-lockfile
+
+      - name: Generate icons
+        shell: bash
+        working-directory: app
+        run: |
+          bash ../releases/scripts/ci-quiet.sh pnpm icons
+          bash ../releases/scripts/ci-quiet.sh pnpm exec tauri icon src-tauri/icons/icon.png
+
+      # Optional. Without these secrets the build keeps the ad-hoc signature from
+      # tauri.conf.json (signingIdentity "-") and is not notarized.
+      - name: Configure macOS signing (optional)
+        if: runner.os == 'macOS'
+        shell: bash
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          set -euo pipefail
+          if [ -z "$APPLE_CERTIFICATE" ] || [ -z "$APPLE_CERTIFICATE_PASSWORD" ] || [ -z "$APPLE_SIGNING_IDENTITY" ]; then
+            echo "Apple signing secrets not set: building with the ad-hoc signature, unnotarized."
+            exit 0
+          fi
+          {
+            echo "APPLE_CERTIFICATE=$APPLE_CERTIFICATE"
+            echo "APPLE_CERTIFICATE_PASSWORD=$APPLE_CERTIFICATE_PASSWORD"
+          } >> "$GITHUB_ENV"
+          # An explicit --config merge beats the "-" identity committed in tauri.conf.json.
+          node -e 'process.stdout.write(JSON.stringify({bundle:{macOS:{signingIdentity:process.env.APPLE_SIGNING_IDENTITY}}}))' > "$RUNNER_TEMP/sign.conf.json"
+          echo "TAURI_EXTRA_ARGS=--config $RUNNER_TEMP/sign.conf.json" >> "$GITHUB_ENV"
+          if [ -n "$APPLE_ID" ] && [ -n "$APPLE_PASSWORD" ] && [ -n "$APPLE_TEAM_ID" ]; then
+            {
+              echo "APPLE_ID=$APPLE_ID"
+              echo "APPLE_PASSWORD=$APPLE_PASSWORD"
+              echo "APPLE_TEAM_ID=$APPLE_TEAM_ID"
+            } >> "$GITHUB_ENV"
+            echo "Developer ID signing and notarization enabled."
+          else
+            echo "Developer ID signing enabled; notarization secrets not set, skipping notarization."
+          fi
+
+      - name: Build
+        shell: bash
+        working-directory: app
+        env:
+          # Updater artifacts (createUpdaterArtifacts) are signed with this key;
+          # without it the build fails. The key has an empty password.
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+          NO_STRIP: '1'
+          APPIMAGE_EXTRACT_AND_RUN: '1'
+          CARGO_TERM_QUIET: 'true'
+          CARGO_TERM_COLOR: never
+        run: bash ../releases/scripts/ci-quiet.sh pnpm tauri build ${{ matrix.args }} ${TAURI_EXTRA_ARGS:-}
+
+      - name: Verify no sourcemaps ship
+        shell: bash
+        run: |
+          if { find app/dist -name '*.map'; find app/src-tauri/target -path '*/release/bundle/*' -name '*.map'; } 2>/dev/null | grep -q .; then
+            echo "::error::sourcemap (.map) files were produced by the build"
+            exit 1
+          fi
+
+      - name: Verify AppImage ships no bundled libwayland
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set -euo pipefail
+          img="$(find app/src-tauri/target -type f -name '*.AppImage' -path '*/release/bundle/appimage/*' | head -n1)"
+          [ -n "$img" ] || { echo "::error::no AppImage found"; exit 1; }
+          work="$(mktemp -d)"
+          cp "$img" "$work/app.AppImage"
+          chmod +x "$work/app.AppImage"
+          (cd "$work" && ./app.AppImage --appimage-extract >/dev/null)
+          if find "$work/squashfs-root" -name 'libwayland-*' | grep -q .; then
+            echo "::error::AppImage bundles libwayland (crashes on Arch with EGL_BAD_PARAMETER)"
+            exit 1
+          fi
+
+      - name: Verify macOS code signature
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          set -euo pipefail
+          apps="$(find app/src-tauri/target -type d -path '*/release/bundle/macos/*.app')"
+          [ -n "$apps" ] || { echo "::error::no .app bundle found"; exit 1; }
+          printf '%s\n' "$apps" | while IFS= read -r a; do
+            codesign --verify --strict "$a" >/dev/null 2>&1 || { echo "::error::codesign verification failed"; exit 1; }
+          done
+
+      # Allow-list of final distributables + their updater signatures. Nothing else leaves the runner.
+      - name: Stage distributables
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir staging
+          while IFS= read -r -d '' f; do
+            cp "$f" staging/
+          done < <(find app/src-tauri/target -type f -path '*/release/bundle/*' \
+            \( -name '*.dmg' -o -name '*.app.tar.gz' -o -name '*.AppImage' -o -name '*.deb' \
+               -o -name '*.rpm' -o -name '*.msi' -o -name '*-setup.exe' -o -name '*.sig' \) -print0)
+          count="$(find staging -type f | wc -l | tr -d ' ')"
+          [ "$count" -gt 0 ] || { echo "::error::no distributables were produced"; exit 1; }
+          echo "Staged $count file(s)."
+
+      - name: Upload distributables
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: dist-${{ matrix.os }}
+          path: staging/
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Extract release notes
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          mkdir notes
+          node app/scripts/release-notes.mjs "v$VERSION" > notes/release-notes.md
+
+      - name: Upload release notes
+        if: runner.os == 'Linux'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-notes
+          path: notes/release-notes.md
+          if-no-files-found: error
+          retention-days: 1
+
+  release:
+    name: Publish draft release
+    needs: [meta, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # The only job that can write to this repo. It runs no private code.
+    permissions:
+      contents: write
+    env:
+      TAG: ${{ needs.meta.outputs.tag }}
+      VERSION: ${{ needs.meta.outputs.version }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout release helpers
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          sparse-checkout: scripts
+          persist-credentials: false
+
+      - name: Download distributables
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: dist-*
+          merge-multiple: true
+          path: dist
+
+      - name: Download release notes
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: release-notes
+          path: notes
+
+      - name: Generate updater manifest
+        run: node scripts/make-latest-json.mjs dist "$VERSION" "$TAG" "$GITHUB_REPOSITORY" notes/release-notes.md
+
+      # Created as a draft, matching the existing flow: the updater feed
+      # (releases/latest/download/latest.json) only goes live once it is published.
+      - name: Create or update release
+        run: |
+          set -euo pipefail
+          if gh release list --limit 100 --json tagName --jq '.[].tagName' | grep -Fxq "$TAG"; then
+            gh release upload "$TAG" dist/* --clobber
+          else
+            gh release create "$TAG" dist/* \
+              --draft \
+              --title "gitmoire $TAG" \
+              --notes-file notes/release-notes.md \
+              --target "$GITHUB_SHA"
+          fi

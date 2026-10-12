@@ -1,0 +1,11 @@
+{
+  "name": "gitmoire-releases",
+  "private": true,
+  "description": "Public downloads, updater feed and landing page for gitmoire.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "deploy": "node scripts/deploy.mjs"
+  }
+}
