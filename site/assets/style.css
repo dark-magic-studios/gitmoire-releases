@@ -496,7 +496,7 @@ kbd + kbd { margin-left: 2px; }
   border: 1px solid hsl(var(--border)); background: hsl(var(--surface));
   padding: 16px; display: grid; gap: 12px;
 }
-.chart .row { display: grid; grid-template-columns: 19ch 1fr auto; gap: 8px 14px; align-items: center; min-width: 0; }
+.chart .row { display: grid; grid-template-columns: 20ch 1fr auto; gap: 8px 14px; align-items: center; min-width: 0; }
 .chart .lbl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .chart .track { display: block; height: 18px; }
 .chart .bar {

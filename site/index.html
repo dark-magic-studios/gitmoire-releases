@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>gitmoire: a fast native Git client with a little dark magic</title>
-  <meta name="description" content="A 14 MB native Git client for macOS, Windows and Linux: fast graph, readable conflicts, opt-in AI commits, 15 themes, built-in terminal. No account, no telemetry.">
+  <title>gitmoire: a fast Git client with a little dark magic</title>
+  <meta name="description" content="A Git client for macOS, Windows and Linux: fast graph, readable conflicts, opt-in AI commits, 15 themes, built-in terminal. No account, no telemetry.">
   <link rel="canonical" href="https://gitmoire.dev/">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="author" content="Dark Magic Studios">
@@ -15,15 +15,15 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://gitmoire.dev/">
   <meta property="og:locale" content="en_US">
-  <meta property="og:title" content="gitmoire: a fast native Git client with a little dark magic">
-  <meta property="og:description" content="14 MB. Opens in under 5 seconds. No account, no telemetry, no upsell popup. Your 1 GB Electron client called, it's embarrassed.">
+  <meta property="og:title" content="gitmoire: a fast Git client with a little dark magic">
+  <meta property="og:description" content="Opens in under 5 seconds. No account, no telemetry, no upsell popup. Your 1 GB Electron client called, it's embarrassed.">
   <meta property="og:image" content="https://gitmoire.dev/assets/shots/app-graph.webp">
   <meta property="og:image:width" content="2400">
   <meta property="og:image:height" content="1512">
   <meta property="og:image:alt" content="The gitmoire commit graph with branch lanes, stash and WIP nodes and a repository sidebar.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="gitmoire: a fast native Git client with a little dark magic">
-  <meta name="twitter:description" content="14 MB native Git client. Fast graph, readable conflicts, opt-in AI, 15 themes, built-in terminal. No account, no telemetry.">
+  <meta name="twitter:title" content="gitmoire: a fast Git client with a little dark magic">
+  <meta name="twitter:description" content="Git client for macOS, Windows and Linux. Fast graph, readable conflicts, opt-in AI, 15 themes, built-in terminal. No account, no telemetry.">
   <meta name="twitter:image" content="https://gitmoire.dev/assets/shots/app-graph.webp">
   <meta name="twitter:image:alt" content="The gitmoire commit graph with branch lanes, stash and WIP nodes and a repository sidebar.">
   <script type="application/ld+json">
@@ -32,9 +32,10 @@
     "@type": "SoftwareApplication",
     "name": "gitmoire",
     "url": "https://gitmoire.dev/",
-    "description": "A 14 MB native Git client for macOS, Windows and Linux with a fast commit graph, readable conflict resolution, opt-in AI commit messages, themes and a built-in terminal.",
+    "description": "A Git client for macOS, Windows and Linux with a fast commit graph, readable conflict resolution, opt-in AI commit messages, themes and a built-in terminal.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "macOS, Windows, Linux",
+    "fileSize": "35.0 MB macOS dmg, 14.4 MB Windows setup.exe, 16.0 MB Windows msi, 18.0 MB Linux deb, 18.0 MB Linux rpm, 89.7 MB Linux AppImage",
     "image": "https://gitmoire.dev/assets/shots/app-graph.webp",
     "license": "https://opensource.org/licenses/MIT",
     "downloadUrl": "https://github.com/dark-magic-studios/gitmoire-releases/releases",
@@ -46,7 +47,7 @@
   <link rel="preload" href="/assets/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/jetbrains-mono-blocks-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/shots/app-graph.webp" as="image" fetchpriority="high">
-  <link rel="stylesheet" href="/assets/style.css?v=20261013a">
+  <link rel="stylesheet" href="/assets/style.css?v=20261013b">
   <link rel="stylesheet" href="/assets/themes.css?v=20261012a">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ERYJGKMZWB"></script>
@@ -118,8 +119,9 @@
         <div>
           <p class="tagline">Git, with a little dark magic<span class="cursor" aria-hidden="true"></span></p>
           <p class="lede">Your 1 GB Electron client called. It's embarrassed.
-            gitmoire is a native Git client that weighs 14&nbsp;MB, opens in under five seconds
-            (GitKraken took me nearly forty), and has never once asked you to log in.</p>
+            gitmoire is a Git client that opens in under five seconds
+            (GitKraken took me nearly forty), and has never once asked you to log in.
+            The v0.9.2 downloads run from 14.4&nbsp;MB on Windows to 89.7&nbsp;MB for the Linux AppImage.</p>
 
           <div class="cta">
             <a class="btn primary" id="dl" href="https://github.com/dark-magic-studios/gitmoire-releases/releases">Get gitmoire</a>
@@ -200,13 +202,17 @@
           <p>Every Git client I tried was a website wearing a trench coat. Slow to open, a gigabyte on disk, and a login screen standing between me and a typo fix. Insulting.</p>
           <p>gitmoire runs Git on Rust and libgit2 instead of a pile of shell scripts, so a hundred thousand commits scroll like fifty.</p>
         </div>
-        <figure class="bars" aria-label="Size comparison: gitmoire 14 megabytes, an Electron client about 1 gigabyte">
+        <figure class="bars" aria-label="v0.9.2 download sizes: macOS dmg 35.0 megabytes, Windows setup.exe 14.4 megabytes, Windows msi 16.0 megabytes, Linux deb 18.0 megabytes, Linux rpm 18.0 megabytes, Linux AppImage 89.7 megabytes, an Electron client about 1 gigabyte">
           <div class="chart">
-            <div class="row"><span class="lbl">gitmoire download</span><span class="track"><i class="bar ok" style="width:1.4%"></i></span><span class="val">14 MB</span></div>
-            <div class="row"><span class="lbl">gitmoire installed</span><span class="track"><i class="bar ok" style="width:2.8%"></i></span><span class="val">~28 MB</span></div>
+            <div class="row"><span class="lbl">macOS .dmg</span><span class="track"><i class="bar ok" style="width:3.5%"></i></span><span class="val">35.0 MB</span></div>
+            <div class="row"><span class="lbl">Windows setup.exe</span><span class="track"><i class="bar ok" style="width:1.44%"></i></span><span class="val">14.4 MB</span></div>
+            <div class="row"><span class="lbl">Windows .msi</span><span class="track"><i class="bar ok" style="width:1.6%"></i></span><span class="val">16.0 MB</span></div>
+            <div class="row"><span class="lbl">Linux .deb</span><span class="track"><i class="bar ok" style="width:1.8%"></i></span><span class="val">18.0 MB</span></div>
+            <div class="row"><span class="lbl">Linux .rpm</span><span class="track"><i class="bar ok" style="width:1.8%"></i></span><span class="val">18.0 MB</span></div>
+            <div class="row"><span class="lbl">Linux AppImage</span><span class="track"><i class="bar ok" style="width:8.97%"></i></span><span class="val">89.7 MB</span></div>
             <div class="row"><span class="lbl">Electron client</span><span class="track"><i class="bar bad" style="width:100%"></i></span><span class="val">~1 GB</span></div>
           </div>
-          <figcaption class="meta">14 MB is the universal macOS .dmg. Bars are to scale, and yes, the top one is that small.</figcaption>
+          <figcaption class="meta">v0.9.2 release assets, from the published byte counts. Bars are to scale against ~1&nbsp;GB, and yes, they are still that small.</figcaption>
         </figure>
       </div>
 
@@ -304,7 +310,7 @@
           <ul class="tree">
             <li>Every hunk and whole file becomes a unit you can move.</li>
             <li>The plan arrives as an editable list of conventional messages. Unassigned units get flagged before you approve, and you can re-roll any message with a note.</li>
-            <li>Approving books the commits in order through the native engine.</li>
+            <li>Approving books the commits in order.</li>
             <li>A conflict or a paused rebase blocks it before it starts, so it never fails halfway.</li>
           </ul>
         </div>
@@ -551,7 +557,7 @@
   <section class="sec" id="install" aria-labelledby="inst">
     <div class="wrap">
       <h2 id="inst"><span>Install</span></h2>
-      <p class="sub"><b>v0.9.0 is available.</b> These are the files on the <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/tag/v0.9.0">v0.9.0 release</a>. Pick your OS, or paste the command.</p>
+      <p class="sub"><b>v0.9.2 is available.</b> These are the files on the <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/tag/v0.9.2">v0.9.2 release</a>. Pick your OS, or paste the command.</p>
 
       <div class="os" role="tablist" aria-label="Operating system">
         <button role="tab" aria-selected="false" data-os="mac">macOS</button>
@@ -560,36 +566,36 @@
       </div>
 
       <div class="install" data-panel="mac" hidden>
-        <p><a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.0/gitmoire_0.9.0_universal.dmg">Download gitmoire_0.9.0_universal.dmg</a></p>
-<pre>curl -fL -o ~/Downloads/gitmoire_0.9.0_universal.dmg https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.0/gitmoire_0.9.0_universal.dmg
-xattr -cr ~/Downloads/gitmoire_0.9.0_universal.dmg &amp;&amp; open ~/Downloads/gitmoire_0.9.0_universal.dmg</pre>
+        <p><a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_universal.dmg">Download gitmoire_0.9.2_universal.dmg</a> <span class="dim">35.0 MB</span></p>
+<pre>curl -fL -o ~/Downloads/gitmoire_0.9.2_universal.dmg https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_universal.dmg
+xattr -cr ~/Downloads/gitmoire_0.9.2_universal.dmg &amp;&amp; open ~/Downloads/gitmoire_0.9.2_universal.dmg</pre>
         <p>Drag it into Applications before launching. Gatekeeper blocks the first open because the build isn't notarized: System Settings, Privacy &amp; Security, Open Anyway.</p>
       </div>
       <div class="install" data-panel="win" hidden>
-        <p><a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.0/gitmoire_0.9.0_x64-setup.exe">Download gitmoire_0.9.0_x64-setup.exe</a> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.0/gitmoire_0.9.0_x64_en-US.msi">Download gitmoire_0.9.0_x64_en-US.msi</a></p>
+        <p><a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64-setup.exe">Download gitmoire_0.9.2_x64-setup.exe</a> <span class="dim">14.4 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64_en-US.msi">Download gitmoire_0.9.2_x64_en-US.msi</a> <span class="dim">16.0 MB</span></p>
 <pre><span class="dim"># PowerShell, setup exe</span>
-curl.exe -fL -o "$env:TEMP\gitmoire_0.9.0_x64-setup.exe" "https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.0/gitmoire_0.9.0_x64-setup.exe"
-Start-Process "$env:TEMP\gitmoire_0.9.0_x64-setup.exe"
+curl.exe -fL -o "$env:TEMP\gitmoire_0.9.2_x64-setup.exe" "https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64-setup.exe"
+Start-Process "$env:TEMP\gitmoire_0.9.2_x64-setup.exe"
 
 <span class="dim"># or the MSI</span>
-curl.exe -fL -o "$env:TEMP\gitmoire_0.9.0_x64_en-US.msi" "https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.0/gitmoire_0.9.0_x64_en-US.msi"
-Start-Process msiexec.exe -ArgumentList '/i', "$env:TEMP\gitmoire_0.9.0_x64_en-US.msi"</pre>
+curl.exe -fL -o "$env:TEMP\gitmoire_0.9.2_x64_en-US.msi" "https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64_en-US.msi"
+Start-Process msiexec.exe -ArgumentList '/i', "$env:TEMP\gitmoire_0.9.2_x64_en-US.msi"</pre>
         <p>SmartScreen says "Windows protected your PC" because the build isn't signed. Choose More info, then Run anyway.</p>
       </div>
       <div class="install" data-panel="linux" hidden>
-        <p><a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.0/gitmoire_0.9.0_amd64.AppImage">Download gitmoire_0.9.0_amd64.AppImage</a> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.0/gitmoire_0.9.0_amd64.deb">Download gitmoire_0.9.0_amd64.deb</a> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.0/gitmoire-0.9.0-1.x86_64.rpm">Download gitmoire-0.9.0-1.x86_64.rpm</a></p>
+        <p><a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.AppImage">Download gitmoire_0.9.2_amd64.AppImage</a> <span class="dim">89.7 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.deb">Download gitmoire_0.9.2_amd64.deb</a> <span class="dim">18.0 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire-0.9.2-1.x86_64.rpm">Download gitmoire-0.9.2-1.x86_64.rpm</a> <span class="dim">18.0 MB</span></p>
 <pre><span class="dim"># AppImage</span>
-curl -fL -o gitmoire_0.9.0_amd64.AppImage https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.0/gitmoire_0.9.0_amd64.AppImage
-chmod +x gitmoire_0.9.0_amd64.AppImage
-./gitmoire_0.9.0_amd64.AppImage
+curl -fL -o gitmoire_0.9.2_amd64.AppImage https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.AppImage
+chmod +x gitmoire_0.9.2_amd64.AppImage
+./gitmoire_0.9.2_amd64.AppImage
 
 <span class="dim"># Debian and Ubuntu</span>
-curl -fL -o gitmoire_0.9.0_amd64.deb https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.0/gitmoire_0.9.0_amd64.deb
-sudo apt install ./gitmoire_0.9.0_amd64.deb
+curl -fL -o gitmoire_0.9.2_amd64.deb https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.deb
+sudo apt install ./gitmoire_0.9.2_amd64.deb
 
 <span class="dim"># Fedora and RHEL</span>
-curl -fL -o gitmoire-0.9.0-1.x86_64.rpm https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.0/gitmoire-0.9.0-1.x86_64.rpm
-sudo dnf install ./gitmoire-0.9.0-1.x86_64.rpm</pre>
+curl -fL -o gitmoire-0.9.2-1.x86_64.rpm https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire-0.9.2-1.x86_64.rpm
+sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
         <p>The AppImage needs WebKitGTK 4.1 and libssl, which you almost certainly have. Once it's installed, <code>gitmoire</code> opens the current directory and <code>gitmo</code> is the short alias.</p>
       </div>
 
@@ -632,6 +638,6 @@ sudo dnf install ./gitmoire-0.9.0-1.x86_64.rpm</pre>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
-<script src="/assets/app.js?v=20261012a" defer></script>
+<script src="/assets/app.js?v=20261013b" defer></script>
 </body>
 </html>
