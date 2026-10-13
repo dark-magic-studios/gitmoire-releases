@@ -459,11 +459,6 @@ kbd + kbd { margin-left: 2px; }
   .tabs button, .os button { padding: 10px; font-size: 12px; }
 }
 
-/* live vs not-yet-published install state */
-.when-live { display: none; }
-html[data-release="live"] .when-live { display: block; }
-html[data-release="live"] .not-live { display: none; }
-
 /* prefixes, ai shots, gallery, footer icons */
 .pre-shots { display: grid; gap: 28px; }
 .pre-shots .pane, .ai-shots .pane, .gallery .pane { margin: 0; }
