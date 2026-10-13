@@ -317,7 +317,6 @@
     "group": "Panels",
     "scope": "repo",
     "keys": [
-      "ctrl+shift+tab",
       "mod+shift+tab"
     ],
     "display": null,
@@ -329,7 +328,6 @@
     "group": "Panels",
     "scope": "repo",
     "keys": [
-      "ctrl+tab",
       "mod+tab"
     ],
     "display": null,
@@ -380,25 +378,49 @@
     "reference": false
   },
   {
+    "id": "terminal.prevPane",
+    "label": "Previous terminal pane",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "ctrl+["
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "terminal.nextPane",
+    "label": "Next terminal pane",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "ctrl+]"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
     "id": "agent.nextTab",
-    "label": "Next agent tab",
+    "label": "Next agent tab (next tab outside the agents pane)",
     "group": "Panels",
     "scope": "repo",
     "keys": [
       "alt+arrowright",
-      "ctrl+pagedown"
+      "ctrl+pagedown",
+      "ctrl+tab"
     ],
     "display": null,
     "reference": false
   },
   {
     "id": "agent.prevTab",
-    "label": "Previous agent tab",
+    "label": "Previous agent tab (previous tab outside the agents pane)",
     "group": "Panels",
     "scope": "repo",
     "keys": [
       "alt+arrowleft",
-      "ctrl+pageup"
+      "ctrl+pageup",
+      "ctrl+shift+tab"
     ],
     "display": null,
     "reference": false
@@ -423,6 +445,28 @@
       "Alt",
       "1…9"
     ],
+    "reference": false
+  },
+  {
+    "id": "agent.closeTab",
+    "label": "Close active agent tab",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "ctrl+w"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "agent.togglePane",
+    "label": "Open the agents pane",
+    "group": "Panels",
+    "scope": "repo",
+    "keys": [
+      "alt+a"
+    ],
+    "display": null,
     "reference": false
   },
   {
