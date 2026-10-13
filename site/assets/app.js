@@ -195,7 +195,7 @@
         root.dataset.release = 'live';
         dl.textContent = `Download for ${OS_LABEL[os]}`;
         dl.href = asset.browser_download_url;
-        dlMeta.textContent = `${rel.tag_name}, ${asset.name}, ${(asset.size / 1048576).toFixed(0)} MB. Free. Unsigned builds, so your OS asks once.`;
+        dlMeta.textContent = `${rel.tag_name}, ${asset.name}, ${(asset.size / 1048576).toFixed(1)} MB. Free. Unsigned builds, so your OS asks once.`;
       } else if (rel) {
         root.dataset.release = 'live';
         dl.textContent = 'Download gitmoire';
