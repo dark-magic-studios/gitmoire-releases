@@ -1,5 +1,52 @@
 [
   {
+    "version": "0.10.0",
+    "date": "2026-10-15",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "Linear issues live in the sidebar",
+        "text": "Connect a Linear workspace with an API key in Settings and the sidebar gains an Issues section listing your assigned issues with search."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Repository groups tame the tab strip",
+        "text": "Repositories can be organized into named groups with per-group jump shortcuts managed from Settings, plus group menus on the tab strip and a groups panel for switching b…"
+      },
+      {
+        "kind": "Major Features",
+        "title": "The diff viewer grows a viewport",
+        "text": "Diffs gain an ignore-whitespace (`-w`) toggle, dedicated change navigation with horizontal scroll handling, and text selection support — alongside a unified change-jump…"
+      },
+      {
+        "kind": "Major Features",
+        "title": "Markdown files preview in the editor",
+        "text": "Opening a Markdown file in a center tab gains an Eye/Code toggle that renders the formatted preview with links that open externally."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Bisect and reflog move to the toolbar",
+        "text": "Starting a bisect from the toolbar uses the graph's selected commit as the known-good endpoint, and the reflog browser is one click away — no palette detour — while bran…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Rewording a pushed commit asks before force-pushing",
+        "text": "The edit message dialog confirms the force push when the rewrite would move a commit already on the remote, and empty commits are refused with a plain explanation instea…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Push failures name their refs",
+        "text": "Rejected refs arrive with per-ref reasons surfaced in the UI, so a refused push reads as a decision instead of a mystery."
+      }
+    ],
+    "counts": {
+      "features": 4,
+      "enhancements": 7,
+      "fixes": 3
+    }
+  },
+  {
     "version": "0.9.2",
     "date": "2026-10-12",
     "summary": "",
