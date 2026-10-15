@@ -108,3 +108,9 @@ Follows the app's TTY design system (`packages/design-system/SPEC.md` in the
 source repo): JetBrains Mono, box-drawing structure, double border on the
 focused pane, a key bar, no radii or shadows. Screenshots in
 `site/assets/shots/` are of the app running on a demo repository.
+
+## Arch Linux / Omarchy packaging
+
+[`packaging/arch`](packaging/arch/README.md) contains a pacman recipe for the
+published Linux binary, generated AUR metadata, and build and maintenance
+instructions. AUR publication is a separate maintainer step.
