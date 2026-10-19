@@ -85,6 +85,7 @@
       <span>gitmoire</span>
     </a>
     <nav aria-label="Sections">
+      <a href="#install">install</a>
       <a href="#features">features</a>
       <a href="#ai">ai</a>
       <a href="#themes">themes</a>
@@ -92,7 +93,6 @@
       <a href="#terminal">terminal</a>
       <a href="#releases">releases</a>
       <a href="#roadmap">roadmap</a>
-      <a href="#install">install</a>
     </nav>
     <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch between light and dark theme">
       <span id="theme-toggle-label">light</span>
@@ -189,6 +189,62 @@
         <button role="tab" aria-selected="false" data-shot="home" data-name="home"><kbd>7</kbd> home</button>
       </div>
       <p class="meta">The real app, running on a demo repository. Press <kbd>1</kbd>–<kbd>7</kbd> to flip through.</p>
+    </div>
+  </section>
+
+  <!-- ───────────── install ───────────── -->
+  <section class="sec" id="install" aria-labelledby="inst">
+    <div class="wrap">
+      <h2 id="inst"><span>Install</span></h2>
+      <p class="sub">Paste one line, or grab the file from the <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/tag/v0.9.2">v0.9.2 release</a>.</p>
+
+      <div class="os" role="tablist" aria-label="Operating system">
+        <button role="tab" aria-selected="false" data-os="mac">macOS</button>
+        <button role="tab" aria-selected="false" data-os="win">Windows</button>
+        <button role="tab" aria-selected="false" data-os="linux">Linux</button>
+      </div>
+
+      <div class="install" data-panel="mac" hidden>
+        <p>One line, always the latest release:</p>
+<pre>curl -fsSL https://gitmoire.dev/install.sh | sh</pre>
+        <p>Or by hand: <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_universal.dmg">Download gitmoire_0.9.2_universal.dmg</a> <span class="dim">35.0 MB</span></p>
+<pre>curl -fL -o ~/Downloads/gitmoire_0.9.2_universal.dmg https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_universal.dmg
+xattr -cr ~/Downloads/gitmoire_0.9.2_universal.dmg &amp;&amp; open ~/Downloads/gitmoire_0.9.2_universal.dmg</pre>
+        <p>Drag it into Applications before launching. Gatekeeper blocks the first open because the build isn't notarized: System Settings, Privacy &amp; Security, Open Anyway.</p>
+      </div>
+      <div class="install" data-panel="win" hidden>
+        <p>One line in PowerShell, always the latest release:</p>
+<pre>irm https://gitmoire.dev/install.ps1 | iex</pre>
+        <p>Or by hand: <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64-setup.exe">Download gitmoire_0.9.2_x64-setup.exe</a> <span class="dim">14.4 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64_en-US.msi">Download gitmoire_0.9.2_x64_en-US.msi</a> <span class="dim">16.0 MB</span></p>
+<pre><span class="dim"># PowerShell, setup exe</span>
+curl.exe -fL -o "$env:TEMP\gitmoire_0.9.2_x64-setup.exe" "https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64-setup.exe"
+Start-Process "$env:TEMP\gitmoire_0.9.2_x64-setup.exe"
+
+<span class="dim"># or the MSI</span>
+curl.exe -fL -o "$env:TEMP\gitmoire_0.9.2_x64_en-US.msi" "https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64_en-US.msi"
+Start-Process msiexec.exe -ArgumentList '/i', "$env:TEMP\gitmoire_0.9.2_x64_en-US.msi"</pre>
+        <p>SmartScreen says "Windows protected your PC" because the build isn't signed. Choose More info, then Run anyway.</p>
+      </div>
+      <div class="install" data-panel="linux" hidden>
+        <p>One line, always the latest release. It picks the right package: a pacman package on Arch and Omarchy, .deb on Debian and Ubuntu, .rpm on Fedora and RHEL, the AppImage anywhere else.</p>
+<pre>curl -fsSL https://gitmoire.dev/install.sh | sh</pre>
+        <p>Or by hand: <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.AppImage">Download gitmoire_0.9.2_amd64.AppImage</a> <span class="dim">89.7 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.deb">Download gitmoire_0.9.2_amd64.deb</a> <span class="dim">18.0 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire-0.9.2-1.x86_64.rpm">Download gitmoire-0.9.2-1.x86_64.rpm</a> <span class="dim">18.0 MB</span></p>
+<pre><span class="dim"># AppImage</span>
+curl -fL -o gitmoire_0.9.2_amd64.AppImage https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.AppImage
+chmod +x gitmoire_0.9.2_amd64.AppImage
+./gitmoire_0.9.2_amd64.AppImage
+
+<span class="dim"># Debian and Ubuntu</span>
+curl -fL -o gitmoire_0.9.2_amd64.deb https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.deb
+sudo apt install ./gitmoire_0.9.2_amd64.deb
+
+<span class="dim"># Fedora and RHEL</span>
+curl -fL -o gitmoire-0.9.2-1.x86_64.rpm https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire-0.9.2-1.x86_64.rpm
+sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
+        <p>The AppImage needs WebKitGTK 4.1 and libssl, which you almost certainly have. Once it's installed, <code>gitmoire</code> opens the current directory and <code>gitmo</code> is the short alias.</p>
+      </div>
+
+      <p class="meta">After the first install, gitmoire updates itself, and every update is verified before it installs.</p>
     </div>
   </section>
 
@@ -550,62 +606,6 @@
       <h2 id="road"><span>Roadmap</span></h2>
       <p class="sub">I track work as potions: small named batches with a progress bar. This is the real ledger, synced from the repo. It is not a mood board.</p>
       <div id="roadmap-body" class="roadmap"><p class="meta">Brewing the roadmap…</p></div>
-    </div>
-  </section>
-
-  <!-- ───────────── install ───────────── -->
-  <section class="sec" id="install" aria-labelledby="inst">
-    <div class="wrap">
-      <h2 id="inst"><span>Install</span></h2>
-      <p class="sub"><b>v0.9.2 is available.</b> These are the files on the <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/tag/v0.9.2">v0.9.2 release</a>. Pick your OS, or paste the command.</p>
-
-      <div class="os" role="tablist" aria-label="Operating system">
-        <button role="tab" aria-selected="false" data-os="mac">macOS</button>
-        <button role="tab" aria-selected="false" data-os="win">Windows</button>
-        <button role="tab" aria-selected="false" data-os="linux">Linux</button>
-      </div>
-
-      <div class="install" data-panel="mac" hidden>
-        <p>One line, always the latest release:</p>
-<pre>curl -fsSL https://gitmoire.dev/install.sh | sh</pre>
-        <p>Or by hand: <ahref="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_universal.dmg">Download gitmoire_0.9.2_universal.dmg</a> <span class="dim">35.0 MB</span></p>
-<pre>curl -fL -o ~/Downloads/gitmoire_0.9.2_universal.dmg https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_universal.dmg
-xattr -cr ~/Downloads/gitmoire_0.9.2_universal.dmg &amp;&amp; open ~/Downloads/gitmoire_0.9.2_universal.dmg</pre>
-        <p>Drag it into Applications before launching. Gatekeeper blocks the first open because the build isn't notarized: System Settings, Privacy &amp; Security, Open Anyway.</p>
-      </div>
-      <div class="install" data-panel="win" hidden>
-        <p>One line in PowerShell, always the latest release:</p>
-<pre>irm https://gitmoire.dev/install.ps1 | iex</pre>
-        <p>Or by hand: <ahref="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64-setup.exe">Download gitmoire_0.9.2_x64-setup.exe</a> <span class="dim">14.4 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64_en-US.msi">Download gitmoire_0.9.2_x64_en-US.msi</a> <span class="dim">16.0 MB</span></p>
-<pre><span class="dim"># PowerShell, setup exe</span>
-curl.exe -fL -o "$env:TEMP\gitmoire_0.9.2_x64-setup.exe" "https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64-setup.exe"
-Start-Process "$env:TEMP\gitmoire_0.9.2_x64-setup.exe"
-
-<span class="dim"># or the MSI</span>
-curl.exe -fL -o "$env:TEMP\gitmoire_0.9.2_x64_en-US.msi" "https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64_en-US.msi"
-Start-Process msiexec.exe -ArgumentList '/i', "$env:TEMP\gitmoire_0.9.2_x64_en-US.msi"</pre>
-        <p>SmartScreen says "Windows protected your PC" because the build isn't signed. Choose More info, then Run anyway.</p>
-      </div>
-      <div class="install" data-panel="linux" hidden>
-        <p>One line, always the latest release. It picks the right package: a pacman package on Arch and Omarchy, .deb on Debian and Ubuntu, .rpm on Fedora and RHEL, the AppImage anywhere else.</p>
-<pre>curl -fsSL https://gitmoire.dev/install.sh | sh</pre>
-        <p>Or by hand: <ahref="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.AppImage">Download gitmoire_0.9.2_amd64.AppImage</a> <span class="dim">89.7 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.deb">Download gitmoire_0.9.2_amd64.deb</a> <span class="dim">18.0 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire-0.9.2-1.x86_64.rpm">Download gitmoire-0.9.2-1.x86_64.rpm</a> <span class="dim">18.0 MB</span></p>
-<pre><span class="dim"># AppImage</span>
-curl -fL -o gitmoire_0.9.2_amd64.AppImage https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.AppImage
-chmod +x gitmoire_0.9.2_amd64.AppImage
-./gitmoire_0.9.2_amd64.AppImage
-
-<span class="dim"># Debian and Ubuntu</span>
-curl -fL -o gitmoire_0.9.2_amd64.deb https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.deb
-sudo apt install ./gitmoire_0.9.2_amd64.deb
-
-<span class="dim"># Fedora and RHEL</span>
-curl -fL -o gitmoire-0.9.2-1.x86_64.rpm https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire-0.9.2-1.x86_64.rpm
-sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
-        <p>The AppImage needs WebKitGTK 4.1 and libssl, which you almost certainly have. Once it's installed, <code>gitmoire</code> opens the current directory and <code>gitmo</code> is the short alias.</p>
-      </div>
-
-      <p class="meta">Builds aren't notarized or signed yet. macOS Gatekeeper: drag the app into Applications, then on first launch open System Settings, Privacy &amp; Security, Open Anyway. Windows SmartScreen says "Windows protected your PC": choose More info, then Run anyway. After that gitmoire updates itself, and every update is verified before it installs.</p>
     </div>
   </section>
 </main>
