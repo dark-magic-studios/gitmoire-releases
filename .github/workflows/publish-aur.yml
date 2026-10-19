@@ -1,0 +1,106 @@
+name: Publish to AUR
+
+# Runs when a release is published (the build workflow only creates drafts, and a
+# draft's assets are not publicly downloadable, so this cannot live in that
+# workflow). Publishing a release needs write access, so forks cannot reach this.
+# Never add pull_request / pull_request_target / issue_comment triggers: this job
+# holds the AUR SSH key.
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Published release version to push to the AUR, e.g. 0.11.0
+        required: true
+
+concurrency:
+  group: publish-aur
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  AUR_PACKAGE: gitmoire-bin
+  # Published at https://archlinux.org/static/ (AUR SSH host key fingerprint).
+  AUR_HOST_FINGERPRINT: SHA256:RFzBCUItH9LZS0cKB5UE6ceAYhBD5C8GeOBip8Z11+4
+
+jobs:
+  aur:
+    name: Update AUR package
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # makepkg needs Arch's tooling and refuses to run as root.
+    container: archlinux:base-devel
+    if: github.event_name == 'workflow_dispatch' || !github.event.release.prerelease
+    env:
+      TAG: ${{ github.event_name == 'release' && github.event.release.tag_name || format('v{0}', inputs.version) }}
+    steps:
+      - name: Require the AUR key
+        env:
+          AUR_SSH_PRIVATE_KEY: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+        run: |
+          [ -n "$AUR_SSH_PRIVATE_KEY" ] || { echo "::error::AUR_SSH_PRIVATE_KEY secret is not set"; exit 1; }
+
+      - name: Install tools
+        run: pacman -Syu --noconfirm --needed git openssh
+
+      - name: Checkout packaging
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          sparse-checkout: packaging/arch
+          persist-credentials: false
+
+      - name: Update PKGBUILD for the release
+        working-directory: packaging/arch
+        run: |
+          set -euo pipefail
+          version="${TAG#v}"
+          [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "::error::not a stable x.y.z release: $TAG"; exit 1; }
+          deb="gitmoire_${version}_amd64.deb"
+          curl -fsSL -o "$deb" "https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG}/${deb}"
+          sum="$(sha256sum "$deb" | cut -d' ' -f1)"
+          rm "$deb"
+          # A new upstream version resets pkgrel; a re-run for the same version keeps
+          # whatever pkgrel is committed (bump it by hand for packaging-only fixes).
+          if [ "$(sed -n 's/^pkgver=//p' PKGBUILD)" != "$version" ]; then
+            sed -i "s/^pkgver=.*/pkgver=${version}/; s/^pkgrel=.*/pkgrel=1/" PKGBUILD
+          fi
+          # The deb checksum is the second (last) entry in sha256sums.
+          sed -i "s/^\([[:space:]]*\)'[0-9a-f]\{64\}')\$/\1'${sum}')/" PKGBUILD
+          grep -q "$sum" PKGBUILD || { echo "::error::failed to write checksum"; exit 1; }
+          chown -R nobody .
+
+      - name: Build test and generate .SRCINFO
+        working-directory: packaging/arch
+        run: |
+          set -euo pipefail
+          su nobody -s /bin/bash -c 'makepkg --nodeps --noconfirm --force && makepkg --printsrcinfo > .SRCINFO'
+          tar --zstd -tf ./*.pkg.tar.zst | grep -q 'usr/bin/gitmoire$'
+          tar --zstd -tf ./*.pkg.tar.zst | grep -q "usr/share/licenses/${AUR_PACKAGE}/LICENSE$"
+          cat PKGBUILD .SRCINFO
+
+      - name: Push to AUR
+        env:
+          AUR_SSH_PRIVATE_KEY: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          install -dm700 ~/.ssh
+          ssh-keyscan -t ed25519 aur.archlinux.org > ~/.ssh/known_hosts 2>/dev/null
+          ssh-keygen -lf ~/.ssh/known_hosts | grep -q "$AUR_HOST_FINGERPRINT" \
+            || { echo "::error::AUR host key fingerprint mismatch"; exit 1; }
+          printf '%s\n' "$AUR_SSH_PRIVATE_KEY" > ~/.ssh/aur
+          chmod 600 ~/.ssh/aur
+          export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/aur -o IdentitiesOnly=yes"
+          git clone "ssh://aur@aur.archlinux.org/${AUR_PACKAGE}.git" aur
+          cp packaging/arch/PKGBUILD packaging/arch/.SRCINFO packaging/arch/LICENSE aur/
+          cd aur
+          git add PKGBUILD .SRCINFO LICENSE
+          if git diff --cached --quiet; then
+            echo "AUR package already up to date."
+            exit 0
+          fi
+          git -c user.name="Gitmoire Release Bot" -c user.email="noreply@gitmoire.dev" \
+            commit -m "Update to ${TAG#v}"
+          git push origin HEAD:master

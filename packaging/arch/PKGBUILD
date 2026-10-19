@@ -1,19 +1,22 @@
 # Contributor: GG <me at itsgg dot com>
 pkgname=gitmoire-bin
-pkgver=0.9.2
+pkgver=0.11.0
 pkgrel=1
 pkgdesc='Gitmoire desktop Git client (official Linux binary)'
 arch=('x86_64')
 url='https://gitmoire.dev'
-license=('MIT')
+license=('LicenseRef-custom')
 depends=('webkit2gtk-4.1' 'gtk3' 'libayatana-appindicator' 'libglvnd' 'libxkbcommon' 'mesa' 'openssl' 'git')
 provides=("gitmoire=$pkgver")
 conflicts=('gitmoire')
 options=('!strip' '!debug')
-source=("https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v${pkgver}/gitmoire_${pkgver}_amd64.deb")
-sha256sums=('56ae9193cf7111bf48d331a4a0cfcb0d3eca380ef7fa7a24b75374ded1527a7e')
+source=('LICENSE'
+        "https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v${pkgver}/gitmoire_${pkgver}_amd64.deb")
+sha256sums=('da494c3c925a640d2b372124de3b00140fded0de1aaf2a89501c2c348cc3e817'
+            'c68712e985aea94c54e9e27168359fa2beef54d0df351f088988135ceafa2ca7')
 package() {
   bsdtar -xf "$srcdir/data.tar.gz" -C "$pkgdir"
   test -x "$pkgdir/usr/bin/gitmoire" || return 1
   ln -s gitmoire "$pkgdir/usr/bin/gitmo"
+  install -Dm644 "$srcdir/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

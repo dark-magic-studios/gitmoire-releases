@@ -1,10 +1,10 @@
 pkgbase = gitmoire-bin
 	pkgdesc = Gitmoire desktop Git client (official Linux binary)
-	pkgver = 0.9.2
+	pkgver = 0.11.0
 	pkgrel = 1
 	url = https://gitmoire.dev
 	arch = x86_64
-	license = MIT
+	license = LicenseRef-custom
 	depends = webkit2gtk-4.1
 	depends = gtk3
 	depends = libayatana-appindicator
@@ -13,11 +13,13 @@ pkgbase = gitmoire-bin
 	depends = mesa
 	depends = openssl
 	depends = git
-	provides = gitmoire=0.9.2
+	provides = gitmoire=0.11.0
 	conflicts = gitmoire
 	options = !strip
 	options = !debug
-	source = https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.deb
-	sha256sums = 56ae9193cf7111bf48d331a4a0cfcb0d3eca380ef7fa7a24b75374ded1527a7e
+	source = LICENSE
+	source = https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.11.0/gitmoire_0.11.0_amd64.deb
+	sha256sums = da494c3c925a640d2b372124de3b00140fded0de1aaf2a89501c2c348cc3e817
+	sha256sums = c68712e985aea94c54e9e27168359fa2beef54d0df351f088988135ceafa2ca7
 
 pkgname = gitmoire-bin

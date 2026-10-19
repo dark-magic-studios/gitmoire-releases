@@ -3,8 +3,9 @@
 This recipe repackages the official x86_64 Linux `.deb` as a native pacman
 package. It uses system GTK and WebKit libraries and installs the upstream
 desktop entry and icons, plus a `gitmo` symlink. It does not compile the app.
-The pinned version is the latest published stable release at preparation time,
-0.9.2; its SHA-256 comes from GitHub's release asset metadata.
+The pinned version is 0.11.0; its SHA-256 comes from GitHub's release asset metadata.
+The app is closed source, so the package ships a custom `LICENSE` (in this
+directory) that is installed under `/usr/share/licenses/gitmoire-bin/`.
 
 ## Build and install
 
@@ -24,19 +25,33 @@ this repackaged installation.
 
 ## Publish to AUR
 
-AUR uses a separate Git repository, not GitHub pull requests. A maintainer must
-register an AUR account and SSH key, check that the package name is still
-available, and add their `# Maintainer:` line to `PKGBUILD` before publishing.
-Copy `PKGBUILD` and `.SRCINFO` into the root of the AUR package repository and
-commit them on its `master` branch. Do not upload binaries or build directories.
-See the [AUR submission guidelines](https://wiki.archlinux.org/title/AUR_submission_guidelines).
+AUR uses a separate Git repository, not GitHub pull requests.
 
-Before publishing, upstream should supply the app's MIT license text, including
-its copyright notices, as a public release asset so the package can install it
-under `/usr/share/licenses/gitmoire-bin/`. The public website identifies the app
-as MIT, but the 0.9.2 Debian payload contains no license file and the app's source
-is private. This recipe does not invent those notices. Choose a license for the
-packaging sources as part of the AUR submission as well.
+First submission (once, by a maintainer):
+
+1. Register an AUR account and add an SSH public key to its profile.
+2. Add a `# Maintainer: Name <email>` line to `PKGBUILD` and check that the
+   `gitmoire-bin` name is still free.
+3. Test with `makepkg --cleanbuild` (and `namcap PKGBUILD *.pkg.tar.zst`) on Arch.
+4. Push the files to the AUR repo, on the `master` branch:
+
+```sh
+git clone ssh://aur@aur.archlinux.org/gitmoire-bin.git
+cp PKGBUILD .SRCINFO LICENSE gitmoire-bin/
+cd gitmoire-bin && git add PKGBUILD .SRCINFO LICENSE
+git commit -m "Initial import" && git push origin master
+```
+
+Do not upload binaries or build directories. See the
+[AUR submission guidelines](https://wiki.archlinux.org/title/AUR_submission_guidelines).
+
+Later releases are automated by `.github/workflows/publish-aur.yml`. When a stable
+release is published it bumps `pkgver`, refreshes the checksum, test-builds the
+package in an Arch container, regenerates `.SRCINFO` and pushes to the AUR. It
+needs a repository secret `AUR_SSH_PRIVATE_KEY`: a dedicated key whose public half
+is added to the AUR account that maintains the package. It can also be run by hand
+from the Actions tab with a version. The workflow does not commit back to this
+repo, so copy the AUR `PKGBUILD` here occasionally to keep it from drifting.
 
 ## Update a release
 
@@ -48,5 +63,5 @@ packaging sources as part of the AUR submission as well.
 4. Regenerate metadata with `makepkg --printsrcinfo > .SRCINFO`, then commit
    both files to the upstream and AUR repositories.
 
-Do not use `SKIP` for the checksum. Increment `pkgrel` when changing packaging
+Keep the `LICENSE` checksum in sync if the file changes. Do not use `SKIP` for the checksum. Increment `pkgrel` when changing packaging
 without changing the upstream version.
