@@ -570,6 +570,17 @@
     "reference": false
   },
   {
+    "id": "repo.quickCommits",
+    "label": "Quick commits",
+    "group": "Git",
+    "scope": "repo",
+    "keys": [
+      "alt+p"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
     "id": "git.amend",
     "label": "Toggle amend",
     "group": "Git",

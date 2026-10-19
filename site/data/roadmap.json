@@ -149,6 +149,11 @@
       "feature": "Flashy Trio — Bisect, Reflog Restore, AI Conflict Suggest (zero new keymaps)",
       "status": "active",
       "progress": 0
+    },
+    {
+      "feature": "Quick commits (save + Alt+P palette apply, Incantations home)",
+      "status": "completed",
+      "progress": 100
     }
   ]
 }

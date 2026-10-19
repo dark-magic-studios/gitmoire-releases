@@ -1,5 +1,64 @@
 [
   {
+    "version": "0.11.0",
+    "date": "2026-10-19",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "Quick commits turn repeat messages into one keystroke",
+        "text": "Save any summary plus description from the commit box as a reusable quick commit, then hit `Alt+P` to open a searchable palette that stages everything and commits immedi…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Commit message presets share one Settings home",
+        "text": "Prefix lists and message style move out of Git and AI into a new Incantations section alongside the quick-commits manager, and the old Incantations shortcut reference be…"
+      }
+    ],
+    "counts": {
+      "features": 1,
+      "enhancements": 1,
+      "fixes": 0
+    }
+  },
+  {
+    "version": "0.10.1",
+    "date": "2026-10-18",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "Forge and Linear issues share one Settings home",
+        "text": "Settings renames Linear to Issues and puts forge issue visibility next to the Linear API key and project mapping."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Reset mode picker answers to single keys",
+        "text": "With the reset dialog open, `H` picks hard, `M` picks mixed, `S` picks soft, and `Esc` closes it — `R` arms the reset from the graph as before."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Custom agents and custom commands split summon paths",
+        "text": "Custom agents open the agents pane on `Alt+Shift+1…9`; custom commands launch in a new terminal tab and stay in the palette."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Rebases and merges resume when conflicts are gone",
+        "text": "The conflict resolver continues an in-progress rebase or merge once the index is clean, using engine merge continuation and sequencer follow-through in the UI."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Stage whole folders from the working copy tree",
+        "text": "The folder row gains a hover gutter checkbox that stages or unstages every file under that folder instead of a trailing one-off control."
+      }
+    ],
+    "counts": {
+      "features": 1,
+      "enhancements": 4,
+      "fixes": 0
+    }
+  },
+  {
     "version": "0.10.0",
     "date": "2026-10-15",
     "summary": "",
