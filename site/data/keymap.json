@@ -258,7 +258,7 @@
   },
   {
     "id": "repo.escape",
-    "label": "Cancel reset, or close the open tab",
+    "label": "Cancel reset, close the open commit, or close the open tab",
     "group": "General",
     "scope": "repo",
     "keys": [

@@ -1,5 +1,52 @@
 [
   {
+    "version": "0.12.2",
+    "date": "2026-10-22",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "The app tells you what just landed",
+        "text": "Every update opens a What's new dialog with the current version's release notes highlighted up top and earlier releases below, so the changelog comes to you."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Quick commits fill in the blanks",
+        "text": "Summaries and bodies accept `{{field}}` placeholders — applying one opens a fill-inputs dialog with live preview, `{{branch}}`, `{{author}}` and `{{date}}` prefilled, yo…"
+      },
+      {
+        "kind": "Major Features",
+        "title": "Agents get wizard avatars",
+        "text": "Every agent can wear a hand-drawn SVG wizard — body, hat, eyes, mouth, staff and cape, each with six variants plus none — built in Settings → AI with live preview, keybo…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "The home page keeps window controls in the corner",
+        "text": "Settings and the minimize/maximize/close buttons sit fixed in the top-right corner of the window (traffic lights stay top-left on macOS) above a full-width drag strip, s…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Drag repositories straight into groups",
+        "text": "Project and recent rows are draggable, group cards highlight on hover, and dropping assigns the repo with a toast."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Every repo row shares one full context menu",
+        "text": "Recents, projects, and group entries all get Open, Reveal, Copy path, Set/Change/Clear logo, group assignment, jump shortcut, and Remove from group/recents where applica…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Project logos go beyond image files",
+        "text": "The picker adds a Gitmoire icon tab and an icon-library tab, each with preset and custom colours saved as sharp SVG logos, alongside the existing From file and From repo…"
+      }
+    ],
+    "counts": {
+      "features": 3,
+      "enhancements": 8,
+      "fixes": 3
+    }
+  },
+  {
     "version": "0.11.0",
     "date": "2026-10-19",
     "summary": "",
