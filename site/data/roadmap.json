@@ -102,13 +102,13 @@
     },
     {
       "feature": "Reflog Browser with One-Click Restore",
-      "status": "draft",
-      "progress": 0
+      "status": "completed",
+      "progress": 100
     },
     {
       "feature": "Bisect UI on the Graph",
-      "status": "draft",
-      "progress": 0
+      "status": "completed",
+      "progress": 100
     },
     {
       "feature": "Stash and WIP as First-Class Graph Nodes (audit + gaps)",
@@ -122,18 +122,18 @@
     },
     {
       "feature": "AI-Proposed Conflict Resolution",
-      "status": "draft",
-      "progress": 0
+      "status": "completed",
+      "progress": 100
     },
     {
       "feature": "AI-Assisted Interactive Rebase (autosquash + suggest)",
-      "status": "draft",
-      "progress": 0
+      "status": "active",
+      "progress": 50
     },
     {
       "feature": "Worktree per PR (review checkout + AI CLI)",
-      "status": "draft",
-      "progress": 0
+      "status": "completed",
+      "progress": 100
     },
     {
       "feature": "Custom Palette Actions (per-repo shell command runners)",
@@ -147,11 +147,16 @@
     },
     {
       "feature": "Flashy Trio — Bisect, Reflog Restore, AI Conflict Suggest (zero new keymaps)",
-      "status": "active",
-      "progress": 0
+      "status": "completed",
+      "progress": 100
     },
     {
       "feature": "Quick commits (save + Alt+P palette apply, Incantations home)",
+      "status": "completed",
+      "progress": 100
+    },
+    {
+      "feature": "QOL Ten-Pack — forge links, permalinks, .gitignore, message history, co-authors, patches, compare, hide/solo, ignored dirs, worktree per PR, groups",
       "status": "completed",
       "progress": 100
     }

@@ -1,5 +1,74 @@
 [
   {
+    "version": "0.13.0",
+    "date": "2026-11-07",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Enhancements",
+        "title": "Agent orchestration",
+        "text": "New Orchestrator button on the Agents tab: describe a task (or a Linear issue), an orchestrator agent questions you and draws a battleplan, you approve it in a dialog, a…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Tune graph lane hues per worktree and in settings",
+        "text": "Appearance can rotate commit-graph lane colors by degrees; worktree tabs apply their lane hue automatically when a repository logo is not driving the palette."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Repository tabs work from Home and Agents",
+        "text": "Click an open repository in the strip or use Ctrl/Cmd+1…9 (and the prev/next shortcuts) while on Home or the Agents tab; gitmoire switches back to that repository view."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Agents sidebar folds and filters",
+        "text": "Collapse the Repositories, Agents, and Graph sections; fold worktrees under a repository or whole groups; hide a repository or worktree from Agents with a right-click an…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Agents live on their own tab",
+        "text": "Open Agents from Home with the same tab strip as repositories, or press Alt+A from anywhere."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Open the file behind a diff without leaving it",
+        "text": "The diff header now offers Open file in editor (or `E`), which loads the working-tree version of the file into the in-app editor so reviewed changes can be fixed in plac…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Find anything in a diff or a conflict without leaving the pane",
+        "text": "`Cmd/Ctrl+F` opens a find bar in the diff view, file history and conflict resolver."
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 17,
+      "fixes": 2
+    }
+  },
+  {
+    "version": "0.12.3",
+    "date": "2026-10-24",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Enhancements",
+        "title": "Quick commits save the full prefixed message",
+        "text": "Saving a quick commit now stores the summary with the active commit prefixes applied, so reusing it restores exactly what would have been committed."
+      },
+      {
+        "kind": "Fixes",
+        "title": "Folder stage checkbox receives clicks after the hover reveal",
+        "text": "The decorative folder icon faded out on hover but kept swallowing pointer hits over the gutter checkbox, so staging an unchecked folder never fired once the fade settled."
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 1,
+      "fixes": 1
+    }
+  },
+  {
     "version": "0.12.2",
     "date": "2026-10-22",
     "summary": "",

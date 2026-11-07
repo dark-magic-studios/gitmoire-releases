@@ -290,6 +290,17 @@
     "reference": false
   },
   {
+    "id": "repo.toggleSidebar",
+    "label": "Toggle sidebar",
+    "group": "Panels",
+    "scope": "agents",
+    "keys": [
+      "mod+b"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
     "id": "repo.toggleInspector",
     "label": "Toggle right sidebar",
     "group": "Panels",
@@ -400,10 +411,21 @@
     "reference": false
   },
   {
-    "id": "agent.nextTab",
-    "label": "Next agent tab (next tab outside the agents pane)",
+    "id": "agent.togglePane",
+    "label": "Agents",
     "group": "Panels",
-    "scope": "repo",
+    "scope": "app",
+    "keys": [
+      "alt+a"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "agent.nextTab",
+    "label": "Next agent tab",
+    "group": "Panels",
+    "scope": "agents",
     "keys": [
       "alt+arrowright",
       "ctrl+pagedown",
@@ -414,9 +436,9 @@
   },
   {
     "id": "agent.prevTab",
-    "label": "Previous agent tab (previous tab outside the agents pane)",
+    "label": "Previous agent tab",
     "group": "Panels",
-    "scope": "repo",
+    "scope": "agents",
     "keys": [
       "alt+arrowleft",
       "ctrl+pageup",
@@ -429,7 +451,7 @@
     "id": "agent.tabNumber",
     "label": "Switch to agent tab 1–9",
     "group": "Panels",
-    "scope": "repo",
+    "scope": "agents",
     "keys": [
       "alt+1",
       "alt+2",
@@ -451,20 +473,9 @@
     "id": "agent.closeTab",
     "label": "Close active agent tab",
     "group": "Panels",
-    "scope": "repo",
+    "scope": "agents",
     "keys": [
       "ctrl+w"
-    ],
-    "display": null,
-    "reference": false
-  },
-  {
-    "id": "agent.togglePane",
-    "label": "Open the agents pane",
-    "group": "Panels",
-    "scope": "repo",
-    "keys": [
-      "alt+a"
     ],
     "display": null,
     "reference": false
@@ -809,6 +820,17 @@
     "scope": "diff",
     "keys": [
       "]"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "diff.openFile",
+    "label": "Open the current file in the editor",
+    "group": "Diff",
+    "scope": "diff",
+    "keys": [
+      "e"
     ],
     "display": null,
     "reference": false
