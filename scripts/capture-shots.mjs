@@ -106,6 +106,12 @@ function omarchyTheme(name) {
 // ---------- browser session ----------
 const browser = await chromium.launch();
 
+// a release's "What's new" dialog opens on first load and blocks every click
+const dismissWhatsNew = async (p) => {
+  const close = p.getByRole('button', { name: 'Close', exact: true }).first();
+  if (await close.isVisible().catch(() => false)) { await close.click(); await p.waitForTimeout(600); }
+};
+
 async function session({ theme = 'dark-magic', state = {}, repo = true } = {}) {
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1.5 });
   await ctx.route('http://localhost:11434/**', async (route) => {
@@ -125,12 +131,13 @@ async function session({ theme = 'dark-magic', state = {}, repo = true } = {}) {
   );
   await page.goto(BASE);
   await page.waitForTimeout(2500);
+  await dismissWhatsNew(page);
   if (!repo) return page;
   // the first dev-server load can reload mid-click, so retry until the toolbar shows
   for (let i = 0; i < 4; i++) {
     await page.getByText('~/projects/gitmoire').nth(1).click();
     try { await page.getByRole('button', { name: /^Fetch/ }).waitFor({ timeout: 6000 }); break; }
-    catch { await page.goto(BASE); await page.waitForTimeout(2500); }
+    catch { await page.goto(BASE); await page.waitForTimeout(2500); await dismissWhatsNew(page); }
   }
   await page.waitForTimeout(4200); // let the "hash copied" toast clear
   return page;
@@ -173,8 +180,8 @@ add('diff-light', { theme: 'dark-magic-light' }, async (p) => { await p.getByTex
 add('home', { repo: false }, async () => {}, [['home', { width: 2000 }]]);
 add('home-light', { theme: 'dark-magic-light', repo: false }, async () => {}, [['home-light', { width: 2000 }]]);
 add('terminal', {}, async (p) => { await p.keyboard.press('Control+`'); await p.waitForTimeout(2000); }, [['terminal', { width: 2000 }]]);
-add('review', {}, async (p) => { await p.getByRole('button', { name: /^Review/ }).click(); await p.waitForTimeout(3500); }, [['review', { crop: '760x760+1400+520' }]]);
-add('commit-message', {}, async (p) => { await at(p, 1407, 700); await p.waitForTimeout(3500); }, [['commit-message', { crop: '760x760+1400+520' }]]);
+add('review', {}, async (p) => { await p.getByRole('button', { name: /^Review/ }).click(); await p.waitForTimeout(3500); }, [['review', { crop: '760x760+1400+550' }]]);
+add('commit-message', {}, async (p) => { await at(p, 1407, 700); await p.waitForTimeout(3500); }, [['commit-message', { crop: '760x760+1400+550' }]]);
 add('conflict-suggest', {}, async (p) => {
   await p.getByText('Resolve', { exact: true }).first().click(); await p.waitForTimeout(1500);
   await at(p, 1398, 168); await p.waitForTimeout(3500);
@@ -187,20 +194,41 @@ add('atomic', {}, async (p) => {
 add('prefix-open', { state: PREFIX }, async (p) => {
   await at(p, 1200, 700); await p.waitForTimeout(800);
   await at(p, 1077, 664); await p.waitForTimeout(1000);
-}, [['prefix-open', { crop: '760x600+1400+500' }]]);
+}, [['prefix-open', { crop: '760x600+1400+600' }]]);
 add('prefix-filter', { state: PREFIX }, async (p) => {
   await at(p, 1200, 700); await p.waitForTimeout(800);
   await at(p, 1077, 664); await p.waitForTimeout(1000);
   await p.keyboard.type('fe'); await p.waitForTimeout(700);
-}, [['prefix-filter', { crop: '760x600+1400+500' }]]);
-add('worktrees', {}, async (p) => { await p.keyboard.press('Control+Shift+W'); await p.waitForTimeout(1500); }, [['worktrees', { crop: '900x720+630+290' }]]);
+}, [['prefix-filter', { crop: '760x600+1400+600' }]]);
+add('worktrees', {}, async (p) => { await p.keyboard.press('Shift+W'); await p.waitForTimeout(1500); }, [['worktrees', { crop: '900x720+630+290' }]]);
+const openAgents = async (p) => {
+  await p.keyboard.press('Alt+a'); await p.waitForTimeout(1500);
+  const close = p.getByRole('button', { name: 'Close' }).first();
+  if (await close.isVisible().catch(() => false)) { await close.click(); await p.waitForTimeout(800); }
+};
+const startAgent = async (p, label) => {
+  await p.getByRole('button', { name: 'Add agent' }).first().click(); await p.waitForTimeout(1000);
+  await p.locator('[role=dialog]').getByText(label, { exact: true }).first().click(); await p.waitForTimeout(1800);
+};
+add('agents', { repo: false }, async (p) => {
+  await openAgents(p);
+  await startAgent(p, 'Claude Code');
+  await startAgent(p, 'Cursor Agent');
+  await p.waitForTimeout(1500);
+}, [['agents', { width: 2000 }]]);
+add('orchestrator', { repo: false }, async (p) => {
+  await openAgents(p);
+  await p.getByRole('button', { name: 'Orchestrator' }).first().click(); await p.waitForTimeout(1200);
+  await p.locator('textarea').first().fill('Add CSV export to the stats page, with a test and a docs note.');
+  await p.waitForTimeout(600);
+}, [['orchestrator', { crop: '700x1050+730+150' }]]);
 add('keymap', { repo: false }, async (p) => { await p.keyboard.press('Control+k'); await p.waitForTimeout(1200); }, [['keymap', { width: 1800 }]]);
-add('theme-switcher', {}, async (p) => { await p.keyboard.press('Control+Shift+T'); await p.waitForTimeout(1200); }, [['theme-switcher', { crop: '900x600+630+90' }]]);
+add('theme-switcher', {}, async (p) => { await p.keyboard.press('Control+Shift+T'); await p.waitForTimeout(1200); }, [['theme-switcher', { crop: '900x600+630+115' }]]);
 add('settings-ai', {}, async (p) => {
   await p.keyboard.press('Control+,'); await p.waitForTimeout(1200);
   await p.getByText('AI Assistant', { exact: true }).first().click(); await p.waitForTimeout(1200);
-}, [['settings-ai', { crop: '1160x800+500+160' }]]);
-add('settings-themes', {}, async (p) => { await p.keyboard.press('Control+,'); await p.waitForTimeout(1500); }, [['settings-themes', { crop: '1160x800+500+160' }]]);
+}, [['settings-ai', { crop: '1360x1040+400+150' }]]);
+add('settings-themes', {}, async (p) => { await p.keyboard.press('Control+,'); await p.waitForTimeout(1500); }, [['settings-themes', { crop: '1360x1040+400+150' }]]);
 for (const name of ['tokyo-night', 'osaka-jade', 'rose-pine', 'catppuccin-latte']) {
   add(`omarchy-${name}`, {}, async (p) => {
     const t = omarchyTheme(name);
@@ -222,13 +250,26 @@ for (const id of ['gitmoire', 'dark-magic', 'neon', 'pastel', 'mono']) {
 }
 
 // ---------- run ----------
-function install(png, file, spec) {
+const hasMagick = (() => { try { execFileSync('magick', ['-version'], { stdio: 'ignore' }); return true; } catch { return false; } })();
+// ImageMagick when present; otherwise sharp from the source repo's node_modules
+async function install(png, file, spec) {
   mkdirSync(SHOTS_DIR, { recursive: true });
-  const args = [png];
-  if (spec.crop) args.push('-crop', spec.crop, '+repage');
-  else if (spec.width) args.push('-resize', `${spec.width}x`);
-  args.push('-quality', '80', '-define', 'webp:method=6', join(SHOTS_DIR, `${file}.webp`));
-  execFileSync('magick', args);
+  const dest = join(SHOTS_DIR, `${file}.webp`);
+  if (hasMagick) {
+    const args = [png];
+    if (spec.crop) args.push('-crop', spec.crop, '+repage');
+    else if (spec.width) args.push('-resize', `${spec.width}x`);
+    args.push('-quality', '80', '-define', 'webp:method=6', dest);
+    execFileSync('magick', args);
+    return;
+  }
+  const sharp = (await import(pathToFileURL(join(SRC, 'node_modules/sharp/lib/index.js')).href)).default;
+  let img = sharp(png);
+  if (spec.crop) {
+    const [, w, h, x, y] = spec.crop.match(/^(\d+)x(\d+)\+(\d+)\+(\d+)$/).map(Number);
+    img = img.extract({ left: x, top: y, width: w, height: h });
+  } else if (spec.width) img = img.resize({ width: spec.width });
+  await img.webp({ quality: 80, effort: 6 }).toFile(dest);
 }
 
 const todo = SHOTS.filter((s) => !ONLY.length || ONLY.includes(s.name));
@@ -240,7 +281,7 @@ for (const s of todo) {
     await s.run(page);
     const png = join(OUT, `${s.name}.png`);
     await page.screenshot({ path: png });
-    if (INSTALL) for (const [file, spec] of s.install) install(png, file, spec);
+    if (INSTALL) for (const [file, spec] of s.install) await install(png, file, spec);
     console.log('ok  ', s.name);
   } catch (e) {
     failed.push(s.name);

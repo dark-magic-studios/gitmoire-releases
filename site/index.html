@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>gitmoire: a fast Git client with a little dark magic</title>
-  <meta name="description" content="A Git client for macOS, Windows and Linux: fast graph, readable conflicts, opt-in AI commits, 15 themes, built-in terminal. No account, no telemetry.">
+  <meta name="description" content="A Git client for macOS, Windows and Linux: fast graph, readable conflicts, opt-in AI commits, an agent view with orchestration, 15 themes, built-in terminal. No account, no telemetry.">
   <link rel="canonical" href="https://gitmoire.dev/">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="author" content="Dark Magic Studios">
@@ -94,6 +94,7 @@
       <a href="#install">install</a>
       <a href="#features">features</a>
       <a href="#ai">ai</a>
+      <a href="#agents">agents</a>
       <a href="#themes">themes</a>
       <a href="#keys">keys</a>
       <a href="#terminal">terminal</a>
@@ -396,8 +397,8 @@ sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
           <p>Inherited a repo with commit messages like "update"? Ask what a commit actually did.</p></article>
         <article class="pane"><h3 class="pane-title">pr descriptions</h3>
           <p>Generated from the commits on the branch. Edit it, paste it, pretend you wrote it at your desk.</p></article>
-        <article class="pane"><h3 class="pane-title">agents beside the graph</h3>
-          <p>Run an AI CLI in a terminal split next to your commits, in a worktree if you like. More in the <a href="#terminal">terminal</a> section.</p></article>
+        <article class="pane"><h3 class="pane-title">agents and orchestration</h3>
+          <p>Run an AI CLI next to your commits, or hand a task to the orchestrator and let it deploy agents into their own worktrees. More in the <a href="#agents">agents</a> section.</p></article>
       </div>
 
       <div class="ai-shots">
@@ -511,6 +512,51 @@ sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
     </div>
   </section>
 
+  <!-- ───────────── agents ───────────── -->
+  <section class="sec" id="agents" aria-labelledby="ag-h">
+    <div class="wrap">
+      <h2 id="ag-h"><span>Agents get their own room</span></h2>
+      <p class="sub">Press <kbd>Alt</kbd><kbd>A</kbd> from anywhere. Your AI CLIs stop being a tab you lose and become a first-class view, with the same tab strip as your repositories.</p>
+
+      <div class="split">
+        <div>
+          <p class="big">The agent view.</p>
+          <p>One screen for every session, across every repository and worktree. Claude Code, Codex, Gemini, OpenCode, Cursor Agent and Antigravity are found automatically, and each one runs in a real terminal.</p>
+          <ul class="tree">
+            <li><b>Readable at a glance.</b> Every tab and sidebar row wears its repository's logo and colour, and a wizard avatar of its own, so a stack of terminals doesn't turn into soup.</li>
+            <li><b>Follows the repo you pick.</b> The sidebar shows that repository's worktrees, running sessions and a mini commit graph, and collapses with <kbd>Ctrl</kbd><kbd>B</kbd>.</li>
+            <li><b>Sessions you can keep.</b> Rename one, archive one, or resume yesterday's from the Previous list. A bell or an exit raises a toast.</li>
+            <li><b>Split and paste.</b> <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>D</kbd> puts a fresh shell beside the agent. Paste a screenshot and gitmoire saves it, keeps it out of your changes, and types the path for you.</li>
+          </ul>
+        </div>
+        <figure class="pane focus">
+          <figcaption class="pane-title">agents</figcaption>
+          <div class="viewport"><img src="/assets/shots/agents.webp" width="2000" height="1250" loading="lazy" alt="The Agents tab with two running sessions, Claude Code and Cursor Agent, each tagged with its repository, and a sidebar of repositories, worktrees and installed agents."></div>
+          <figcaption class="meta shot-note">Demo mode: the terminals show a placeholder prompt. The desktop app runs the real CLIs.</figcaption>
+        </figure>
+      </div>
+
+      <div class="split">
+        <figure class="pane focus">
+          <figcaption class="pane-title">orchestrator</figcaption>
+          <div class="viewport"><img src="/assets/shots/orchestrator.webp" width="700" height="1050" loading="lazy" alt="The Orchestrator dialog with a task typed in and a provider and model picker for the planner, feature developer and reviewer roles."></div>
+          <figcaption class="meta shot-note">The real dialog in demo mode, with a sample task.</figcaption>
+        </figure>
+        <div>
+          <p class="big">Orchestration.</p>
+          <p>Describe a task, or paste a Linear issue. An orchestrator agent questions you, then draws a battleplan. You approve it, and gitmoire deploys one agent per task, each in its own worktree.</p>
+          <ul class="tree">
+            <li><b>You approve the plan.</b> Nothing is deployed until you say so.</li>
+            <li><b>They talk to each other.</b> Agents coordinate through <code>gitmoire agent start|notify|inbox|wait|plan|status</code>. <code>done</code>, <code>waiting</code> and <code>blocked</code> show up as tab badges and toasts.</li>
+            <li><b>A reviewer comes along.</b> The orchestrator starts one beside the implementers.</li>
+            <li><b>Pick a model per role.</b> Planner, feature developer and reviewer each get their own provider and model, in Settings → AI or per run. The model menu lists what each CLI actually reports.</li>
+            <li><b>Bring the skill.</b> A bundled <code>gitmoire-orchestration</code> skill installs for Claude Code from the dialog.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ───────────── terminal ───────────── -->
   <section class="sec" id="terminal" aria-labelledby="term-h">
     <div class="wrap">
@@ -521,7 +567,7 @@ sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
           <p>Every repository gets a shell at its own path, right under the graph. It picks up your login environment, so Homebrew, fnm, nvm, volta and mise resolve exactly as they do in your real terminal.</p>
           <ul class="tree">
             <li><b>Split it.</b> <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>D</kbd> opens a pane beside it, <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>W</kbd> closes one, and the active pane wears a coloured edge so you know where you're typing.</li>
-            <li><b>Bring agents.</b> Add Claude Code, Codex, Gemini, OpenCode, Cursor Agent or Antigravity (found automatically) in a split next to the commit graph. Run several as tabs, jump with <kbd>Alt</kbd><kbd>1…9</kbd>, and give your favourites a colour and a summon key.</li>
+            <li><b>Bring agents.</b> Add Claude Code, Codex, Gemini, OpenCode, Cursor Agent or Antigravity (found automatically) in a split next to the commit graph. Run several as tabs, jump with <kbd>Alt</kbd><kbd>1…9</kbd>, and give your favourites a colour and a summon key. For a whole-screen view, see <a href="#agents">Agents</a>.</li>
             <li><b>Copy like a person.</b> <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>C</kbd> and <kbd>V</kbd>, and <kbd>Alt</kbd><kbd>←</kbd><kbd>→</kbd> reach the shell so your agent's shortcuts work.</li>
             <li><b>Run your palette actions here,</b> or in the background if you'd rather not watch.</li>
           </ul>
@@ -580,10 +626,10 @@ sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
           <div class="viewport"><img src="/assets/shots/theme-switcher.webp" width="900" height="600" loading="lazy" alt="A searchable theme switcher listing all fifteen Dark Magic themes."></div>
           <figcaption class="meta shot-note"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>T</kbd>. Searchable, previews as you move.</figcaption></figure>
         <figure class="pane focus"><figcaption class="pane-title">ai settings</figcaption>
-          <div class="viewport"><img src="/assets/shots/settings-ai.webp" width="1160" height="800" loading="lazy" alt="The AI Assistant settings with provider, base URL, model and a test connection button."></div>
+          <div class="viewport"><img src="/assets/shots/settings-ai.webp" width="1360" height="1040" loading="lazy" alt="The AI Assistant settings with provider, base URL, model and a test connection button."></div>
           <figcaption class="meta shot-note">Provider, model, connection test, custom agent commands.</figcaption></figure>
         <figure class="pane focus"><figcaption class="pane-title">glamour</figcaption>
-          <div class="viewport"><img src="/assets/shots/settings-themes.webp" width="1160" height="800" loading="lazy" alt="The Glamour settings with a grid of fifteen theme previews."></div>
+          <div class="viewport"><img src="/assets/shots/settings-themes.webp" width="1360" height="1040" loading="lazy" alt="The Glamour settings with a grid of fifteen theme previews."></div>
           <figcaption class="meta shot-note">Fifteen themes, previewed. Omarchy joins them when it's available.</figcaption></figure>
         <figure class="pane focus wide"><figcaption class="pane-title">shortcuts, in the app</figcaption>
           <div class="viewport"><img src="/assets/shots/keymap.webp" width="1800" height="1125" loading="lazy" alt="The in-app Keyboard shortcuts overlay listing every binding."></div>

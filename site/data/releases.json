@@ -1,49 +1,96 @@
 [
   {
+    "version": "0.13.1",
+    "date": "2026-11-10",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Enhancements",
+        "title": "Paste images straight into a terminal",
+        "text": "Screenshot on the clipboard?"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Split agent terminals",
+        "text": "Ctrl+Shift+D (or the pane's right-click menu) splits the active agent tab into two panes with a fresh shell beside the agent; Ctrl+Shift+W closes the focused pane."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Rename and archive sessions",
+        "text": "Rename an agent from its tab, sidebar row or previous session, and the tab stops following the agent's own terminal title until you rename it again."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Previous sessions get their own section",
+        "text": "The agents sidebar now lists closed sessions with their repository badge, so a session from yesterday is one click from resuming, renaming or archiving."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Sessions follow the repository you pick",
+        "text": "The agents sidebar shows only sessions for the selected repository and its count follows."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Agents wear their repository's colours",
+        "text": "Each agent tab and sidebar row shows the repository logo and an accent-coloured repository name, so a stack of terminals stays readable at a glance."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Changes at a glance in the sidebar",
+        "text": "A new Changes section lists every working-tree file; click one to open its diff without leaving the sidebar."
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 9,
+      "fixes": 1
+    }
+  },
+  {
     "version": "0.13.0",
     "date": "2026-11-07",
     "summary": "",
     "highlights": [
       {
-        "kind": "Enhancements",
+        "kind": "Major Features",
         "title": "Agent orchestration",
-        "text": "New Orchestrator button on the Agents tab: describe a task (or a Linear issue), an orchestrator agent questions you and draws a battleplan, you approve it in a dialog, a…"
+        "text": "New Orchestrator button on the Agents tab: describe a task (or a Linear issue), and an orchestrator agent questions you and draws a battleplan."
       },
       {
-        "kind": "Enhancements",
-        "title": "Tune graph lane hues per worktree and in settings",
-        "text": "Appearance can rotate commit-graph lane colors by degrees; worktree tabs apply their lane hue automatically when a repository logo is not driving the palette."
-      },
-      {
-        "kind": "Enhancements",
-        "title": "Repository tabs work from Home and Agents",
-        "text": "Click an open repository in the strip or use Ctrl/Cmd+1…9 (and the prev/next shortcuts) while on Home or the Agents tab; gitmoire switches back to that repository view."
-      },
-      {
-        "kind": "Enhancements",
-        "title": "Agents sidebar folds and filters",
-        "text": "Collapse the Repositories, Agents, and Graph sections; fold worktrees under a repository or whole groups; hide a repository or worktree from Agents with a right-click an…"
-      },
-      {
-        "kind": "Enhancements",
+        "kind": "Major Features",
         "title": "Agents live on their own tab",
         "text": "Open Agents from Home with the same tab strip as repositories, or press Alt+A from anywhere."
       },
       {
-        "kind": "Enhancements",
-        "title": "Open the file behind a diff without leaving it",
-        "text": "The diff header now offers Open file in editor (or `E`), which loads the working-tree version of the file into the in-app editor so reviewed changes can be fixed in plac…"
+        "kind": "Major Features",
+        "title": "Compare any branch without checking it out",
+        "text": "Right-click a branch and choose Compare with current to see what it changed since it split, plus the commits ahead and behind, with a diff for each file."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Copy commits as patches, apply patches with a preview",
+        "text": "Copy one or several commits as a patch from the commit menu."
       },
       {
         "kind": "Enhancements",
-        "title": "Find anything in a diff or a conflict without leaving the pane",
-        "text": "`Cmd/Ctrl+F` opens a find bar in the diff view, file history and conflict resolver."
+        "title": "Agents get wizard avatars",
+        "text": "New agents default to a seeded wizard avatar derived from their identity and color; picking an emoji opts out."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Autosquash fixup! and squash! commits",
+        "text": "The rebase dialog and the graph now recognise fixup!/squash!"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Connect Azure DevOps",
+        "text": "Settings → Authentication adds Azure DevOps next to GitHub, GitLab and Bitbucket."
       }
     ],
     "counts": {
-      "features": 0,
-      "enhancements": 17,
-      "fixes": 2
+      "features": 4,
+      "enhancements": 19,
+      "fixes": 4
     }
   },
   {
