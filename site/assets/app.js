@@ -107,7 +107,7 @@
     if (!t || !shot) return;
     const name = t.dataset.shot;
     shot.src = `/assets/shots/${name}${isLight() && LIGHT_SHOTS.has(name) ? '-light' : ''}.webp`;
-    shot.alt = `gitmoire ${t.dataset.name} screen`;
+    shot.alt = t.dataset.alt || `gitmoire ${t.dataset.name} screen`;
     tabs.forEach((b, i) => b.setAttribute('aria-selected', String(i === shotIdx)));
     $('#shot-idx').textContent = shotIdx + 1;
     $('#shot-name').textContent = t.dataset.name;
@@ -378,7 +378,10 @@
     }
     if (typing) { if (k === 'escape') e.target.blur(); return; }
 
-    if (/^[1-7]$/.test(k)) { setShot(Number(k) - 1); $('#shots').scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' }); return; }
+    if (/^\d$/.test(k)) {
+      const i = Number(k) - 1;
+      if (i >= 0 && i < tabs.length) { setShot(i); $('#shots').scrollIntoView({ block: 'center', behavior: reduce ? 'auto' : 'smooth' }); return; }
+    }
     if (k === 'l') { applyTheme(isLight() ? 'dark-magic' : 'dark-magic-light'); return; }
     if (k === '/') { e.preventDefault(); go('#keys'); setTimeout(() => $('#key-filter').focus(), reduce ? 0 : 450); return; }
     if (k === 'r') go('#releases');
