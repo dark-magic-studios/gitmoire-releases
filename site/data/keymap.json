@@ -290,7 +290,7 @@
     "reference": false
   },
   {
-    "id": "repo.toggleSidebar",
+    "id": "agents.toggleSidebar",
     "label": "Toggle sidebar",
     "group": "Panels",
     "scope": "agents",

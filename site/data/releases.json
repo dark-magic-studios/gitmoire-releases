@@ -1,5 +1,52 @@
 [
   {
+    "version": "0.13.2",
+    "date": "2026-11-11",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Enhancements",
+        "title": "The agents sidebar is yours to arrange",
+        "text": "Repositories, Installed, Agents, Previous, Git and Working changes now stack in one column with draggable dividers between them: heights persist, a double-click resets t…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Working changes without leaving the agents view",
+        "text": "A new section lists every changed file for the selected repository with its status letter, a staged dot and +/- counts, and shows `bin` for binaries."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Rows open a graph or a terminal",
+        "text": "Hover a repository, worktree or session row for graph and terminal buttons, or use the command palette's new Worktree actions group, which lists every live worktree by n…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Agents get their own worktree",
+        "text": "Add agent and Orchestrator carry a \"Run in a new worktree\" checkbox with a generated branch name — `agent/<name>-xxxx` or `orchestrator/<task>-xxxx` — validated as you t…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Orchestrator workers run side by side",
+        "text": "A run's workers open as split panes in a grid of up to four, each with its own status header and spawn spec."
+      },
+      {
+        "kind": "Fixes",
+        "title": "Cmd/Ctrl+B works in the agents view again",
+        "text": "The agents-scoped toggle shared a command id with the repository one, so the keymap listed two entries under a single name; it now has its own `agents.toggleSidebar` id."
+      },
+      {
+        "kind": "Fixes",
+        "title": "Windows worktrees get sane names",
+        "text": "Agent worktree paths were named from the raw path string, so backslashes leaked into the branch name; paths are now split on the platform separator."
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 5,
+      "fixes": 4
+    }
+  },
+  {
     "version": "0.13.1",
     "date": "2026-11-10",
     "summary": "",
