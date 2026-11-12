@@ -447,6 +447,50 @@
     "reference": false
   },
   {
+    "id": "agents.prevRepo",
+    "label": "Previous repository in the sidebar",
+    "group": "Panels",
+    "scope": "agents",
+    "keys": [
+      "ctrl+shift+arrowup"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "agents.nextRepo",
+    "label": "Next repository in the sidebar",
+    "group": "Panels",
+    "scope": "agents",
+    "keys": [
+      "ctrl+shift+arrowdown"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "agents.jumpRepo",
+    "label": "Focus repository 1–9 in the sidebar",
+    "group": "Panels",
+    "scope": "agents",
+    "keys": [
+      "ctrl+1",
+      "ctrl+2",
+      "ctrl+3",
+      "ctrl+4",
+      "ctrl+5",
+      "ctrl+6",
+      "ctrl+7",
+      "ctrl+8",
+      "ctrl+9"
+    ],
+    "display": [
+      "ctrl",
+      "1…9"
+    ],
+    "reference": false
+  },
+  {
     "id": "agent.tabNumber",
     "label": "Switch to agent tab 1–9",
     "group": "Panels",

@@ -1,5 +1,52 @@
 [
   {
+    "version": "0.14.0",
+    "date": "2026-11-12",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "The Agents view can run the repository without leaving it",
+        "text": "Choose a repository or worktree in the sidebar and its working changes are right there, with staging, commit prefixes, discard, commit and AI atomic commits."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Agents report back when a turn ends",
+        "text": "An installed OpenCode TUI plugin feeds waiting, done and blocked states to the orchestra bus, and every agent session carries a run identity, so tabs and sidebar rows sh…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "A plain shell is one click away",
+        "text": "New terminal opens an ordinary shell tab from the Agents header, the + menu, the sidebar and the empty state, beside your agent sessions."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Write a reworded commit message with AI",
+        "text": "Edit commit message now has a sparkle button that drafts a message from the selected commit's own diff, not your working copy, using your commit style and prefix rules."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Extensionless scripts get syntax highlighting",
+        "text": "Files like `bin/deploy` or `run` now pick their language from the `#!` line (Python, bash/sh/zsh, Node, Bun, Deno, Ruby, Perl, PHP, `env`-wrapped or not) in the diff, bl…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Copy `path:line` from the diff",
+        "text": "The right-click menu in the diff and the file history now has Copy path:line, giving `src/app.ts:42` for the line under the cursor — the old line number for removed line…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "A calmer diff",
+        "text": "Added and removed lines use a softer background tint and word-level highlights are lighter, in every theme."
+      }
+    ],
+    "counts": {
+      "features": 2,
+      "enhancements": 12,
+      "fixes": 7
+    }
+  },
+  {
     "version": "0.13.3",
     "date": "2026-11-12",
     "summary": "",
