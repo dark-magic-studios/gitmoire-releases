@@ -84,7 +84,6 @@
     "id": "repo.palette",
     "label": "Command palette",
     "group": "General",
-    "scope": "repo",
     "keys": [
       "mod+p"
     ],
@@ -412,7 +411,7 @@
   },
   {
     "id": "agent.togglePane",
-    "label": "Agents",
+    "label": "Switch between the graph and the agents view",
     "group": "Panels",
     "scope": "app",
     "keys": [
@@ -584,7 +583,6 @@
     "id": "repo.quickCommits",
     "label": "Quick commits",
     "group": "Git",
-    "scope": "repo",
     "keys": [
       "alt+p"
     ],

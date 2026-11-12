@@ -1,5 +1,52 @@
 [
   {
+    "version": "0.13.3",
+    "date": "2026-11-12",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Enhancements",
+        "title": "Agents start on the branch you pick",
+        "text": "Add agent now has a Branch menu, so a session can open on any local or remote branch instead of whatever the folder had checked out — the checkout is an undoable step li…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Working changes open an editor beside your agents",
+        "text": "Click a changed text file in the agents sidebar and it opens in a resizable pane next to the terminal, with syntax highlighting, the Markdown preview toggle, save, and a…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "The command palette works on the agents screen",
+        "text": "Cmd/Ctrl+P and Alt+P open the palette against the repository selected in the sidebar, so quick commits, branches, stashes and worktree commands apply to that repository…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Every repository row has a graph button",
+        "text": "The graph action no longer waits for a hover: each repository and worktree in the agents sidebar keeps a visible glyph that opens its commit graph, while the terminal bu…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "The repository sidebar lists only its own agents",
+        "text": "The Agents section on the graph screen showed every session in the app; it now keeps just the ones running in the current repository and its worktrees, titled by the ses…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Alt+A toggles both ways",
+        "text": "The Agents shortcut used to be a one-way trip; press it again on the agents screen and gitmoire returns you to the repository graph."
+      },
+      {
+        "kind": "Fixes",
+        "title": "The agents graph keeps up with your commits",
+        "text": "The Graph section in the agents sidebar fetched once when the repository loaded, so a quick commit left it stale; it now refreshes along with repository status."
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 6,
+      "fixes": 1
+    }
+  },
+  {
     "version": "0.13.2",
     "date": "2026-11-11",
     "summary": "",

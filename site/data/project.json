@@ -1,14 +1,14 @@
 {
   "name": "gitmoire",
-  "version": "0.13.2",
+  "version": "0.13.3",
   "latestRelease": {
-    "version": "0.13.2",
-    "date": "2026-11-11"
+    "version": "0.13.3",
+    "date": "2026-11-12"
   },
   "tagline": "Git, with a little dark magic.",
   "license": "MIT",
   "releasesRepo": "https://github.com/dark-magic-studios/gitmoire-releases",
-  "commits": 340,
-  "releaseCount": 24,
-  "syncedAt": "2026-11-11T19:22:45.377Z"
+  "commits": 346,
+  "releaseCount": 25,
+  "syncedAt": "2026-11-12T20:30:33.361Z"
 }
