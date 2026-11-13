@@ -13,7 +13,7 @@
   },
   {
     "id": "dark-magic-light",
-    "label": "Dark Magic Light",
+    "label": "Light",
     "base": "light",
     "bg": "#eaeaff",
     "fg": "#3e3f54",
@@ -25,7 +25,7 @@
   },
   {
     "id": "dark-magic-night",
-    "label": "Dark Magic Night",
+    "label": "Night",
     "base": "dark",
     "bg": "#111111",
     "fg": "#cccccc",
@@ -37,7 +37,7 @@
   },
   {
     "id": "dark-magic-nord",
-    "label": "Dark Magic Nord",
+    "label": "Nord",
     "base": "dark",
     "bg": "#2e3440",
     "fg": "#d8dee9",
@@ -49,7 +49,7 @@
   },
   {
     "id": "dark-magic-dracula",
-    "label": "Dark Magic Dracula",
+    "label": "Dracula",
     "base": "dark",
     "bg": "#282a36",
     "fg": "#cce3f5",
@@ -61,7 +61,7 @@
   },
   {
     "id": "dark-magic-frankenstein",
-    "label": "Dark Magic Frankenstein",
+    "label": "Frankenstein",
     "base": "dark",
     "bg": "#0f1715",
     "fg": "#b6e8cf",
@@ -73,7 +73,7 @@
   },
   {
     "id": "dark-magic-tokyo",
-    "label": "Dark Magic Tokyo",
+    "label": "Tokyo",
     "base": "dark",
     "bg": "#16161e",
     "fg": "#c0caf5",
@@ -85,7 +85,7 @@
   },
   {
     "id": "dark-magic-midnight",
-    "label": "Dark Magic Midnight",
+    "label": "Midnight",
     "base": "dark",
     "bg": "#08080e",
     "fg": "#a8b8d8",
@@ -97,7 +97,7 @@
   },
   {
     "id": "dark-magic-oled",
-    "label": "Dark Magic OLED",
+    "label": "OLED",
     "base": "dark",
     "bg": "#000000",
     "fg": "#bbccee",
@@ -109,7 +109,7 @@
   },
   {
     "id": "dark-magic-grimoire",
-    "label": "Dark Magic Grimoire",
+    "label": "Grimoire",
     "base": "light",
     "bg": "#f3ead7",
     "fg": "#2c2416",
@@ -121,7 +121,7 @@
   },
   {
     "id": "dark-magic-moonmilk",
-    "label": "Dark Magic Moonmilk",
+    "label": "Moonmilk",
     "base": "light",
     "bg": "#e7e8f1",
     "fg": "#262833",
@@ -133,7 +133,7 @@
   },
   {
     "id": "dark-magic-kraken",
-    "label": "Dark Magic Kraken",
+    "label": "Kraken",
     "base": "dark",
     "bg": "#0d1018",
     "fg": "#d7dee6",
@@ -145,7 +145,7 @@
   },
   {
     "id": "dark-magic-phosphor",
-    "label": "Dark Magic Phosphor",
+    "label": "Phosphor",
     "base": "dark",
     "bg": "#0c0a06",
     "fg": "#f0c85a",
@@ -157,7 +157,7 @@
   },
   {
     "id": "dark-magic-magenta",
-    "label": "Dark Magic Magenta",
+    "label": "Magenta",
     "base": "dark",
     "bg": "#07040a",
     "fg": "#f8d6ee",
@@ -169,7 +169,7 @@
   },
   {
     "id": "dark-magic-synthwave",
-    "label": "Dark Magic Synthwave",
+    "label": "Synthwave",
     "base": "dark",
     "bg": "#140824",
     "fg": "#f6e8ff",

@@ -1,5 +1,52 @@
 [
   {
+    "version": "0.14.2",
+    "date": "2026-11-13",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Enhancements",
+        "title": "Previous agent sessions link back to their CLI conversation",
+        "text": "gitmoire reads the Claude Code, OpenCode, Codex, Cursor and Antigravity session stores and matches each Previous entry by saved id, then by title and close time."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "A battleplan step picks its own agent and model",
+        "text": "Every step in the battleplan dialog now carries a provider and a model of its own, chosen from the models the CLI actually lists, so one plan can send refactors to a str…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "The orchestrator and the fixer are roles you configure",
+        "text": "Two roles now sit beside the planner, worker and reviewer: the orchestrator runs the session and can hand the plan to a planner, and the fixer joins the worker's worktre…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Send an issue straight to the orchestrator",
+        "text": "Pick a Linear or repository issue in the Orchestrator dialog and its text is delivered alongside your own instructions, with the branch suggestion following the issue an…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Claude, Codex, Cursor and Antigravity say when they need you",
+        "text": "Each launch now carries a notification hook — `--settings` for Claude and Antigravity, `-c notify` for Codex, a merged stop hook for Cursor — so those sessions light up…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Settings splits into Global and Repository scopes",
+        "text": "The dialog is wider, with a scope switch and a repository picker, so Hooks and Issues sit next to the repository they affect while appearance, accounts and AI stay globa…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "The Agents sidebar hides and restores sections like the repository one",
+        "text": "The View menu toggles Repositories, Agents, Git and Previous, and Reset to defaults brings every section back."
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 11,
+      "fixes": 1
+    }
+  },
+  {
     "version": "0.14.1",
     "date": "2026-11-13",
     "summary": "",
