@@ -1,5 +1,32 @@
 [
   {
+    "version": "0.14.1",
+    "date": "2026-11-13",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Enhancements",
+        "title": "The Agents Git section is the home for your tree",
+        "text": "Working changes now live inside Git instead of a separate stack, worktree rows carry the repository logo and each worktree's own hue, and every open repository lists its…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Open repositories follow your tab groups from Home",
+        "text": "Repositories you have open in the Agents sidebar are grouped and coloured the same way as on the welcome screen, with collapsible group headers, so a busy multi-repo set…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "An agent tab pulls focus to its repository",
+        "text": "Switching to another session tab now selects that session's repository for working changes and launch context, so the sidebar always matches the agent you are talking to."
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 3,
+      "fixes": 0
+    }
+  },
+  {
     "version": "0.14.0",
     "date": "2026-11-12",
     "summary": "",
