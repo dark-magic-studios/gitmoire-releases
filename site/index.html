@@ -22,11 +22,6 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="gitmoire: Git, with a little dark magic. Git client for macOS, Windows and Linux, shown next to the commit graph.">
-  <meta property="og:image" content="https://gitmoire.dev/assets/gitmoire.png">
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="gitmoire: Git, with a little dark magic. gitmoire.dev">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="gitmoire: a fast Git client with a little dark magic">
   <meta name="twitter:description" content="Git client for macOS, Windows and Linux. Fast graph, readable conflicts, opt-in AI, 15 themes, built-in terminal. No account, no telemetry.">
@@ -41,7 +36,7 @@
     "description": "A Git client for macOS, Windows and Linux with a fast commit graph, readable conflict resolution, opt-in AI commit messages, themes and a built-in terminal.",
     "applicationCategory": "DeveloperApplication",
     "operatingSystem": "macOS, Windows, Linux",
-    "fileSize": "35.0 MB macOS dmg, 14.4 MB Windows setup.exe, 16.0 MB Windows msi, 18.0 MB Linux deb, 18.0 MB Linux rpm, 89.7 MB Linux AppImage",
+    "fileSize": "36.0 MB macOS dmg, 14.9 MB Windows setup.exe, 16.7 MB Windows msi, 18.5 MB Linux deb, 18.5 MB Linux rpm, 90.2 MB Linux AppImage",
     "image": ["https://gitmoire.dev/assets/og.png", "https://gitmoire.dev/assets/gitmoire.png", "https://gitmoire.dev/assets/shots/app-graph.webp"],
     "license": "https://opensource.org/licenses/MIT",
     "downloadUrl": "https://github.com/dark-magic-studios/gitmoire-releases/releases",
@@ -52,8 +47,8 @@
   <link rel="icon" href="/assets/gitmoire.svg" type="image/svg+xml">
   <link rel="preload" href="/assets/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/jetbrains-mono-blocks-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/assets/shots/app-graph.webp" as="image" fetchpriority="high">
-  <link rel="stylesheet" href="/assets/style.css?v=20261013b">
+  <link rel="preload" href="/assets/shots/live/graph.webp" as="image" fetchpriority="high">
+  <link rel="stylesheet" href="/assets/grimoire.css?v=20261114a">
   <link rel="stylesheet" href="/assets/themes.css?v=20261012a">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ERYJGKMZWB"></script>
@@ -68,12 +63,12 @@
   <script>
     /* Set the theme before first paint so there is no flash. */
     (function () {
+      var r = document.documentElement;
+      r.classList.add('js');
       try {
         var t = localStorage.getItem('gm-theme');
         var a = localStorage.getItem('gm-accent');
-        var light = matchMedia('(prefers-color-scheme: light)').matches;
-        var id = t || (light ? 'dark-magic-light' : 'dark-magic');
-        var r = document.documentElement;
+        var id = t || 'dark-magic'; /* dark first: this is a dark-magic page. Light is one key away. */
         r.dataset.theme = id;
         r.dataset.base = id === 'dark-magic-light' ? 'light' : 'dark';
         if (a) r.dataset.accent = a;
@@ -84,190 +79,114 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="top" id="top">
-  <div class="wrap topbar">
-    <a class="brand" href="#top" aria-label="gitmoire, back to top">
-      <span class="logo-mark" role="img" aria-label="gitmoire logo"></span>
-      <span>gitmoire</span>
-    </a>
-    <nav aria-label="Sections">
-      <a href="#install">install</a>
-      <a href="#features">features</a>
-      <a href="#agents">agents</a>
-      <a href="#ai">ai</a>
-      <a href="#terminal">terminal</a>
-      <a href="#keys">keys</a>
-      <a href="#themes">themes</a>
-      <a href="#releases">releases</a>
-      <a href="#roadmap">roadmap</a>
-    </nav>
-    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch between light and dark theme">
-      <span id="theme-toggle-label">light</span>
-    </button>
-  </div>
-</header>
+<!-- runic backdrop: fixed behind the whole page -->
+<div class="backdrop" aria-hidden="true"><svg class="sigil" id="sigil" viewBox="-500 -500 1000 1000" focusable="false"></svg><canvas class="embers" id="embers"></canvas></div>
+
+<!-- the signature: a git graph of your own scroll, drawn by grimoire.js -->
+<aside class="rail" id="rail" aria-label="Page map, drawn as a git graph. Each commit is a chapter." hidden></aside>
 
 <main id="main">
-  <!-- ───────────── hero ───────────── -->
-  <section class="hero crt" aria-labelledby="hero-title">
-    <div class="wrap">
-      <h1 id="hero-title" class="sr">gitmoire</h1>
-      <pre class="wordmark" aria-hidden="true">              ▗██▌                                         ▗██▌                         
-               ▀▀▘       ██▌                                ▀▀▘                         
- ▄▟██▄▄█▙   ▟████▖    ▟████████▖ ▗█▙▟█▄▄██▄   ▗▄███▄▄    ▟████▖     ▐█▙▄███▄    ▄▄███▄▖ 
+
+  <!-- ═════ 0 · hook: layered hero ═════ -->
+  <section class="act hero" id="top" data-act data-span="1.5" style="--span:1.5" aria-labelledby="hero-title">
+    <div class="stick">
+      <div class="plate" aria-hidden="true">
+        <img class="plate-dark" src="/assets/shots/live/graph.webp" width="1920" height="1200" alt="" fetchpriority="high">
+        <img class="plate-light" src="/assets/shots/app-graph-light.webp" width="2000" height="1260" alt="" loading="lazy">
+      </div>
+      <div class="hero-copy">
+        <h1 id="hero-title" class="sr">gitmoire</h1>
+        <pre class="wordmark" aria-hidden="true">              ▗██▌                                         ▗██▌
+               ▀▀▘       ██▌                                ▀▀▘
+ ▄▟██▄▄█▙   ▟████▖    ▟████████▖ ▗█▙▟█▄▄██▄   ▗▄███▄▄    ▟████▖     ▐█▙▄███▄    ▄▄███▄▖
 ▐██▀ ▀███   ▀▀▀██▌    ▝▀▀██▛▀▀▀▘ ▐█▛ ▜█▌ ██  ▐██▀▘▀▜█▙   ▀▀▀██▌     ▐██▀ ▀▜█▙  ▟█▛  ▝▜█▌
 ██▌   ▐██      ██▌       ██▌     ▐█▌ ▐█▌ ██  ▐█▌   ▐██      ██▌     ▐█▌   ▝▀▀  ██▙▄▄▄███
-▐██▖ ▗▟██      ██▌       ██▌     ▐█▌ ▐█▌ ██  ▐█▙   ▐██      ██▌     ▐█▌        ██▌      
+▐██▖ ▗▟██      ██▌       ██▌     ▐█▌ ▐█▌ ██  ▐█▙   ▐██      ██▌     ▐█▌        ██▌
  ▀███▛▜██  ▗████████▌    ▜█████▖ ▐█▌ ▐█▌ ██  ▝▜██▄▟██▘  ▗████████▙  ▐█▌        ▝██▙▄▟██▘
-      ▟█▛   ▀▀▀▀▀▀▀▀▘      ▝▀▀▀   ▀▘ ▝▀  ▝▀     ▀▀▀▘     ▀▀▀▀▀▀▀▀▘  ▝▀▘          ▝▀▀▀   
+      ▟█▛   ▀▀▀▀▀▀▀▀▘      ▝▀▀▀   ▀▘ ▝▀  ▝▀     ▀▀▀▘     ▀▀▀▀▀▀▀▀▘  ▝▀▘          ▝▀▀▀
   █████▀                                                                                </pre>
+        <p class="tagline">Your history is a tangle. <span class="hl">Git, with a little dark magic.</span><span class="cursor" aria-hidden="true"></span></p>
+        <p class="lede">Your 1 GB Electron client called. It's embarrassed.
+          gitmoire is a Git client that opens in under five seconds
+          (GitKraken took me nearly forty), and has never once asked you to log in.
+          <span id="sizes-line">The v0.14.2 downloads run from 14.9&nbsp;MB on Windows to 90.2&nbsp;MB for the Linux AppImage.</span></p>
+        <div class="cta">
+          <a class="btn primary" id="dl" href="https://github.com/dark-magic-studios/gitmoire-releases/releases">Get gitmoire</a>
+          <a class="btn" href="#graph">See the graph</a>
+          <a class="btn" href="#log">Read the changelog</a>
+        </div>
+        <p class="meta" id="dl-meta">Free. macOS, Windows, Linux. Builds are unsigned, so your OS will ask once and be dramatic about it.</p>
+      </div>
+      <!-- foreground plane: real UI fragments, in front of the headline plane -->
+      <div class="fg fg-palette" aria-hidden="true"><i style="background-image:url(/assets/shots/live/palette.webp)"></i></div>
+      <div class="fg fg-agent" aria-hidden="true"><i style="background-image:url(/assets/shots/live/orchestrator.webp)"></i></div>
+    </div>
+  </section>
 
-      <div class="hero-cols">
+
+  <!-- ═════ 1 · weight: the quiet one ═════ -->
+  <section class="act sec weigh" id="weight" data-act aria-labelledby="weigh-h">
+    <div class="wrap">
+      <h2 id="weigh-h" class="h">I respect your SSD.</h2>
+      <div class="cols">
         <div>
-          <p class="tagline">Git, with a little dark magic<span class="cursor" aria-hidden="true"></span></p>
-          <p class="lede">Your 1 GB Electron client called. It's embarrassed.
-            gitmoire is a Git client that opens in under five seconds
-            (GitKraken took me nearly forty), and has never once asked you to log in.
-            The v0.9.2 downloads run from 14.4&nbsp;MB on Windows to 89.7&nbsp;MB for the Linux AppImage.</p>
-
-          <div class="cta">
-            <a class="btn primary" id="dl" href="https://github.com/dark-magic-studios/gitmoire-releases/releases">Get gitmoire</a>
-            <a class="btn" href="#features">See what it does</a>
-            <a class="btn" href="#releases">Read the changelog</a>
-          </div>
-          <p class="meta" id="dl-meta">Free. macOS, Windows, Linux. Builds are unsigned, so your OS will ask once and be dramatic about it.</p>
-
-          <pre class="boot" id="boot" aria-label="Terminal: gitmoire opens a repository"><span class="p">$</span> gitmoire open .
-<span class="spin done">✓</span> summoned your repositories
-<span class="p">›</span> 21 commits, 5 branches, 1 stash. <span class="dim">Opened in under 5 s.</span></pre>
+          <p class="big">Every Git client I tried was a website wearing a trench coat.</p>
+          <p>Slow to open, a gigabyte on disk, and a login screen standing between me and a typo fix. Insulting.
+            gitmoire runs Git on Rust and libgit2 instead of a pile of shell scripts, so a hundred thousand commits scroll like fifty.</p>
+          <p class="big">And it's ready before the kettle is.</p>
+          <p>GitKraken took me almost 40 seconds to open. gitmoire opens in under 5. That's not a benchmark suite, it's me waiting for a window on my own machine, which is the only benchmark that has ever annoyed me.</p>
         </div>
-        <div class="logo-art-box"><pre class="logo-art" aria-hidden="true">                                   ▟▖                                
-                                  ▄██▖                               
-                            ▗▄▄▄▄█▌ ▝▜▙▄▄▄▄                          
-                      ▗▄▄▟█▀▀▀▀▘▝▀█▄▄▛▀ ▝▀▀▀▜█▙▄▄                    
-                   ▗▄█▛▀▘         ▝█▛          ▝▀▜█▄▖                
-                ▗▟█▛▘           ▗▖▀▀▀ ▗▖           ▀▜█▄              
-              ▗▟█▀             ▟▘      ▝▖            ▝▀█▙▖           
-            ▗▟█▀             ▄▟█        █▙▄             ▀█▙▖         
-           ▟█▀           ▗▄██▀▀▜▖      ▗▛▀▜█▙▄▖          ▝▜█▄        
-         ▗▟█▘        ▗▄▟█▛▀▘    ▀▙▄▄▄▄▞▀    ▝▀▜█▙▄         ▀█▙       
-        ▗██▘      ▄▄██▀▘     ▗▖   ▐██▌   ▗▖     ▀▀██▄▄      ▝█▙      
-       ▗██▘    ▄██▛▀      ▄▟▀     ▐██▌    ▝▜▙▄     ▝▀▜█▙▖    ▝█▙     
-       ▟█▘     ██▌     ▗▟█▀       ▐██▌      ▝▜█▄      ▐█▌     ▐█▙    
-      ▐█▌      ██▌    ▄█▛▘        ▐██▌        ▝██▖    ▐█▌      ██▖   
-      ▟█▘      ██▌   ▟█▛          ▐██▌         ▝██▖   ▐█▌      ▐█▌   
-     ▄██▌      ██▌  ▗██▘          ▐██▌          ▐██   ▐█▌      ▟██▖  
-  ▗▄▟▛▘▝▜▙▄▖   ██▌  ▐█▛          ▗███▙           ██   ▐█▌   ▗▄▟▀ ▝▜▙▄
-   ▝▜▙▖▗▟▛▘    ██▌  ▐█▌         ▗██▛▜█▙          ▐█   ██▌    ▝▜▄▖▗▟▀▘
-     ▐██▌      ██▌   ▜▌       ▗▟██▘  ▀██▄        █▘   ██▌      ▜██▘  
-      ██▖      ██▌    ▐▖    ▄▟██▀      ▀██▄▖    ▗     ██▌      ▐█▛   
-      ▐█▙      ██▌▗▞▀▘ ▝▀▄▄██▀▘          ▀▜██▄▟▀▘ ▝▀▚▖██▌      ██    
-       ▜█▖     ███▛       ▜▌                ▜▛       ▜██▌     ▟█▌    
-       ▝██▖    ▜██▖       ▐▌                ▐▌       ▗██▘    ▟█▛     
-        ▝██▖     ▝▚▖     ▗▛  ▄▖          ▄▖ ▝█▖     ▗▞▘     ▟█▛      
-          ▜█▄      ▀▘▄▄▄▟█    ▝▀▜██▙▟██▀▀▘   ▗█▙▄▄▖▝▘      ▟█▛       
-           ▀█▙▖         ▀▜█▙▄             ▗▄██▀▘         ▗██▘        
-            ▝▜█▙           ▀▀██▄▖  █▛  ▗▄██▀▘          ▗▟█▀          
-              ▝▜█▄▖           ▝▀██▄▟▄▄█▛▀▘           ▗▟█▛            
-                ▝▀█▙▄            ▝▀█▛▀             ▄██▀              
-                   ▀▀█▙▄▖         ▗█▙          ▄▄██▀▘                
-                      ▝▀▀██▄▄▄▄▖▗▄▛▀▀▙▄ ▗▄▄▄▟█▛▀▀                    
-                            ▝▀▀▀▀█▙ ▗▟▛▀▀▀▀                          
-                                  ▀██▘                               
-                                   ▜▘                                </pre></div>
-      </div>
-    </div>
-
-    <!-- real app, real pixels -->
-    <div class="wrap shots" id="shots">
-      <figure class="pane focus" aria-label="Screenshots of gitmoire">
-        <figcaption class="pane-title"><span class="idx">[<span id="shot-idx">1</span>]</span> <span id="shot-name">graph</span></figcaption>
-        <div class="viewport">
-          <img id="shot" src="/assets/shots/app-graph.webp" width="2000" height="1260" alt="The gitmoire commit graph with branch lanes, stash and WIP nodes, author initials and a repository sidebar.">
+        <div>
+          <figure class="bars" id="size-bars" aria-label="Download sizes of the latest release against an Electron client of about 1 gigabyte">
+            <div class="chart" id="size-chart">
+              <div class="row"><span class="lbl">macOS .dmg</span><span class="track"><i class="bar ok" data-mb="36.0"></i></span><span class="val">36.0 MB</span></div>
+              <div class="row"><span class="lbl">Windows setup.exe</span><span class="track"><i class="bar ok" data-mb="14.9"></i></span><span class="val">14.9 MB</span></div>
+              <div class="row"><span class="lbl">Windows .msi</span><span class="track"><i class="bar ok" data-mb="16.7"></i></span><span class="val">16.7 MB</span></div>
+              <div class="row"><span class="lbl">Linux .deb</span><span class="track"><i class="bar ok" data-mb="18.5"></i></span><span class="val">18.5 MB</span></div>
+              <div class="row"><span class="lbl">Linux .rpm</span><span class="track"><i class="bar ok" data-mb="18.5"></i></span><span class="val">18.5 MB</span></div>
+              <div class="row"><span class="lbl">Linux AppImage</span><span class="track"><i class="bar ok" data-mb="90.2"></i></span><span class="val">90.2 MB</span></div>
+              <div class="row"><span class="lbl">Electron client</span><span class="track"><i class="bar bad" data-mb="1024"></i></span><span class="val">~1 GB</span></div>
+            </div>
+            <figcaption class="meta" id="size-cap">v0.14.2 release assets, from the published byte counts. Bars are to scale against ~1&nbsp;GB, and yes, they are still that small.</figcaption>
+          </figure>
+          <figure class="bars" aria-label="Time to open: gitmoire under 5 seconds, GitKraken almost 40 seconds">
+            <div class="chart">
+              <div class="row"><span class="lbl">gitmoire</span><span class="track"><i class="bar ok" data-pct="12.5"></i></span><span class="val">under 5 s</span></div>
+              <div class="row"><span class="lbl">GitKraken</span><span class="track"><i class="bar bad" data-pct="100"></i></span><span class="val">~40 s</span></div>
+            </div>
+            <figcaption class="meta">Time to a usable window, measured by hand on my machine. Your mileage will vary, and so will theirs.</figcaption>
+          </figure>
         </div>
-      </figure>
-      <div class="tabs" role="tablist" aria-label="Choose a screenshot">
-        <button role="tab" aria-selected="true"  data-shot="app-graph" data-name="graph"><kbd>1</kbd> graph</button>
-        <button role="tab" aria-selected="false" data-shot="workspace" data-name="workspace"><kbd>2</kbd> workspace</button>
-        <button role="tab" aria-selected="false" data-shot="conflicts" data-name="conflicts"><kbd>3</kbd> conflicts</button>
-        <button role="tab" aria-selected="false" data-shot="diff" data-name="diff"><kbd>4</kbd> diff</button>
-        <button role="tab" aria-selected="false" data-shot="palette" data-name="palette"><kbd>5</kbd> palette</button>
-        <button role="tab" aria-selected="false" data-shot="terminal" data-name="terminal"><kbd>6</kbd> terminal</button>
-        <button role="tab" aria-selected="false" data-shot="agents" data-name="agents" data-alt="The Agents tab with two running sessions, Claude Code and Cursor Agent, each tagged with its repository, and a sidebar of repositories, worktrees and installed agents."><kbd>7</kbd> agents</button>
-        <button role="tab" aria-selected="false" data-shot="orchestrator" data-name="orchestrator" data-alt="The Orchestrator dialog with a task typed in and a provider and model picker for the planner, feature developer and reviewer roles."><kbd>8</kbd> orchestrator</button>
-        <button role="tab" aria-selected="false" data-shot="home" data-name="home"><kbd>9</kbd> home</button>
       </div>
-      <p class="meta">The real app, running on a demo repository. Press <kbd>1</kbd>–<kbd>9</kbd> to flip through.</p>
     </div>
   </section>
 
 
-  <!-- ───────────── install ───────────── -->
-  <section class="sec" id="install" aria-labelledby="inst">
-    <div class="wrap">
-      <h2 id="inst"><span>Install</span></h2>
-      <p class="sub">Paste one line, or grab the file from the <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/tag/v0.9.2">v0.9.2 release</a>.</p>
-
-      <div class="os" role="tablist" aria-label="Operating system">
-        <button role="tab" aria-selected="false" data-os="mac">macOS</button>
-        <button role="tab" aria-selected="false" data-os="win">Windows</button>
-        <button role="tab" aria-selected="false" data-os="linux">Linux</button>
+  <!-- ═════ 2 · graph: tangle to graph, wipe ═════ -->
+  <section class="act wipe" id="graph" data-act data-span="2.4" style="--span:2.4" aria-labelledby="graph-h">
+    <div class="stick">
+      <div class="wipe-head">
+        <h2 id="graph-h" class="h"><span class="w-a">Your history is a tangle.</span><span class="w-b">Command the graph.</span></h2>
       </div>
-
-      <div class="install" data-panel="mac" hidden>
-        <p>One line, always the latest release:</p>
-<pre>curl -fsSL https://gitmoire.dev/install.sh | sh</pre>
-        <p>Or by hand: <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_universal.dmg">Download gitmoire_0.9.2_universal.dmg</a> <span class="dim">35.0 MB</span></p>
-<pre>curl -fL -o ~/Downloads/gitmoire_0.9.2_universal.dmg https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_universal.dmg
-xattr -cr ~/Downloads/gitmoire_0.9.2_universal.dmg &amp;&amp; open ~/Downloads/gitmoire_0.9.2_universal.dmg</pre>
-        <p>Drag it into Applications before launching. Gatekeeper blocks the first open because the build isn't notarized: System Settings, Privacy &amp; Security, Open Anyway.</p>
+      <div class="wipe-stage">
+        <div class="tangle" aria-hidden="true"><pre id="tangle"></pre><p class="cap">git log --oneline --graph, on a bad day</p></div>
+        <figure class="real" id="wipe-real">
+          <div class="frame"><img src="/assets/shots/live/graph-phosphor.webp" width="1920" height="1200" alt="The gitmoire commit graph in the Phosphor theme: branch lanes, stash and WIP nodes, author initials and a repository sidebar."></div>
+          <figcaption class="cap">gitmoire, Phosphor theme. Real app, demo repository.</figcaption>
+        </figure>
+        <i class="seam" id="seam" aria-hidden="true"></i>
       </div>
-      <div class="install" data-panel="win" hidden>
-        <p>One line in PowerShell, always the latest release:</p>
-<pre>irm https://gitmoire.dev/install.ps1 | iex</pre>
-        <p>Or by hand: <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64-setup.exe">Download gitmoire_0.9.2_x64-setup.exe</a> <span class="dim">14.4 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64_en-US.msi">Download gitmoire_0.9.2_x64_en-US.msi</a> <span class="dim">16.0 MB</span></p>
-<pre><span class="dim"># PowerShell, setup exe</span>
-curl.exe -fL -o "$env:TEMP\gitmoire_0.9.2_x64-setup.exe" "https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64-setup.exe"
-Start-Process "$env:TEMP\gitmoire_0.9.2_x64-setup.exe"
-
-<span class="dim"># or the MSI</span>
-curl.exe -fL -o "$env:TEMP\gitmoire_0.9.2_x64_en-US.msi" "https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_x64_en-US.msi"
-Start-Process msiexec.exe -ArgumentList '/i', "$env:TEMP\gitmoire_0.9.2_x64_en-US.msi"</pre>
-        <p>SmartScreen says "Windows protected your PC" because the build isn't signed. Choose More info, then Run anyway.</p>
-      </div>
-      <div class="install" data-panel="linux" hidden>
-        <p>One line, always the latest release. It picks the right package: a pacman package on Arch and Omarchy, .deb on Debian and Ubuntu, .rpm on Fedora and RHEL, the AppImage anywhere else.</p>
-<pre>curl -fsSL https://gitmoire.dev/install.sh | sh</pre>
-        <p>Or by hand: <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.AppImage">Download gitmoire_0.9.2_amd64.AppImage</a> <span class="dim">89.7 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.deb">Download gitmoire_0.9.2_amd64.deb</a> <span class="dim">18.0 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire-0.9.2-1.x86_64.rpm">Download gitmoire-0.9.2-1.x86_64.rpm</a> <span class="dim">18.0 MB</span></p>
-<pre><span class="dim"># AppImage</span>
-curl -fL -o gitmoire_0.9.2_amd64.AppImage https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.AppImage
-chmod +x gitmoire_0.9.2_amd64.AppImage
-./gitmoire_0.9.2_amd64.AppImage
-
-<span class="dim"># Debian and Ubuntu</span>
-curl -fL -o gitmoire_0.9.2_amd64.deb https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire_0.9.2_amd64.deb
-sudo apt install ./gitmoire_0.9.2_amd64.deb
-
-<span class="dim"># Fedora and RHEL</span>
-curl -fL -o gitmoire-0.9.2-1.x86_64.rpm https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.9.2/gitmoire-0.9.2-1.x86_64.rpm
-sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
-        <p>The AppImage needs WebKitGTK 4.1 and libssl, which you almost certainly have. Once it's installed, <code>gitmoire</code> opens the current directory and <code>gitmo</code> is the short alias.</p>
-      </div>
-
-      <p class="meta">After the first install, gitmoire updates itself, and every update is verified before it installs.</p>
+      <p class="wipe-sub">Virtualized, so it never hiccups. Drag a branch onto another to merge or rebase. Paste a hash and it jumps. Picked the wrong branch? <kbd>Ctrl</kbd><kbd>Z</kbd>. You're welcome.</p>
     </div>
   </section>
 
 
-  <!-- ───────────── features ───────────── -->
-  <section class="sec" id="features" aria-labelledby="feat">
+  <!-- ═════ 3 · craft ═════ -->
+  <section class="act sec craft" id="craft" data-act aria-labelledby="craft-h">
     <div class="wrap">
-      <h2 id="feat"><span>The 25 things you actually do</span></h2>
-      <p class="sub">Other clients ship a hundred features. I ship the best 25 and make them embarrassingly good.</p>
-
+      <h2 id="craft-h" class="h">Built for the daily loop.</h2>
+      <p class="sub">Stage, commit, branch, merge, push. The parts you touch all day, done properly and kept out of your way.</p>
       <div class="grid">
-        <article class="pane"><h3 class="pane-title">graph</h3>
-          <p>Virtualized, so it never hiccups. Drag a branch onto another to merge or rebase; merges default to real no-ff commits. Paste a hash and it jumps. Picked the wrong branch? <kbd>Ctrl</kbd><kbd>Z</kbd>. You're welcome.</p></article>
         <article class="pane"><h3 class="pane-title">conflicts</h3>
           <p>Both sides, with line numbers. One checkbox takes a whole side, hover-plus takes a single line, and the result pane is a live editor. Nothing touches your files until you hit Mark resolved.</p></article>
         <article class="pane"><h3 class="pane-title">worktrees</h3>
@@ -280,10 +199,17 @@ sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
           <p>Stashes and your work in progress are first-class nodes on the graph, not a drawer you forget about. Right-click one to apply, branch from it, or drop it (after it asks).</p></article>
         <article class="pane"><h3 class="pane-title">palette actions</h3>
           <p>Teach the palette your own commands, per repo or everywhere, and run them in a terminal tab or quietly in the background. It's a task runner that already knows which repo you're in.</p></article>
+        <article class="pane"><h3 class="pane-title">quick commits</h3>
+          <p>Save a commit message once, reuse it forever from the palette.</p></article>
         <article class="pane"><h3 class="pane-title">yours</h3>
           <p>Identity profiles live in your repo config, never your global gitconfig. Tokens live in your OS keyring. Nothing phones home, because there is nothing to phone home to.</p></article>
       </div>
-
+      <div class="craft-shots">
+        <figure class="pane focus"><figcaption class="pane-title">the palette</figcaption>
+          <div class="viewport"><img src="/assets/shots/live/palette.webp" width="1920" height="1200" loading="lazy" alt="The command palette open over the graph, listing branch actions such as reset branch, merge branch into current and create branch."></div></figure>
+        <figure class="pane focus"><figcaption class="pane-title">quick commits</figcaption>
+          <div class="viewport"><img src="/assets/shots/live/quick.webp" width="1920" height="1200" loading="lazy" alt="The quick commits list opened from the palette, with saved messages such as feat: add settings toggle."></div></figure>
+      </div>
       <h3 class="rule"><span>What I left out on purpose</span></h3>
       <ul class="tree">
         <li><b>In-app PR review.</b> Your forge does it better: CI logs, suggestions, threads. You get an Open in browser button and I keep my dignity.</li>
@@ -294,16 +220,82 @@ sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
   </section>
 
 
-  <!-- ───────────── agents ───────────── -->
-  <section class="sec" id="agents" aria-labelledby="ag-h">
+  <!-- ═════ 4 · conflicts: pointer ═════ -->
+  <section class="act sec conflicts" id="conflicts" data-act aria-labelledby="conf-h">
     <div class="wrap">
-      <h2 id="ag-h"><span>Agents get their own room</span></h2>
-      <p class="sub">Press <kbd>Alt</kbd><kbd>A</kbd> from anywhere. Your AI CLIs stop being a tab you lose and become a first-class view, with the same tab strip as your repositories.</p>
+      <h2 id="conf-h" class="h">Banish conflicts.</h2>
+      <p class="sub">Try it. Take a side, or a single line. The result pane is what would be written, and nothing touches your files until you mark it resolved.</p>
+      <div class="resolver" id="resolver" data-state="open">
+        <div class="side" data-side="ours">
+          <div class="side-h"><b>ours</b> <span class="dim">main</span>
+            <label class="take"><input type="checkbox" data-all="ours"> take this side</label></div>
+          <ol class="code" id="r-ours"></ol>
+        </div>
+        <div class="side" data-side="theirs">
+          <div class="side-h"><b>theirs</b> <span class="dim">feature/lane-colors</span>
+            <label class="take"><input type="checkbox" data-all="theirs"> take this side</label></div>
+          <ol class="code" id="r-theirs"></ol>
+        </div>
+        <div class="side result">
+          <div class="side-h"><b>result</b> <span class="dim">drawGraph.ts</span></div>
+          <pre class="out" id="r-out" aria-live="polite"></pre>
+          <div class="r-foot"><button class="btn primary" id="r-mark" type="button" disabled>Mark resolved</button>
+            <span class="meta" id="r-status">2 conflicts left in this repository.</span></div>
+        </div>
+      </div>
+      <p class="meta">A hand-sized sample, running real logic. In the app this is the full three-pane resolver with line numbers.</p>
+      <div class="split">
+        <figure class="pane focus"><figcaption class="pane-title">diff</figcaption>
+          <div class="viewport"><img src="/assets/shots/live/diff.webp" width="1920" height="1200" loading="lazy" alt="A split diff in gitmoire with added and removed lines highlighted and a staged file list on the right."></div></figure>
+        <figure class="pane focus"><figcaption class="pane-title">suggested resolution</figcaption>
+          <div class="viewport"><img src="/assets/shots/conflict-suggest.webp" width="2000" height="1250" loading="lazy" alt="The conflict resolver with an AI-suggested result previewed with Accept, Edit and Discard, a medium confidence label and a rationale."></div>
+          <figcaption class="meta shot-note">Demo mode with a canned model reply, so the text is sample output.</figcaption></figure>
+      </div>
+    </div>
+  </section>
 
+
+  <!-- ═════ 5 · agents: THE PEAK ═════ -->
+  <section class="act peak" id="agents" data-act data-span="4.6" style="--span:4.6" aria-labelledby="ag-h">
+    <div class="stick">
+      <div class="peak-bg" aria-hidden="true"><img src="/assets/shots/agents.webp" width="2000" height="1250" alt="" loading="lazy"></div>
+      <div class="wrap peak-grid">
+        <div class="peak-copy">
+          <h2 id="ag-h" class="h">Agents get their own room.</h2>
+          <p class="sub">Press <kbd>Alt</kbd><kbd>A</kbd> from anywhere. Describe a task, approve the battleplan, and gitmoire deploys one agent per task, each in its own worktree.</p>
+          <ol class="steps" id="peak-steps">
+            <li><b>Describe it.</b> Or paste a Linear issue. The orchestrator questions you.</li>
+            <li><b>You approve the plan.</b> Nothing is deployed until you say so.</li>
+            <li><b>One agent per task.</b> Each in its own worktree, talking through <code>gitmoire agent</code>.</li>
+            <li><b>A reviewer comes along,</b> and the branches merge back.</li>
+          </ol>
+        </div>
+        <div class="peak-stage">
+          <div class="orch pane" aria-hidden="true"><i class="crop" style="background-image:url(/assets/shots/live/orchestrator.webp)"></i></div>
+          <div class="sim pane">
+            <h3 class="pane-title">orchestrator <span class="dim">sample run</span></h3>
+            <pre class="plan" id="peak-plan"><span class="p">›</span> task: <span id="peak-task">Add CSV export to the stats page</span><span class="cursor" aria-hidden="true"></span>
+<span class="dim">battleplan, 3 tasks. approve? </span><span class="ok" id="peak-approve">[y] approved</span></pre>
+            <ul class="lanes" id="peak-lanes">
+              <li data-k="0"><span class="wt">wt/csv-export-api</span><span class="lbar"><i></i></span><span class="badge">done</span></li>
+              <li data-k="1"><span class="wt">wt/csv-export-ui</span><span class="lbar"><i></i></span><span class="badge">done</span></li>
+              <li data-k="2"><span class="wt">wt/review</span><span class="lbar"><i></i></span><span class="badge">done</span></li>
+            </ul>
+            <p class="merge" id="peak-merge"><span class="ok">✓</span> merged 3 branches into main</p>
+          </div>
+        </div>
+      </div>
+      <p class="meta peak-note">An illustration of the flow with a sample task. The real dialog is on the left, in demo mode.</p>
+    </div>
+  </section>
+
+  <section class="act sec agents-more" id="agent-view" data-act aria-labelledby="av-h">
+    <div class="wrap">
+      <h3 id="av-h" class="h h3">The agent view, and the rest of the crew</h3>
       <div class="split">
         <div>
-          <p class="big">The agent view.</p>
-          <p>One screen for every session, across every repository and worktree. Claude Code, Codex, Gemini, OpenCode, Cursor Agent and Antigravity are found automatically, and each one runs in a real terminal.</p>
+          <p class="big">One screen for every session.</p>
+          <p>Across every repository and worktree. Claude Code, Codex, Gemini, OpenCode, Cursor Agent and Antigravity are found automatically, and each one runs in a real terminal.</p>
           <ul class="tree">
             <li><b>Readable at a glance.</b> Every tab and sidebar row wears its repository's logo and colour, and a wizard avatar of its own, so a stack of terminals doesn't turn into soup.</li>
             <li><b>Follows the repo you pick.</b> The sidebar shows that repository's worktrees, running sessions and a mini commit graph, and collapses with <kbd>Ctrl</kbd><kbd>B</kbd>.</li>
@@ -312,123 +304,56 @@ sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
           </ul>
         </div>
         <figure class="pane focus">
-          <figcaption class="pane-title">agents</figcaption>
-          <div class="viewport"><img src="/assets/shots/agents.webp" width="2000" height="1250" loading="lazy" alt="The Agents tab with two running sessions, Claude Code and Cursor Agent, each tagged with its repository, and a sidebar of repositories, worktrees and installed agents."></div>
+          <figcaption class="pane-title">add agent</figcaption>
+          <div class="viewport"><img src="/assets/shots/live/new-agent.webp" width="1920" height="1200" loading="lazy" alt="The Add agent dialog listing Terminal only, Claude Code and Cursor Agent, with a repository and branch picker."></div>
           <figcaption class="meta shot-note">Demo mode: the terminals show a placeholder prompt. The desktop app runs the real CLIs.</figcaption>
         </figure>
       </div>
-
-      <div class="split">
-        <figure class="pane focus">
-          <figcaption class="pane-title">orchestrator</figcaption>
-          <div class="viewport"><img src="/assets/shots/orchestrator.webp" width="700" height="1050" loading="lazy" alt="The Orchestrator dialog with a task typed in and a provider and model picker for the planner, feature developer and reviewer roles."></div>
-          <figcaption class="meta shot-note">The real dialog in demo mode, with a sample task.</figcaption>
-        </figure>
-        <div>
-          <p class="big">Orchestration.</p>
-          <p>Describe a task, or paste a Linear issue. An orchestrator agent questions you, then draws a battleplan. You approve it, and gitmoire deploys one agent per task, each in its own worktree.</p>
-          <ul class="tree">
-            <li><b>You approve the plan.</b> Nothing is deployed until you say so.</li>
-            <li><b>They talk to each other.</b> Agents coordinate through <code>gitmoire agent start|notify|inbox|wait|plan|status</code>. <code>done</code>, <code>waiting</code> and <code>blocked</code> show up as tab badges and toasts.</li>
-            <li><b>A reviewer comes along.</b> The orchestrator starts one beside the implementers.</li>
-            <li><b>Pick a model per role.</b> Planner, feature developer and reviewer each get their own provider and model, in Settings → AI or per run. The model menu lists what each CLI actually reports.</li>
-            <li><b>Bring the skill.</b> A bundled <code>gitmoire-orchestration</code> skill installs for Claude Code from the dialog.</li>
-          </ul>
-        </div>
-      </div>
+      <ul class="tree">
+        <li><b>They talk to each other.</b> Agents coordinate through <code>gitmoire agent start|notify|inbox|wait|plan|status</code>. <code>done</code>, <code>waiting</code> and <code>blocked</code> show up as tab badges and toasts.</li>
+        <li><b>Pick a model per role.</b> Planner, feature developer and reviewer each get their own provider and model, in Settings → AI or per run. The model menu lists what each CLI actually reports.</li>
+        <li><b>Bring the skill.</b> A bundled <code>gitmoire-orchestration</code> skill installs for Claude Code from the dialog.</li>
+      </ul>
     </div>
   </section>
 
 
-  <!-- ───────────── ai ───────────── -->
-  <section class="sec" id="ai" aria-labelledby="ai-h">
-    <div class="wrap">
-      <h2 id="ai-h"><span>AI, strictly opt-in</span></h2>
-      <p class="sub">Off until you turn it on. Then it borrows your own Claude Code, Codex, Gemini, OpenCode, Cursor Agent or Antigravity CLI, an API key, or local Ollama. Requests go straight to your provider, and every run has a Stop button because I don't trust robots either.</p>
-
-      <div class="split">
-        <div>
-          <p class="big">Atomic commits.</p>
-          <p>You did six things and committed none of them. One button, or <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>A</kbd>, hands the mess to the AI, which sorts it into logical commits.</p>
-          <ul class="tree">
-            <li>Every hunk and whole file becomes a unit you can move.</li>
-            <li>The plan arrives as an editable list of conventional messages. Unassigned units get flagged before you approve, and you can re-roll any message with a note.</li>
-            <li>Approving books the commits in order.</li>
-            <li>A conflict or a paused rebase blocks it before it starts, so it never fails halfway.</li>
-          </ul>
-        </div>
-        <figure class="pane focus">
-          <figcaption class="pane-title">atomic commits</figcaption>
+  <!-- ═════ 6 · ai: pan ═════ -->
+  <section class="act pan" id="ai" data-act data-span="3.2" style="--span:3.2" aria-labelledby="ai-h">
+    <div class="stick">
+      <div class="pan-track" id="pan-track">
+        <article class="card intro"><h2 id="ai-h" class="h">AI, strictly opt-in</h2>
+          <p>Off until you turn it on. Then it borrows your own Claude Code, Codex, Gemini, OpenCode, Cursor Agent or Antigravity CLI, an API key, or local Ollama. Requests go straight to your provider, and every run has a Stop button because I don't trust robots either.</p>
+          <p class="dim">Keep scrolling. The rest of this window moves sideways.</p></article>
+        <article class="card"><h3 class="pane-title">atomic commits</h3>
           <div class="viewport"><img src="/assets/shots/atomic.webp" width="1160" height="800" loading="lazy" alt="The Atomic commits dialog showing three suggested commits with editable messages and the file hunks under each."></div>
-          <figcaption class="meta shot-note">The real dialog in demo mode. The plan is a sample from a canned model reply.</figcaption>
-        </figure>
-      </div>
-
-      <div class="grid ai-grid">
-        <article class="pane"><h3 class="pane-title">commit messages</h3>
-          <p>The sparkle in the summary box writes a message in your style: your prefix list, your 50/72, your gitmoji or lack of one.</p></article>
-        <article class="pane"><h3 class="pane-title">review staged</h3>
-          <p>A second pair of eyes on exactly what you're about to commit, before the commit exists to be embarrassed about.</p></article>
-        <article class="pane"><h3 class="pane-title">explain a conflict</h3>
-          <p>Both sides, in plain English: what each branch was trying to do and why they collided. Per file, with Stop.</p></article>
-        <article class="pane"><h3 class="pane-title">suggest a resolution</h3>
-          <p>Proposes a merged result per conflict, or <b>Suggest all</b> with a progress count and Stop. It lands as an unaccepted ghost preview with Accept, Edit and Discard, a confidence label and a rationale — never auto-applied, never auto-staged.</p></article>
-        <article class="pane"><h3 class="pane-title">explain a commit</h3>
-          <p>Inherited a repo with commit messages like "update"? Ask what a commit actually did.</p></article>
-        <article class="pane"><h3 class="pane-title">pr descriptions</h3>
-          <p>Generated from the commits on the branch. Edit it, paste it, pretend you wrote it at your desk.</p></article>
-        <article class="pane"><h3 class="pane-title">agents and orchestration</h3>
-          <p>Run an AI CLI next to your commits, or hand a task to the orchestrator and let it deploy agents into their own worktrees. More in the <a href="#agents">agents</a> section.</p></article>
-      </div>
-
-      <div class="ai-shots">
-        <figure class="pane focus">
-          <figcaption class="pane-title">ai review</figcaption>
-          <div class="viewport"><img src="/assets/shots/review.webp" width="760" height="760" loading="lazy" alt="An AI review panel listing three findings by severity above the commit box."></div>
-        </figure>
-        <figure class="pane focus">
-          <figcaption class="pane-title">commit message</figcaption>
+          <p>You did six things and committed none of them. <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>A</kbd> hands the mess to the AI, which sorts it into logical commits you can edit, re-roll and approve. A conflict or a paused rebase blocks it before it starts, so it never fails halfway.</p></article>
+        <article class="card"><h3 class="pane-title">commit messages</h3>
           <div class="viewport"><img src="/assets/shots/commit-message.webp" width="760" height="760" loading="lazy" alt="The commit summary box filled in by the AI with a conventional message."></div>
-        </figure>
-        <figure class="pane focus wide">
-          <figcaption class="pane-title">suggested resolution</figcaption>
-          <div class="viewport"><img src="/assets/shots/conflict-suggest.webp" width="2000" height="1250" loading="lazy" alt="The conflict resolver with an AI-suggested result previewed with Accept, Edit and Discard, a medium confidence label and a rationale."></div>
-        </figure>
-      </div>
-      <p class="meta shelf">Screenshots are the real app in demo mode with canned model replies, so the text is sample output. Still on the shelf, drafted and not started: AI-assisted autosquash for interactive rebase. I'll tell you when it's real. Progress lives in the <a href="#roadmap">roadmap</a>.</p>
-    </div>
-  </section>
-
-
-  <!-- ───────────── terminal ───────────── -->
-  <section class="sec" id="terminal" aria-labelledby="term-h">
-    <div class="wrap">
-      <h2 id="term-h"><span>A terminal, because you were going to open one anyway</span></h2>
-      <div class="split">
-        <div>
-          <p class="big">Press <kbd>Ctrl</kbd><kbd>`</kbd>.</p>
-          <p>Every repository gets a shell at its own path, right under the graph. It picks up your login environment, so Homebrew, fnm, nvm, volta and mise resolve exactly as they do in your real terminal.</p>
+          <p>The sparkle in the summary box writes a message in your style: your prefix list, your 50/72, your gitmoji or lack of one.</p></article>
+        <article class="card"><h3 class="pane-title">review staged</h3>
+          <div class="viewport"><img src="/assets/shots/live/ai-review.webp" width="1920" height="1200" loading="lazy" alt="An AI review panel listing findings by severity above the commit box."></div>
+          <p>A second pair of eyes on exactly what you're about to commit, before the commit exists to be embarrassed about.</p></article>
+        <article class="card"><h3 class="pane-title">suggest a resolution</h3>
+          <div class="viewport"><img src="/assets/shots/live/ai-resolve.webp" width="1920" height="1200" loading="lazy" alt="The conflict resolver with an AI suggestion shown as a ghost preview with Accept, Edit and Discard buttons."></div>
+          <p>Proposes a merged result per conflict, or <b>Suggest all</b> with a progress count and Stop. It lands as an unaccepted ghost preview with Accept, Edit and Discard, a confidence label and a rationale: never auto-applied, never auto-staged.</p></article>
+        <article class="card words"><h3 class="pane-title">and also</h3>
           <ul class="tree">
-            <li><b>Split it.</b> <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>D</kbd> opens a pane beside it, <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>W</kbd> closes one, and the active pane wears a coloured edge so you know where you're typing.</li>
-            <li><b>Bring agents.</b> Add Claude Code, Codex, Gemini, OpenCode, Cursor Agent or Antigravity (found automatically) in a split next to the commit graph. Run several as tabs, jump with <kbd>Alt</kbd><kbd>1…9</kbd>, and give your favourites a colour and a summon key. For a whole-screen view, see <a href="#agents">Agents</a>.</li>
-            <li><b>Copy like a person.</b> <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>C</kbd> and <kbd>V</kbd>, and <kbd>Alt</kbd><kbd>←</kbd><kbd>→</kbd> reach the shell so your agent's shortcuts work.</li>
-            <li><b>Run your palette actions here,</b> or in the background if you'd rather not watch.</li>
+            <li><b>Explain a conflict.</b> Both sides in plain English: what each branch was trying to do and why they collided. Per file, with Stop.</li>
+            <li><b>Explain a commit.</b> Inherited a repo with commit messages like "update"? Ask what a commit actually did.</li>
+            <li><b>PR descriptions.</b> Generated from the commits on the branch. Edit it, paste it, pretend you wrote it at your desk.</li>
+            <li><b>Agents and orchestration.</b> More in the <a href="#agents">agents</a> window.</li>
           </ul>
-        </div>
-        <figure class="pane focus">
-          <figcaption class="pane-title">terminal</figcaption>
-          <div class="viewport"><img id="term-shot" src="/assets/shots/terminal.webp" width="2000" height="1250" alt="gitmoire with the terminal panel open under the commit graph" loading="lazy"></div>
-          <figcaption class="meta shot-note">Demo mode shows a placeholder prompt. The desktop app runs your real shell.</figcaption>
-        </figure>
+          <p class="meta">Screenshots are the real app in demo mode with canned model replies. Still on the shelf, drafted and not started: AI-assisted autosquash. I'll tell you when it's real. See the <a href="#roadmap">roadmap</a>.</p></article>
       </div>
     </div>
   </section>
 
 
-  <!-- ───────────── gitmo CLI ───────────── -->
-  <section class="sec" id="cli" aria-labelledby="cli-h">
+  <!-- ═════ 7 · cli + terminal + prefixes ═════ -->
+  <section class="act sec cli" id="cli" data-act aria-labelledby="cli-h">
     <div class="wrap">
-      <h2 id="cli-h"><span>gitmo: the ritual without the window</span></h2>
+      <h2 id="cli-h" class="h">gitmo: the ritual without the window</h2>
       <div class="split">
         <div>
           <p class="big">Four wizards. Zero windows.</p>
@@ -440,28 +365,39 @@ sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
             <li><code>gitmo cleanup</code> fetches, prunes, and pre-checks merged branches in a picker.</li>
           </ul>
         </div>
-        <figure>
-<pre class="term" aria-label="Illustrative transcript of gitmo commit"><span class="p">$</span> gitmo commit
- <span class="dim">changed files</span>
-  <span class="n">1</span> <span class="g">M</span> src/core/ipc.ts
-  <span class="n">2</span> <span class="g">M</span> src/features/graph/drawGraph.ts
-  <span class="n">3</span> <span class="b">?</span> src/data/palette-seed.sql
- <span class="p">›</span> stage: <b>1,2</b>
- <span class="p">›</span> prefix: <b>✨ feat</b>
- <span class="p">›</span> message: <b>virtualise commit rows</b>
- <span class="ok">✓</span> committed <span class="y">a3f9c21</span>
- <span class="dim">undo: git reset --soft 7d85c03</span></pre>
+        <figure class="term-fig">
+<pre class="term" id="term" aria-label="Illustrative transcript of gitmo commit"><span class="ln" data-at="0.02"><span class="p">$</span> gitmo commit</span>
+<span class="ln" data-at="0.12"> <span class="dim">changed files</span></span>
+<span class="ln" data-at="0.2">  <span class="n">1</span> <span class="g">M</span> src/core/ipc.ts</span>
+<span class="ln" data-at="0.27">  <span class="n">2</span> <span class="g">M</span> src/features/graph/drawGraph.ts</span>
+<span class="ln" data-at="0.34">  <span class="n">3</span> <span class="b">?</span> src/data/palette-seed.sql</span>
+<span class="ln" data-at="0.45"> <span class="p">›</span> stage: <b>1,2</b></span>
+<span class="ln" data-at="0.56"> <span class="p">›</span> prefix: <b>✨ feat</b></span>
+<span class="ln" data-at="0.67"> <span class="p">›</span> message: <b>virtualise commit rows</b></span>
+<span class="ln" data-at="0.8"> <span class="ok">✓</span> committed <span class="y">a3f9c21</span></span>
+<span class="ln" data-at="0.9"> <span class="dim">undo: git reset --soft 7d85c03</span></span></pre>
           <figcaption class="meta">Illustrative transcript. Hashes are invented; the flow is the real one.</figcaption>
         </figure>
       </div>
-    </div>
-  </section>
 
+      <div class="split">
+        <figure class="pane focus">
+          <figcaption class="pane-title">terminal</figcaption>
+          <div class="viewport"><img id="term-shot" src="/assets/shots/terminal.webp" width="2000" height="1250" alt="gitmoire with the terminal panel open under the commit graph" loading="lazy"></div>
+          <figcaption class="meta shot-note">Demo mode shows a placeholder prompt. The desktop app runs your real shell.</figcaption>
+        </figure>
+        <div>
+          <p class="big">Press <kbd>Ctrl</kbd><kbd>`</kbd>.</p>
+          <p>Every repository gets a shell at its own path, right under the graph. It picks up your login environment, so Homebrew, fnm, nvm, volta and mise resolve exactly as they do in your real terminal.</p>
+          <ul class="tree">
+            <li><b>Split it.</b> <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>D</kbd> opens a pane beside it, <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>W</kbd> closes one, and the active pane wears a coloured edge so you know where you're typing.</li>
+            <li><b>Bring agents.</b> Run several as tabs, jump with <kbd>Alt</kbd><kbd>1…9</kbd>, and give your favourites a colour and a summon key.</li>
+            <li><b>Copy like a person.</b> <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>C</kbd> and <kbd>V</kbd>, and <kbd>Alt</kbd><kbd>←</kbd><kbd>→</kbd> reach the shell so your agent's shortcuts work.</li>
+            <li><b>Run your palette actions here,</b> or in the background if you'd rather not watch.</li>
+          </ul>
+        </div>
+      </div>
 
-  <!-- ───────────── commit prefixes ───────────── -->
-  <section class="sec" id="prefixes" aria-labelledby="pre-h">
-    <div class="wrap">
-      <h2 id="pre-h"><span>Commit prefixes, as dropdowns</span></h2>
       <div class="split">
         <div>
           <p class="big">Conventions you don't have to remember.</p>
@@ -475,14 +411,10 @@ sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
           </ul>
         </div>
         <div class="pre-shots">
-          <figure class="pane focus">
-            <figcaption class="pane-title">prefix picker</figcaption>
-            <div class="viewport"><img src="/assets/shots/prefix-open.webp" width="760" height="600" loading="lazy" alt="The commit box with a type dropdown open, listing feat, fix, perf, refactor, docs, test and chore."></div>
-          </figure>
-          <figure class="pane focus">
-            <figcaption class="pane-title">type to add</figcaption>
-            <div class="viewport"><img src="/assets/shots/prefix-filter.webp" width="760" height="600" loading="lazy" alt="Typing fe filters the list to feat and offers to add a new value."></div>
-          </figure>
+          <figure class="pane focus"><figcaption class="pane-title">prefix picker</figcaption>
+            <div class="viewport"><img src="/assets/shots/prefix-open.webp" width="760" height="600" loading="lazy" alt="The commit box with a type dropdown open, listing feat, fix, perf, refactor, docs, test and chore."></div></figure>
+          <figure class="pane focus"><figcaption class="pane-title">type to add</figcaption>
+            <div class="viewport"><img src="/assets/shots/prefix-filter.webp" width="760" height="600" loading="lazy" alt="Typing fe filters the list to feat and offers to add a new value."></div></figure>
           <p class="meta">Template <code>&lt;type&gt;(&lt;scope&gt;):</code> turns <b>feat</b> and <b>graph</b> into <code>feat(graph): virtualize commit rows</code>.</p>
         </div>
       </div>
@@ -490,62 +422,32 @@ sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
   </section>
 
 
-  <!-- ───────────── weigh-in ───────────── -->
-  <section class="sec" aria-labelledby="weigh">
+  <!-- ═════ 8 · themes: the regrade ═════ -->
+  <section class="act sec themes" id="themes" data-act aria-labelledby="th">
     <div class="wrap">
-      <h2 id="weigh"><span>The weigh-in</span></h2>
-      <div class="split">
-        <div>
-          <p class="big">I respect your SSD.</p>
-          <p>Every Git client I tried was a website wearing a trench coat. Slow to open, a gigabyte on disk, and a login screen standing between me and a typo fix. Insulting.</p>
-          <p>gitmoire runs Git on Rust and libgit2 instead of a pile of shell scripts, so a hundred thousand commits scroll like fifty.</p>
-        </div>
-        <figure class="bars" aria-label="v0.9.2 download sizes: macOS dmg 35.0 megabytes, Windows setup.exe 14.4 megabytes, Windows msi 16.0 megabytes, Linux deb 18.0 megabytes, Linux rpm 18.0 megabytes, Linux AppImage 89.7 megabytes, an Electron client about 1 gigabyte">
-          <div class="chart">
-            <div class="row"><span class="lbl">macOS .dmg</span><span class="track"><i class="bar ok" style="width:3.5%"></i></span><span class="val">35.0 MB</span></div>
-            <div class="row"><span class="lbl">Windows setup.exe</span><span class="track"><i class="bar ok" style="width:1.44%"></i></span><span class="val">14.4 MB</span></div>
-            <div class="row"><span class="lbl">Windows .msi</span><span class="track"><i class="bar ok" style="width:1.6%"></i></span><span class="val">16.0 MB</span></div>
-            <div class="row"><span class="lbl">Linux .deb</span><span class="track"><i class="bar ok" style="width:1.8%"></i></span><span class="val">18.0 MB</span></div>
-            <div class="row"><span class="lbl">Linux .rpm</span><span class="track"><i class="bar ok" style="width:1.8%"></i></span><span class="val">18.0 MB</span></div>
-            <div class="row"><span class="lbl">Linux AppImage</span><span class="track"><i class="bar ok" style="width:8.97%"></i></span><span class="val">89.7 MB</span></div>
-            <div class="row"><span class="lbl">Electron client</span><span class="track"><i class="bar bad" style="width:100%"></i></span><span class="val">~1 GB</span></div>
-          </div>
-          <figcaption class="meta">v0.9.2 release assets, from the published byte counts. Bars are to scale against ~1&nbsp;GB, and yes, they are still that small.</figcaption>
-        </figure>
+      <h2 id="th" class="h">Dress it in shadow.</h2>
+      <p class="sub">Fifteen hand-tuned themes, five accent colours and six graph palettes. This whole page is wearing whichever you pick below, so go on, try one.</p>
+      <div class="theme-lab">
+        <div class="theme-picks" role="radiogroup" aria-label="Page and app theme" id="theme-picks"></div>
+        <div class="accent-picks" role="radiogroup" aria-label="Accent colour" id="accent-picks"></div>
       </div>
-
-      <div class="split open-time">
-        <div>
-          <p class="big">And it's ready before the kettle is.</p>
-          <p>GitKraken took me almost 40 seconds to open. gitmoire opens in under 5. That's not a benchmark suite, it's me waiting for a window on my own machine, which is the only benchmark that has ever annoyed me.</p>
-        </div>
-        <figure class="bars" aria-label="Time to open: gitmoire under 5 seconds, GitKraken almost 40 seconds">
-          <div class="chart">
-            <div class="row"><span class="lbl">gitmoire</span><span class="track"><i class="bar ok" style="width:12.5%"></i></span><span class="val">under 5 s</span></div>
-            <div class="row"><span class="lbl">GitKraken</span><span class="track"><i class="bar bad" style="width:100%"></i></span><span class="val">~40 s</span></div>
-          </div>
-          <figcaption class="meta">Time to a usable window, measured by hand on my machine. Your mileage will vary, and so will theirs.</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ───────────── per-project look ───────────── -->
-  <section class="sec" id="project" aria-labelledby="proj-h">
-    <div class="wrap">
-      <h2 id="proj-h"><span>Every project gets its own look</span></h2>
-      <p class="sub">gitmoire wears the repo you're in. Give a project a logo and it follows you around the whole app, so six tabs don't look like six copies of the same tool.</p>
+      <figure class="pane focus theme-shot">
+        <figcaption class="pane-title" id="theme-shot-name">dark magic</figcaption>
+        <div class="viewport"><img id="theme-shot" src="/assets/shots/theme-dark-magic.webp" width="1800" height="1125" alt="gitmoire in the Dark Magic theme" loading="lazy"></div>
+      </figure>
 
       <div class="split">
         <div>
+          <p class="big">Every project gets its own look.</p>
+          <p>gitmoire wears the repo you're in. Give a project a logo and it follows you around the whole app, so six tabs don't look like six copies of the same tool.</p>
           <ul class="tree">
-            <li><b>Logo on the tab and behind the graph.</b> Set it from any file, or pull an image straight out of the repo. It sits behind the graph with a radial fade, so rows stay readable.</li>
-            <li><b>The accent follows the logo.</b> Its dominant colour becomes the app accent, locked on by default with a per-repo escape hatch. Transparent, near-black and near-white pixels are skipped, and contrast stays readable. Diff and graph colours are never touched.</li>
-            <li><b>Worktrees get their own hue.</b> The repo's logo is hue-rotated by a stable hash of the worktree's path, so eight checkouts of one project read as eight different things.</li>
-            <li><b>Six lane palettes for the graph:</b> Gitmoire, Dark Magic, Neon, Pastel, Mono and Project, each tuned separately for dark and light.</li>
-            <li><b>Project</b> extracts a six-colour palette from the open repo's logo, re-extracted when you switch repo or theme, and it never bleeds between repos.</li>
+            <li><b>Logo on the tab and behind the graph.</b> It sits behind the graph with a radial fade, so rows stay readable.</li>
+            <li><b>The accent follows the logo.</b> Its dominant colour becomes the app accent, locked on by default with a per-repo escape hatch. Diff and graph colours are never touched.</li>
+            <li><b>Worktrees get their own hue,</b> so eight checkouts of one project read as eight different things.</li>
+            <li><b>Six lane palettes for the graph:</b> Gitmoire, Dark Magic, Neon, Pastel, Mono and Project, which lifts six colours out of the open repo's own logo.</li>
           </ul>
+          <div class="tabs" id="lane-tabs" role="tablist" aria-label="Graph lane palette"></div>
+          <div class="lane-swatches" id="lane-swatches" aria-label="Palette colours"></div>
         </div>
         <figure class="pane focus">
           <figcaption class="pane-title" id="lane-name">gitmoire</figcaption>
@@ -554,20 +456,37 @@ sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
         </figure>
       </div>
 
-      <div class="lane-tools">
-        <div class="tabs" id="lane-tabs" role="tablist" aria-label="Graph lane palette"></div>
-        <div class="lane-swatches" id="lane-swatches" aria-label="Palette colours"></div>
+      <h3 class="rule" id="omarchy"><span>Omarchy</span></h3>
+      <div class="split">
+        <div>
+          <a class="omarchy-logo" href="https://omarchy.org" aria-label="Omarchy, the Linux setup gitmoire mirrors"></a>
+          <p class="big">Your desktop, mirrored.</p>
+          <p>On Omarchy, gitmoire can wear your current system theme and follow it when you change it. Surfaces, borders, syntax and the accent all come from the theme's own colour file, so the app looks like it grew up on your machine. These are four stock Omarchy themes, applied to the real UI. New to it? <a href="https://omarchy.org">omarchy.org</a> has the whole story.</p>
+          <div class="tabs" id="omarchy-tabs" role="tablist" aria-label="Omarchy theme">
+            <button role="tab" aria-selected="true" data-omarchy="tokyo-night" data-name="Tokyo Night">Tokyo Night</button>
+            <button role="tab" aria-selected="false" data-omarchy="osaka-jade" data-name="Osaka Jade">Osaka Jade</button>
+            <button role="tab" aria-selected="false" data-omarchy="rose-pine" data-name="Rose Pine">Rose Pine</button>
+            <button role="tab" aria-selected="false" data-omarchy="catppuccin-latte" data-name="Catppuccin Latte">Catppuccin Latte</button>
+          </div>
+        </div>
+        <figure class="pane focus">
+          <figcaption class="pane-title" id="omarchy-name">tokyo night</figcaption>
+          <div class="viewport"><img id="omarchy-shot" src="/assets/shots/omarchy-tokyo-night.webp" width="1800" height="1125" loading="lazy" alt="gitmoire wearing the Tokyo Night Omarchy theme."></div>
+        </figure>
       </div>
+      <ul class="tree theme-notes">
+        <li><b>Accents</b> recolour the interactive bits only. Graph lanes and diff colours keep their meaning, so a green line is still an addition.</li>
+        <li><b>Switch fast.</b> <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>T</kbd> opens a theme switcher without going near settings.</li>
+      </ul>
     </div>
   </section>
 
 
-  <!-- ───────────── keys ───────────── -->
-  <section class="sec" id="keys" aria-labelledby="keys-h">
+  <!-- ═════ 9 · keys ═════ -->
+  <section class="act sec" id="keys" data-act aria-labelledby="keys-h">
     <div class="wrap">
-      <h2 id="keys-h"><span>Everything has a key</span></h2>
+      <h2 id="keys-h" class="h">Everything has a key.</h2>
       <p class="sub">Every binding is declared once, so the reference can't lie. <kbd class="os-mod">Ctrl</kbd><kbd>P</kbd> opens the palette, <kbd>?</kbd> lists everything in the app, and single keys do the daily ten whenever you aren't typing.</p>
-
       <div class="key-tools">
         <label class="key-find">
           <span class="sr">Filter shortcuts</span>
@@ -582,98 +501,83 @@ sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
   </section>
 
 
-  <!-- ───────────── themes ───────────── -->
-  <section class="sec" id="themes" aria-labelledby="th">
+  <!-- ═════ 10 · log: releases + roadmap ═════ -->
+  <section class="act sec log" id="log" data-act aria-labelledby="rel">
     <div class="wrap">
-      <h2 id="th"><span>Themes</span></h2>
-      <p class="sub">Fifteen hand-tuned themes, five accent colours and six graph palettes. This page is wearing whichever you pick below, so go on, try one.</p>
-
-      <div class="theme-lab">
-        <div class="theme-picks" role="radiogroup" aria-label="Page and app theme" id="theme-picks"></div>
-        <div class="accent-picks" role="radiogroup" aria-label="Accent colour" id="accent-picks"></div>
+      <h2 id="rel" class="h">git log</h2>
+      <div id="releases">
+        <p class="sub" id="rel-sub">Every version, straight from the changelog. Builds are published to the <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases">releases repo</a>, and the app updates itself with signature-verified downloads.</p>
+        <p class="notice" id="rel-notice" hidden></p>
+        <div id="release-list" class="releases"><p class="meta">Reading the changelog…</p></div>
       </div>
-
-      <figure class="pane focus theme-shot">
-        <figcaption class="pane-title" id="theme-shot-name">dark magic</figcaption>
-        <div class="viewport"><img id="theme-shot" src="/assets/shots/theme-dark-magic.webp" width="1800" height="1125" alt="gitmoire in the Dark Magic theme" loading="lazy"></div>
-      </figure>
-
-      <h3 class="rule" id="omarchy"><span>Omarchy</span></h3>
-      <div class="split">
-        <div>
-          <a class="omarchy-logo" href="https://omarchy.org" aria-label="Omarchy, the Linux setup gitmoire mirrors"></a>
-          <p class="big">Your desktop, mirrored.</p>
-          <p>On Omarchy, gitmoire can wear your current system theme and follow it when you change it. Surfaces, borders, syntax and the accent all come from the theme's own colour file, so the app looks like it grew up on your machine.</p>
-          <p>These are four stock Omarchy themes, applied to the real UI. New to it? <a href="https://omarchy.org">omarchy.org</a> has the whole story.</p>
-          <div class="tabs" id="omarchy-tabs" role="tablist" aria-label="Omarchy theme">
-            <button role="tab" aria-selected="true" data-omarchy="tokyo-night" data-name="Tokyo Night">Tokyo Night</button>
-            <button role="tab" aria-selected="false" data-omarchy="osaka-jade" data-name="Osaka Jade">Osaka Jade</button>
-            <button role="tab" aria-selected="false" data-omarchy="rose-pine" data-name="Rose Pine">Rose Pine</button>
-            <button role="tab" aria-selected="false" data-omarchy="catppuccin-latte" data-name="Catppuccin Latte">Catppuccin Latte</button>
-          </div>
-        </div>
-        <figure class="pane focus">
-          <figcaption class="pane-title" id="omarchy-name">tokyo night</figcaption>
-          <div class="viewport"><img id="omarchy-shot" src="/assets/shots/omarchy-tokyo-night.webp" width="1800" height="1125" loading="lazy" alt="gitmoire wearing the Tokyo Night Omarchy theme."></div>
-        </figure>
-      </div>
-
-      <ul class="tree theme-notes">
-        <li><b>Accents</b> recolour the interactive bits only. Graph lanes and diff colours keep their meaning, so a green line is still an addition.</li>
-        <li><b>Six graph palettes:</b> Gitmoire, Dark Magic, Neon, Pastel, Mono, and Project, which lifts six colours out of the open repo's own logo.</li>
-        <li><b>Switch fast.</b> <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>T</kbd> opens a theme switcher without going near settings.</li>
-      </ul>
-    </div>
-  </section>
-
-
-  <!-- ───────────── gallery ───────────── -->
-  <section class="sec" id="gallery" aria-labelledby="gal-h">
-    <div class="wrap">
-      <h2 id="gal-h"><span>Little things</span></h2>
-      <p class="sub">The corners people ask about. All real, all in the app.</p>
-      <div class="gallery">
-        <figure class="pane focus"><figcaption class="pane-title">worktree manager</figcaption>
-          <div class="viewport"><img src="/assets/shots/worktrees.webp" width="900" height="720" loading="lazy" alt="The Worktrees dialog listing three worktrees with a Merged badge, switch, remove and remove-with-branch actions."></div>
-          <figcaption class="meta shot-note"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>W</kbd>. Arrows to move, Enter to switch, Backspace to remove.</figcaption></figure>
-        <figure class="pane focus"><figcaption class="pane-title">theme switcher</figcaption>
-          <div class="viewport"><img src="/assets/shots/theme-switcher.webp" width="900" height="600" loading="lazy" alt="A searchable theme switcher listing all fifteen Dark Magic themes."></div>
-          <figcaption class="meta shot-note"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>T</kbd>. Searchable, previews as you move.</figcaption></figure>
-        <figure class="pane focus"><figcaption class="pane-title">ai settings</figcaption>
-          <div class="viewport"><img src="/assets/shots/settings-ai.webp" width="1360" height="1040" loading="lazy" alt="The AI Assistant settings with provider, base URL, model and a test connection button."></div>
-          <figcaption class="meta shot-note">Provider, model, connection test, custom agent commands.</figcaption></figure>
-        <figure class="pane focus"><figcaption class="pane-title">glamour</figcaption>
-          <div class="viewport"><img src="/assets/shots/settings-themes.webp" width="1360" height="1040" loading="lazy" alt="The Glamour settings with a grid of fifteen theme previews."></div>
-          <figcaption class="meta shot-note">Fifteen themes, previewed. Omarchy joins them when it's available.</figcaption></figure>
-        <figure class="pane focus wide"><figcaption class="pane-title">shortcuts, in the app</figcaption>
-          <div class="viewport"><img src="/assets/shots/keymap.webp" width="1800" height="1125" loading="lazy" alt="The in-app Keyboard shortcuts overlay listing every binding."></div>
-          <figcaption class="meta shot-note"><kbd>?</kbd> or <kbd>Ctrl</kbd><kbd>K</kbd>. The same list as the section above, generated from one registry.</figcaption></figure>
+      <h3 class="rule" id="roadmap-h"><span>Roadmap</span></h3>
+      <div id="roadmap">
+        <p class="sub" id="road">I track work as potions: small named batches with a progress bar. This is the real ledger, synced from the repo. It is not a mood board.</p>
+        <div id="roadmap-body" class="roadmap"><p class="meta">Brewing the roadmap…</p></div>
       </div>
     </div>
   </section>
 
 
-  <!-- ───────────── releases ───────────── -->
-  <section class="sec" id="releases" aria-labelledby="rel">
+  <!-- ═════ 11 · install: the close is a prompt ═════ -->
+  <section class="act sec close" id="install" data-act aria-labelledby="inst">
     <div class="wrap">
-      <h2 id="rel"><span>Releases</span></h2>
-      <p class="sub" id="rel-sub">Every version, straight from the changelog. Builds are published to the <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases">releases repo</a>, and the app updates itself with signature-verified downloads.</p>
-      <p class="notice" id="rel-notice" hidden></p>
-      <div id="release-list" class="releases"><p class="meta">Reading the changelog…</p></div>
-      <p class="fork" id="fork-note" hidden>
-        <span class="fork-rule" aria-hidden="true">╶──────────────── fork point ────────────────╴</span><br>
-        Everything before 0.2.0 is <a href="https://github.com/cheat2001/angkorgit">angkorGit</a>'s history. gitmoire is a hard fork, and the lineage is MIT all the way down.
-      </p>
-    </div>
-  </section>
+      <h2 id="inst" class="h">Summon your repos.</h2>
+      <p class="sub">Paste one line, or grab the file from the <a id="rel-link" href="https://github.com/dark-magic-studios/gitmoire-releases/releases/tag/v0.14.2">v0.14.2 release</a>.</p>
 
+      <div class="os" role="tablist" aria-label="Operating system">
+        <button role="tab" aria-selected="false" data-os="mac">macOS</button>
+        <button role="tab" aria-selected="false" data-os="win">Windows</button>
+        <button role="tab" aria-selected="false" data-os="linux">Linux</button>
+      </div>
 
-  <!-- ───────────── roadmap ───────────── -->
-  <section class="sec" id="roadmap" aria-labelledby="road">
-    <div class="wrap">
-      <h2 id="road"><span>Roadmap</span></h2>
-      <p class="sub">I track work as potions: small named batches with a progress bar. This is the real ledger, synced from the repo. It is not a mood board.</p>
-      <div id="roadmap-body" class="roadmap"><p class="meta">Brewing the roadmap…</p></div>
+      <div class="install" data-panel="mac" hidden>
+        <p>One line, always the latest release:</p>
+<pre>curl -fsSL https://gitmoire.dev/install.sh | sh</pre>
+        <p>Or by hand: <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.14.2/gitmoire_0.14.2_universal.dmg">Download gitmoire_0.14.2_universal.dmg</a> <span class="dim">36.0 MB</span></p>
+<pre>curl -fL -o ~/Downloads/gitmoire_0.14.2_universal.dmg https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.14.2/gitmoire_0.14.2_universal.dmg
+xattr -cr ~/Downloads/gitmoire_0.14.2_universal.dmg &amp;&amp; open ~/Downloads/gitmoire_0.14.2_universal.dmg</pre>
+        <p>Drag it into Applications before launching. Gatekeeper blocks the first open because the build isn't notarized: System Settings, Privacy &amp; Security, Open Anyway.</p>
+      </div>
+      <div class="install" data-panel="win" hidden>
+        <p>One line in PowerShell, always the latest release:</p>
+<pre>irm https://gitmoire.dev/install.ps1 | iex</pre>
+        <p>Or by hand: <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.14.2/gitmoire_0.14.2_x64-setup.exe">Download gitmoire_0.14.2_x64-setup.exe</a> <span class="dim">14.9 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.14.2/gitmoire_0.14.2_x64_en-US.msi">Download gitmoire_0.14.2_x64_en-US.msi</a> <span class="dim">16.7 MB</span></p>
+<pre><span class="dim"># PowerShell, setup exe</span>
+curl.exe -fL -o "$env:TEMP\gitmoire_0.14.2_x64-setup.exe" "https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.14.2/gitmoire_0.14.2_x64-setup.exe"
+Start-Process "$env:TEMP\gitmoire_0.14.2_x64-setup.exe"
+
+<span class="dim"># or the MSI</span>
+curl.exe -fL -o "$env:TEMP\gitmoire_0.14.2_x64_en-US.msi" "https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.14.2/gitmoire_0.14.2_x64_en-US.msi"
+Start-Process msiexec.exe -ArgumentList '/i', "$env:TEMP\gitmoire_0.14.2_x64_en-US.msi"</pre>
+        <p>SmartScreen says "Windows protected your PC" because the build isn't signed. Choose More info, then Run anyway.</p>
+      </div>
+      <div class="install" data-panel="linux" hidden>
+        <p>One line, always the latest release. It picks the right package: a pacman package on Arch and Omarchy, .deb on Debian and Ubuntu, .rpm on Fedora and RHEL, the AppImage anywhere else.</p>
+<pre>curl -fsSL https://gitmoire.dev/install.sh | sh</pre>
+        <p>Or by hand: <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.14.2/gitmoire_0.14.2_amd64.AppImage">Download gitmoire_0.14.2_amd64.AppImage</a> <span class="dim">90.2 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.14.2/gitmoire_0.14.2_amd64.deb">Download gitmoire_0.14.2_amd64.deb</a> <span class="dim">18.5 MB</span> · <a href="https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.14.2/gitmoire-0.14.2-1.x86_64.rpm">Download gitmoire-0.14.2-1.x86_64.rpm</a> <span class="dim">18.5 MB</span></p>
+<pre><span class="dim"># AppImage</span>
+curl -fL -o gitmoire_0.14.2_amd64.AppImage https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.14.2/gitmoire_0.14.2_amd64.AppImage
+chmod +x gitmoire_0.14.2_amd64.AppImage
+./gitmoire_0.14.2_amd64.AppImage
+
+<span class="dim"># Debian and Ubuntu</span>
+curl -fL -o gitmoire_0.14.2_amd64.deb https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.14.2/gitmoire_0.14.2_amd64.deb
+sudo apt install ./gitmoire_0.14.2_amd64.deb
+
+<span class="dim"># Fedora and RHEL</span>
+curl -fL -o gitmoire-0.14.2-1.x86_64.rpm https://github.com/dark-magic-studios/gitmoire-releases/releases/download/v0.14.2/gitmoire-0.14.2-1.x86_64.rpm
+sudo dnf install ./gitmoire-0.14.2-1.x86_64.rpm</pre>
+        <p>The AppImage needs WebKitGTK 4.1 and libssl, which you almost certainly have. Once it's installed, <code>gitmoire</code> opens the current directory and <code>gitmo</code> is the short alias.</p>
+      </div>
+      <p class="meta">After the first install, gitmoire updates itself, and every update is verified before it installs.</p>
+
+      <div class="prompt" id="prompt-box">
+        <label for="cmd" class="meta">Or ask the page. Try <code>help</code>.</label>
+        <div class="out" id="cmd-out" aria-live="polite"></div>
+        <form id="cmd-form" autocomplete="off"><span class="ps1" aria-hidden="true">gitmoire:~$</span>
+          <input id="cmd" name="cmd" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" placeholder="install"></form>
+      </div>
     </div>
   </section>
 </main>
@@ -686,32 +590,27 @@ sudo dnf install ./gitmoire-0.9.2-1.x86_64.rpm</pre>
         <p class="meta">Made by <b>Dark Magic Studios</b>. Free, yours, and not summoning anything you didn't ask for.</p>
         <p class="meta" id="witching" hidden>It's the witching hour. gitmoire respects a person who commits at 2am, and says nothing.</p>
       </div>
-      <div>
-        <p class="meta fork-credit"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v2c0 .6-.4 1-1 1H7c-.6 0-1-.4-1-1V9"/><path d="M12 12v3"/></svg> A hard fork of <a href="https://github.com/cheat2001/angkorgit">angkorGit</a> by Chansocheat Sok, MIT licensed. Thank you for the foundation.</p>
-      </div>
       <ul class="links">
-        <li><a href="https://github.com/dark-magic-studios/gitmoire-releases/releases"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1"/></svg><span>Releases</span></a></li>
-        <li><a href="https://github.com/dark-magic-studios/gitmoire-releases"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg><span>Releases repo</span></a></li>
-        <li><a href="https://github.com/dark-magic-studios"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/></svg><span>Dark Magic Studios</span></a></li>
-        <li><a href="https://davidmorais.com"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span>davidmorais.com</span></a></li>
+        <li><a href="https://github.com/dark-magic-studios/gitmoire-releases/releases">Releases</a></li>
+        <li><a href="https://github.com/dark-magic-studios/gitmoire-releases">Releases repo</a></li>
+        <li><a href="https://github.com/dark-magic-studios">Dark Magic Studios</a></li>
+        <li><a href="https://davidmorais.com">davidmorais.com</a></li>
       </ul>
     </div>
   </div>
 </footer>
 
-<!-- htop-style key bar -->
-<div class="keybar" role="note" aria-label="Keyboard shortcuts for this page">
-  <span><kbd>1-9</kbd> screenshots</span>
-  <span><kbd>l</kbd> light or dark</span>
-  <span><kbd>/</kbd> find a shortcut</span>
-  <span><kbd>r</kbd> releases</span>
-  <span><kbd>m</kbd> roadmap</span>
-  <span><kbd>i</kbd> install</span>
-  <span><kbd>t</kbd> top</span>
-</div>
+<!-- tmux-style status line: the only chrome -->
+<nav class="tmux" id="tmux" aria-label="Windows">
+  <span class="sess">[gitmoire]</span>
+  <span class="wins" id="tmux-wins"></span>
+  <span class="grow"></span>
+  <button class="tm-btn" id="theme-toggle" type="button" aria-label="Switch between light and dark theme"><kbd>l</kbd> <span id="theme-toggle-label">light</span></button>
+  <a class="tm-dl" id="dl-bar" href="https://github.com/dark-magic-studios/gitmoire-releases/releases">↓ get gitmoire</a>
+</nav>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
-<script src="/assets/app.js?v=20261111a" defer></script>
+<script src="/assets/grimoire.js?v=20261114a" defer></script>
 </body>
 </html>
