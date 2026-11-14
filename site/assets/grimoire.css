@@ -159,8 +159,8 @@ main, .foot { position: relative; z-index: 1; }
 .hero-copy { position: relative; z-index: 3; padding: clamp(28px, 9vh, 96px) var(--gutter) 0 calc(var(--gutter) + 8px); max-width: 640px; margin-left: max(0px, calc((100vw - var(--rail) - var(--max)) / 2)); transform: translate3d(0, calc(var(--hp, 0) * -50px), 0); }
 @media (max-width: 899px) { .hero-copy { max-width: none; margin: 0; padding-top: 28px; } .plate { top: 52vh; width: 150vw; right: -50vw; opacity: .4; } }
 .hero-copy::before { content: ''; position: absolute; inset: -40px -80px -40px -200px; z-index: -1; background: radial-gradient(70% 60% at 40% 50%, hsl(var(--bg) / .86), hsl(var(--bg) / .55) 60%, transparent 85%); pointer-events: none; }
-.wordmark { display: block; margin: 0 0 var(--s4); font: 400 12px/1.2 var(--mono); font-size: min(calc((100vw - var(--rail) - 2 * var(--gutter) - 24px) / 54), 11.6px); overflow-x: auto; scrollbar-width: none; color: hsl(var(--fg)); text-shadow: 3px 3px 0 hsl(var(--primary) / .55); }
-@media (min-width: 900px) { .wordmark { font-size: 11.6px; } }
+.wordmark { display: block; margin: 0 0 var(--s4); font: 400 12px/1 var(--mono); font-size: min(calc((100vw - var(--rail) - 2 * var(--gutter) - 24px) / 54), 11.6px); letter-spacing: 0; font-kerning: none; text-rendering: geometricPrecision; overflow-x: auto; scrollbar-width: none; color: hsl(var(--fg)); text-shadow: 3px 3px 0 hsl(var(--primary) / .55); }
+@media (min-width: 900px) { .wordmark { font-size: 11.6667px; } } /* 0.6em advance = exact 7px cells, so block glyphs don't seam */
 .tagline { font-size: clamp(17px, 2.4vw, 24px); font-weight: 700; line-height: 1.3; margin: 0 0 var(--s3); max-width: 30ch; }
 .tagline .hl { color: hsl(var(--primary-text)); display: block; }
 .cursor { display: inline-block; width: .6em; height: 1.05em; margin-left: .25em; vertical-align: -.15em; background: hsl(var(--primary-text)); animation: blink 1.1s steps(1) infinite; }
