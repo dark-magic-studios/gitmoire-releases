@@ -150,6 +150,7 @@ html:not(.js) .stick { position: static; height: auto; overflow: visible; }
 .embers { position: absolute; inset: 0; width: 100%; height: 100%; }
 .sigil { position: absolute; right: -12vmin; top: 50%; width: 118vmin; height: 118vmin; transform: translate3d(calc(var(--px) * -14px), calc(-50% + var(--py) * -10px), 0); color: hsl(var(--primary-text)); opacity: calc(.5 - min(var(--sy, 0) / 1400, 1) * .32); }
 main, .foot { position: relative; z-index: 1; }
+.sigil .mark path { fill: url(#mark-grad); opacity: .85; filter: drop-shadow(0 0 22px hsl(var(--primary) / .75)); }
 .sigil .ring { transform-origin: 0 0; }
 #ring-a { transform: rotate(calc(var(--sy, 0) * .012deg)); } #ring-b { transform: rotate(calc(var(--sy, 0) * -.018deg)); }
 .plate { position: absolute; right: -10vw; top: 14vh; width: min(74vw, 1120px); transform: perspective(1400px) rotateY(-16deg) rotateX(8deg) translate3d(calc(var(--px) * -8px), calc(var(--py) * -6px - var(--hp, 0) * 120px), 0) scale(calc(1 + var(--hp, 0) * .08)); transform-origin: 30% 50%; opacity: .5; border: 1px solid hsl(var(--primary) / .5); box-shadow: 0 60px 120px -30px hsl(var(--primary) / .55); -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%); mask-image: linear-gradient(180deg, #000 55%, transparent 100%); will-change: transform; }
