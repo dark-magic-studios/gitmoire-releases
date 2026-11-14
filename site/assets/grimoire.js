@@ -395,6 +395,9 @@
     const svg = $('#sigil'); if (!svg) return;
     const r = rng(2026), a = mk('g', { class: 'ring', id: 'ring-a' }, svg), b = mk('g', { class: 'ring', id: 'ring-b' }, svg);
     const st = { fill: 'none', stroke: 'currentColor', 'stroke-width': 1.2 };
+    /* the gitmoire mark sits at the centre of the circle and turns with ring-a, behind the runes */
+    const mark = mk('g', { class: 'mark', transform: 'translate(-195 -195) scale(.762)' }, a); a.insertBefore(mark, a.firstChild);
+    fetch('/assets/gitmoire.svg').then((res) => res.text()).then((t) => { const d = (t.match(/ d="([^"]+)"/) || [])[1]; if (d) mk('path', { d, fill: 'currentColor', 'fill-rule': 'evenodd', opacity: .3 }, mark); }).catch(() => {});
     [470, 440, 340, 312, 206].forEach((rad, i) => mk('circle', { ...st, r: rad, opacity: i === 1 || i === 3 ? .5 : 1 }, i < 2 ? a : b));
     for (let i = 0; i < 24; i++) {
       const g = mk('g', { transform: `rotate(${i * 15}) translate(0 -391)` }, a);
