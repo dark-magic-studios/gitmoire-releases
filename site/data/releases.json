@@ -1,5 +1,52 @@
 [
   {
+    "version": "0.15.0",
+    "date": "2026-11-18",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Major Features",
+        "title": "A Stats page that reads your repository like a book",
+        "text": "A new Stats tab beside Home and Agents opens two views."
+      },
+      {
+        "kind": "Major Features",
+        "title": "Global view counts you across every recent repository",
+        "text": "Commits and how many repositories they came from, longest and current streak, the shortest gap between two of your commits, top repositories and top languages by changed…"
+      },
+      {
+        "kind": "Major Features",
+        "title": "Agent usage, finally measured",
+        "text": "Every run the orchestrator starts is logged with its outcome and duration."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Export the numbers",
+        "text": "The Stats header exports the current view as a 1200×630 PNG card painted in your active theme, as JSON or as CSV."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Count what matters, not what is vendored",
+        "text": "Churn and line counts honour `.mailmap` and linguist's vendored and generated markers, and skip lockfiles and binary assets, so a bundled dependency or a `pnpm-lock.yaml…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Resize the branch/tag and author columns in the graph",
+        "text": "Drag either header edge to widen or narrow it, double-click the edge to reset, and both widths survive a restart."
+      },
+      {
+        "kind": "Fixes",
+        "title": "Double-click the top bar to maximize the window",
+        "text": "Double-click the empty space again to restore the previous window size."
+      }
+    ],
+    "counts": {
+      "features": 3,
+      "enhancements": 3,
+      "fixes": 3
+    }
+  },
+  {
     "version": "0.14.2",
     "date": "2026-11-13",
     "summary": "",
