@@ -8,6 +8,8 @@
  *  - view_section   — each content section scrolled into view (once per page load).
  *  - select_os_tab  — install OS tab switches (download intent per OS, even pre-release).
  *  - install_command_copy — copy of an install snippet, with the visible OS panel.
+
+ *  - download_click, github_repo_click, sponsor_click, docs_view, scroll_depth_75 — named funnel events.
  *  - select_theme / select_accent / view_screenshot / select_omarchy /
  *    select_palette / toggle_release — page interactions.
  *
@@ -51,6 +53,46 @@
     return null;
   };
 
+  const archFromString = (s) => {
+    if (/universal/i.test(s)) return 'universal';
+    if (/arm64|aarch64/i.test(s)) return 'arm64';
+    if (/x86_64|x64|amd64/i.test(s)) return 'x64';
+    return 'unknown';
+  };
+
+  const isGithubRepoLink = (href) => {
+    try {
+      const u = new URL(href, location.href);
+      return u.hostname === 'github.com' && /^\/dark-magic-studios\/gitmoire(-releases)?(\/|$)/i.test(u.pathname);
+    } catch {
+      return false;
+    }
+  };
+
+  const sponsorPlatform = (href) => {
+    try {
+      const u = new URL(href, location.href);
+      if (u.hostname === 'github.com' && /^\/sponsors\//i.test(u.pathname)) return 'github_sponsors';
+      if (/(^|\.)ko-fi\.com$/i.test(u.hostname)) return 'kofi';
+    } catch { /* not a URL */ }
+    return null;
+  };
+
+  const installMethod = (s) => {
+    if (/brew\s/i.test(s)) return 'brew';
+    if (/winget/i.test(s)) return 'winget';
+    if (/\birm\b.*\biex\b|install\.ps1/i.test(s)) return 'powershell_script';
+    if (/install\.sh/i.test(s)) return 'curl_script';
+    if (/apt(-get)?\s+install/i.test(s)) return 'apt';
+    if (/dnf|rpm\s/i.test(s)) return 'dnf';
+    if (/yay|paru|pacman/i.test(s)) return 'aur';
+    if (/appimage/i.test(s)) return 'appimage';
+    if (/\.dmg/i.test(s)) return 'dmg';
+    if (/\.msi/i.test(s)) return 'msi';
+    if (/setup\.exe/i.test(s)) return 'exe';
+    return 'other';
+  };
+
   const activeInstallOs = () => {
     const active = document.querySelector('.os [role=tab][aria-selected="true"]');
     const map = { mac: 'macos', win: 'windows', linux: 'linux' };
@@ -84,7 +126,19 @@
     if (el.tagName === 'A' && isDownload(el.href, el)) {
       const href = el.href;
       const os = osFromString(href + ' ' + text(el)) || activeInstallOs();
-      const version = (href.match(/\/tag\/(v?[\w.-]+)/) || [])[1] || undefined;
+      const version = (href.match(/\/(?:tag|download)\/(v?[\w.-]+)/) || [])[1]
+        || (href.match(/[_-](\d+\.\d+\.\d+)[_-]/) || [])[1]
+        || undefined;
+      const arch = archFromString(href);
+      send('download_click', {
+        os,
+        arch,
+        version: version || 'unknown',
+      });
+      // A link to the releases page (not a direct asset) is also a repo click.
+      if (isGithubRepoLink(href) && !/\.(dmg|exe|msi|AppImage|deb|rpm|zip|tar\.gz)($|[?#])/i.test(href)) {
+        send('github_repo_click', { link_url: href.slice(0, 500) });
+      }
       send('file_download', {
         os,
         file_name: fileName(href),
@@ -95,6 +149,13 @@
       // Also a dedicated event so "downloads per OS" needs no funnel setup.
       send('download', { os, link_text: text(el) || '(download button)' });
       return;
+    }
+
+    // 1b. Sponsor links.
+    if (el.tagName === 'A') {
+      const platform = sponsorPlatform(el.href);
+      if (platform) send('sponsor_click', { platform });
+      else if (isGithubRepoLink(el.href)) send('github_repo_click', { link_url: el.href.slice(0, 500) });
     }
 
     // 2. Outbound links (incl. releases repo, omarchy.org, footer).
@@ -154,8 +215,41 @@
     const sel = window.getSelection();
     const anchor = sel && sel.anchorNode && sel.anchorNode.parentElement;
     const panel = anchor && anchor.closest && anchor.closest('.install');
-    if (panel) send('install_command_copy', { os: activeInstallOs() });
+    if (panel) {
+      send('install_command_copy', {
+        os: activeInstallOs(),
+        method: installMethod(String(sel.toString() || '')),
+      });
+    }
   });
+
+  /* ── docs / changelog view (the changelog lives in #log on the one-pager) ── */
+  const logSection = document.getElementById('log');
+  if (logSection && 'IntersectionObserver' in window) {
+    const dio = new IntersectionObserver((entries) => {
+      if (!entries.some((en) => en.isIntersecting)) return;
+      send('docs_view', { page: 'changelog' });
+      dio.disconnect();
+    }, { threshold: 0.2 });
+    dio.observe(logSection);
+  }
+
+  /* ── scroll depth: 75% of the homepage, once per page load ── */
+  if (location.pathname === '/' || /\/index\.html$/.test(location.pathname)) {
+    let sent75 = false;
+    const onScroll = () => {
+      if (sent75) return;
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      if ((window.scrollY || doc.scrollTop) / scrollable >= 0.75) {
+        sent75 = true;
+        window.removeEventListener('scroll', onScroll);
+        send('scroll_depth_75', { percent: 75 });
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
 
   /* ── section views (once per section per page load) ────────────────── */
 
