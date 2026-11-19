@@ -194,6 +194,13 @@ jobs:
           bash ../releases/scripts/ci-quiet.sh pnpm icons
           bash ../releases/scripts/ci-quiet.sh pnpm exec tauri icon src-tauri/icons/icon.png
 
+      # Must run before Build: the GStreamer plugin re-adds libwayland after the
+      # GTK plugin's strip (DECISIONS.md G47).
+      - name: Strip libwayland from the GStreamer linuxdeploy plugin
+        if: runner.os == 'Linux'
+        shell: bash
+        run: bash releases/scripts/patch-linuxdeploy-gstreamer.sh
+
       # Optional. Without these secrets the build keeps the ad-hoc signature from
       # tauri.conf.json (signingIdentity "-") and is not notarized.
       - name: Configure macOS signing (optional)
@@ -263,8 +270,10 @@ jobs:
           cp "$img" "$work/app.AppImage"
           chmod +x "$work/app.AppImage"
           (cd "$work" && ./app.AppImage --appimage-extract >/dev/null)
-          if find "$work/squashfs-root" -name 'libwayland-*' | grep -q .; then
-            echo "::error::AppImage bundles libwayland (crashes on Arch with EGL_BAD_PARAMETER)"
+          bundled="$(find "$work/squashfs-root" \( -type f -o -type l \) -name 'libwayland-*.so*' | sed "s|^$work/squashfs-root/||")"
+          if [ -n "$bundled" ]; then
+            echo "::error::AppImage bundles libwayland (crashes on Arch with EGL_BAD_PARAMETER):"
+            echo "$bundled"
             exit 1
           fi
 
