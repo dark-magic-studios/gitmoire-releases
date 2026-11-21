@@ -524,6 +524,48 @@
     "reference": false
   },
   {
+    "id": "agents.newTab",
+    "label": "New tab page",
+    "group": "Panels",
+    "scope": "agents",
+    "keys": [
+      "ctrl+t"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "agents.newTerminal",
+    "label": "New terminal tab",
+    "group": "Panels",
+    "scope": "agents",
+    "keys": [
+      "ctrl+`"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "agents.newAgent",
+    "label": "New agent session",
+    "group": "Panels",
+    "keys": [
+      "alt+t"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
+    "id": "agents.orchestrator",
+    "label": "Plan with the orchestrator",
+    "group": "Panels",
+    "keys": [
+      "alt+o"
+    ],
+    "display": null,
+    "reference": false
+  },
+  {
     "id": "git.fetch",
     "label": "Fetch all remotes",
     "group": "Git",

@@ -1,5 +1,52 @@
 [
   {
+    "version": "0.17.0",
+    "date": "2026-11-21",
+    "summary": "",
+    "highlights": [
+      {
+        "kind": "Enhancements",
+        "title": "Agents view shortcuts and a new tab page",
+        "text": "`Ctrl+T` opens a browser-style new tab page with agent, terminal and orchestrator launch cards, `Ctrl+\\`` opens a terminal tab, and `Alt+T` / `Alt+O` open the add-agent…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Sidebar and worktree management get multi-select",
+        "text": "Branch rows support hover checkboxes, `⌘/Ctrl`-click and `Shift` ranges with a bulk delete bar, branch folders offer select-in-folder and delete-folder actions, and work…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "The repo sidebar gets a right-edge inspector rail",
+        "text": "The graph view now mirrors the agents view with a slim collapse rail for the right sidebar, and its tooltip carries the `mod+shift+b` shortcut."
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Destructive confirmations can be dismissed",
+        "text": "Branch delete, hard reset, force push, worktree removal, stash drop and discard-all-unstaged dialogs now offer “Do not show again”, with switches in Settings → Git → War…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Repo Wrapped recap cards",
+        "text": "Stats gains a private Wrapped view with shareable recap cards covering commits, longest streak, busiest day and hour, top languages, most-touched files, biggest commit a…"
+      },
+      {
+        "kind": "Enhancements",
+        "title": "Continue a cherry-pick from the command palette",
+        "text": "When a cherry-pick pauses on conflicts, the palette now offers Continue alongside Abort, so a queued sequence can be resumed without hunting for the conflict view."
+      },
+      {
+        "kind": "Fixes",
+        "title": "Sidebar sections read the same across views",
+        "text": "Repo and agents sidebars now share section and empty-state components, with consistent header vocabulary, count chips and hover-revealed actions; repository row actions…"
+      }
+    ],
+    "counts": {
+      "features": 0,
+      "enhancements": 6,
+      "fixes": 6
+    }
+  },
+  {
     "version": "0.16.0",
     "date": "2026-11-19",
     "summary": "",
