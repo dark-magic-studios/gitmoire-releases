@@ -70,13 +70,19 @@ jobs:
           # The deb checksum is the second (last) entry in sha256sums.
           sed -i "s/^\([[:space:]]*\)'[0-9a-f]\{64\}')\$/\1'${sum}')/" PKGBUILD
           grep -q "$sum" PKGBUILD || { echo "::error::failed to write checksum"; exit 1; }
-          chown -R nobody .
+          # makepkg refuses to run as root, and the image's stock `nobody`
+          # account is expired (su fails with "Your account has expired"), so
+          # use a dedicated builder user with a writable home instead.
+          id builder &>/dev/null || useradd -m builder
+          chown -R builder:builder .
 
       - name: Build test and generate .SRCINFO
         working-directory: packaging/arch
         run: |
           set -euo pipefail
-          su nobody -s /bin/bash -c 'makepkg --nodeps --noconfirm --force && makepkg --printsrcinfo > .SRCINFO'
+          # runuser (unlike su) skips PAM account checks, so an expired/locked
+          # stock account can never break this again.
+          runuser -u builder -- bash -c 'makepkg --nodeps --noconfirm --force && makepkg --printsrcinfo > .SRCINFO'
           tar --zstd -tf ./*.pkg.tar.zst | grep -q 'usr/bin/gitmoire$'
           tar --zstd -tf ./*.pkg.tar.zst | grep -q "usr/share/licenses/${AUR_PACKAGE}/LICENSE$"
           cat PKGBUILD .SRCINFO
